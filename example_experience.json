@@ -1,0 +1,22 @@
+{
+    "EXPERIENCE_1": {
+        "1":{
+            "en": "Managed a team of 5 engineers to deliver software projects on time",
+            "de": "Leitete ein Team von 5 Ingenieuren zur fristgerechten Lieferung von Softwareprojekten"
+        },
+        "2":{
+            "en": "Developed automated testing frameworks in Python",
+            "de": "Entwickelte automatisierte Testframeworks in Python"
+        }
+    },
+    "EDUCATION": {
+        "1": {
+            "en": "Graduated in Computer Science from XYZ University",
+            "de": "Abschluss in Informatik an der XYZ Universität"
+        },
+        "2": {
+            "en": "Certified in Project Management (PMP)",
+            "de": "Zertifiziert im Projektmanagement (PMP)"
+        }
+    }
+}
