@@ -1,3 +1,6 @@
 experience.txt
 experience.json
 translations.json
+*.odt#
+output*.odt
+__pycache__

@@ -98,13 +98,13 @@ def filter_title_company(blocks: list[str]) -> list[str]:
 
     prompt = f"""You are filtering text blocks from a job listing webpage.
 Return ONLY a JSON array of job title and company name and what language the application documents should be in.
+Remove "(f/m/d)" from job title if it is there
 Possible languages are either English (en) or German (de)
-Strip unnecessary words from job title, such as '(f/m/d)'
 Blocks:
 {numbered}
 
 Respond with ONLY a JSON array, e.g.: 
-    {{job_title:'Senior Engineer', company_name:'Galaxus', language:'en'}}"""
+    {{job_title:'Senior Engineer AI', company_name:'My Corporation', language:'en'}}"""
 
     response = chat(
         model=model,
@@ -116,9 +116,6 @@ Respond with ONLY a JSON array, e.g.:
 
 #%%
 
-with open("experience.json", "r", encoding="utf-8") as f:
-    data = json.load(f)
-
 def extract_lang(data: dict, lang: str) -> str:
     cleaned = {
         section: {num: items[lang] for num, items in entries.items() if lang in items}
@@ -126,7 +123,6 @@ def extract_lang(data: dict, lang: str) -> str:
     }
     return json.dumps(cleaned, indent=2, ensure_ascii=False)
 
-experience = extract_lang(data, "en")
 
 #%%
 
@@ -184,12 +180,17 @@ def prepare_cv_fields(blocks: list[str], experience: str) -> list[str]:
 
 if __name__ == "__main__":
     
+    with open("experience.json", "r", encoding="utf-8") as f:
+        data = json.load(f)
+    
     job_link = "https://www.galaxus.ch/de/joboffer/4140"
     blocks = extract_blocks(job_link)
     
     relevant_blocks = filter_relevant_blocks(blocks)
     
     job_title, company_name, language = filter_title_company(relevant_blocks)
+    
+    experience = extract_lang(data, "en")
 
     fields = prepare_cv_fields(relevant_blocks, experience)
 

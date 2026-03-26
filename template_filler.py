@@ -73,17 +73,19 @@ def convert_to_pdf(input_odt, output_dir):
     ], check=True)
 
 
-def generate_document(language="en"):
-    template = "template.odt"
-    filled_odt = f"output_{language}.odt"
+def generate_document(filename, language = "en", output_folder = ""):
+    template_folder = "./templates/"
+    template = template_folder + "template.odt"
+    # output_folder = "./outputs/"
+    filled_odt = f"{output_folder}/{filename}_{language}.odt"
 
     data = load_translations(language)
 
     replace_placeholders_in_odt(template, filled_odt, data)
 
-    convert_to_pdf(filled_odt, ".")
+    # convert_to_pdf(filled_odt, ".")
 
-    print(f"Generated: {filled_odt} and PDF")
+    # print(f"Generated: {filled_odt} and PDF")
 
 
 if __name__ == "__main__":
