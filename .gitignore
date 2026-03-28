@@ -1,6 +1,4 @@
-experience.txt
-experience.json
-translations.json
 *.odt#
 output*.odt
+template.odt
 __pycache__

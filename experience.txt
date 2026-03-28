@@ -1,0 +1,99 @@
+# Professional Experience
+
+## AI Lead Engineer
+
+### Summary:
+>I have experience across the full AI use case lifecycle, including brainstorming and ideating use cases with business stakeholders, researching feasibility (data availability, model options, cost), hands-on development as an engineer, deploying models to production environments, and monitoring performance post-launch. My role has spanned both individual contributor work (writing code) and leading technical direction.
+
+### Skills:
+- **Infrastructure & DevOps**: Docker, Kubernetes, OpenShift, Helm
+  - Details: Experience in containerization with Docker, orchestration using Kubernetes/OpenShift, and automation with Helm charts.
+  
+- **AI/ML Engineering**: Python, PyTorch, Large Language Models (LLMs), Retrieval-Augmented Generation (RAG), Data Processing & Engineering, Agentic Workflows
+  - Details: Proficient in Python for AI development, hands-on experience with PyTorch for deep learning projects. Expertise in developing and deploying LLMs and RAG systems. Strong background in data processing pipelines and MLOps practices.
+
+- **Research**: Feasibility evaluation, scientific literature review
+  - Details: Conducted feasibility studies to evaluate the potential success of AI projects based on available data and model options. Performed thorough reviews of relevant scientific literature to stay updated with the latest advancements.
+  
+- **Leadership & Delivery**:
+  - Use case prioritization
+  - Technical discussions with stakeholders
+  - Proof-of-concept (PoC) preparation
+  - Gathering feedback for iterative development
+  - Details: Led the prioritization and scoping of AI use cases. Engaged in technical discussions to align on project goals and timelines. Developed PoCs to validate concepts before full-scale projects, gathering and incorporating stakeholder feedback iteratively.
+
+- **Stakeholder Engagement**:
+  - Customer presentations
+  - Business stakeholder alignment
+  - Details: Conducted presentations for customers to showcase AI solutions and benefits. Worked closely with business stakeholders to align project goals with organizational objectives.
+
+- **Continued Learning**
+  - Online courses on Coursera, ML Conferences, Certificates
+
+## Software Developer
+
+### Summary:
+> I worked as a software developer in Java within a team of developers. Our collaboration was based on the Scrum system, where we implemented user stories, conducted thorough testing, and performed code reviews to ensure high-quality deliverables.
+
+### Skills:
+
+- **Git & DevOps**: 
+  - Details: Proficient in using Git for version control, including branching, merging, and conflict resolution. Familiar with DevOps practices such as continuous integration and deployment (CI/CD) pipelines.
+  
+- **Scrum System**:
+  - Details: Experienced in following the Scrum framework, including sprint planning, daily stand-ups, sprint reviews, and retrospectives to ensure smooth project execution.
+
+- **Testing**: 
+  - Automated & Manual Tests
+  - Details: Conducted both automated (using frameworks like JUnit) and manual testing to validate software functionality. Ensured test coverage for various components of the application.
+
+- **Code Reviews**:
+  - Details: Actively participated in code reviews to maintain coding standards, improve code quality, and share knowledge within the team.
+
+- **Stakeholder Meetings**: 
+  - Details: Regularly attended stakeholder meetings to gather requirements, provide project updates, and address any concerns or feedback from stakeholders.
+
+- **Java**:
+  - Details: Proficient in Java programming with experience in developing scalable and maintainable software solutions. Utilized various Java frameworks and libraries as needed.
+
+# Education
+
+## Bachelor's Degree in Mechanical Engineering
+
+### Summary:
+> During my bachelor’s degree, I developed a strong interest in coding, particularly in finite element modeling. I attended multiple computational courses on numerical methods, finite elements, CFD (Computational Fluid Dynamics), heat and mass transfer, as well as data science. I applied this knowledge to microscale engineering and fluid dynamics projects.
+
+### Key Activities:
+- **Courses**: Numerical methods, finite elements, CFD, heat and mass transfer, data science
+- **Projects**: Microscale engineering, fluid dynamics
+- **Teaching Assistant**: Dynamics 
+
+## Master's Degree in Mechanical Engineering
+
+### Summary:
+> During my master’s degree, I continued to deepen my knowledge by attending multiple courses on numerical methods and machine learning, as well as statistics and data science. I applied this knowledge in projects involving turbulent flows, optical and mechanical measurement techniques, and system modeling.
+
+### Key Activities:
+- **Courses**: Numerical methods, machine learning, statistics, data science
+- **Projects**: Turbulent flows, optical and mechanical measurement techniques, system modeling
+- **Programming Languages**: Python, MATLAB, C++, SQL (open to learn new languages)
+- **Engineering Software**: NX, LabVIEW, Abaqus, ANSYS
+- **Teaching Assistant**: Dynamics 
+
+## Skills:
+- **Finite Element Modeling**
+  - Details: Extensive experience in finite element analysis using tools like Abaqus and ANSYS.
+  
+- **Computational Fluid Dynamics (CFD)**
+  - Details: Hands-on experience with CFD simulations for fluid dynamics projects.
+
+- **Data Science and Statistics**
+  - Details: Strong background in data science, including statistical methods and machine learning techniques.
+
+- **Programming Languages**
+  - Python, MATLAB, C++, SQL
+  - Details: Proficient in using modern programming languages to solve complex engineering problems. Open to learning new languages as needed.
+  
+- **Engineering Software**
+  - NX, LabVIEW, Abaqus, ANSYS
+  - Details: Experienced with a variety of engineering software tools for simulation and analysis.

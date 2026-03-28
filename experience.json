@@ -1,0 +1,152 @@
+{
+    "EXPERIENCE_1": {
+        "1":{
+            "en": "Led end-to-end AI use case development from ideation to deployment.",
+            "de": "zzz"
+        },
+        "2":{
+            "en": "Experience with Docker for containerization and Kubernetes/OpenShift for orchestration.",
+            "de": "zzz"
+        },
+        "3":{
+            "en": "Proficient in Python for AI development and PyTorch for deep learning projects.",
+            "de": "zzz"
+        },
+        "4":{
+            "en": "Engineered and deployed Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG) systems.",
+            "de": "zzz"
+        },
+        "5":{
+            "en": "Expertise in data processing pipelines and MLOps practices.",
+            "de": "zzz"
+        },
+        "6":{
+            "en": "Conducted feasibility studies and thorough reviews of scientific literature to evaluate project success.",
+            "de": "zzz"
+        },
+        "7":{
+            "en": "Led use case prioritization and technical discussions with stakeholders.",
+            "de": "zzz"
+        },
+        "8":{
+            "en": "Developed Proof-of-Concept (PoC) projects and gathered iterative feedback for refinement.",
+            "de": "zzz"
+        },
+        "9":{
+            "en": "Conducted presentations for customers to showcase AI solutions and benefits.",
+            "de": "zzz"
+        },
+        "10":{
+            "en": "Participated in online courses, attended ML conferences, and obtained relevant certificates.",
+            "de": "zzz"
+        },
+        "11":{
+            "en": "Implemented Agentic AI systems and sped up existing workflows",
+            "de": "zzz"
+        },
+        "12":{
+            "en": "Data engineering, processing and visualizing using Python Libraries such as Pandas, NumPy, PIL, cv2",
+            "de": "zzz"
+        },
+        "13":{
+            "en": "Worked on softwares for public sector such as document management and meeting management",
+            "de": "zzz"
+        },
+        "14":{
+            "en": "Implemented semantic search, similarity matching, and vector-based analysis.",
+            "de": "zzz"
+        },
+        "15":{
+            "en": "Wzzz",
+            "de": "zzz"
+        },
+    },
+    "EXPERIENCE_2": {
+        "1":{
+            "en": "Worked as a Java developer; implementing user stories, testing, and performing code reviews.",
+            "de": "zzz"
+        },
+        "2":{
+            "en": "Ensured high-quality deliverables through detailed development processes.",
+            "de": "zzz"
+        },
+        "3":{
+            "en": "Proficient in Git for version control including branching, merging, and conflict resolution.",
+            "de": "zzz"
+        },
+        "4":{
+            "en": "Experienced with CI/CD pipelines.",
+            "de": "zzz"
+        },
+        "5":{
+            "en": "Followed the Scrum framework including sprint planning, daily stand-ups, reviews, and retrospectives.",
+            "de": "zzz"
+        },
+        "6":{
+            "en": "Conducted automated testing using frameworks like JUnit and manual testing to validate software functionality.",
+            "de": "zzz"
+        },
+        "7":{
+            "en": "Ensured comprehensive test coverage for application components.",
+            "de": "zzz"
+        },
+        "8":{
+            "en": "Actively participated in code reviews to maintain coding standards and improve code quality.",
+            "de": "zzz"
+        },
+        "9":{
+            "en": "Proficient in Java programming with experience in developing scalable and maintainable software solutions.",
+            "de": "zzz"
+        },
+        "10":{
+            "en": "Utilized various Java frameworks and libraries as needed.",
+            "de": "zzz"
+        },
+        "11":{
+            "en": "Designed and used APIs for modular systems.",
+            "de": "zzz"
+        },
+        "12":{
+            "en": "Collaboration & Version Control: Git, merge requests, team-based development.",
+            "de": "zzz"
+        },
+        "13":{
+            "en": "zzz",
+            "de": "zzz"
+        },
+    },
+    "DEGREE_1": {
+        "1": {
+            "en": "Deepened knowledge through courses on numerical methods, machine learning, statistics, and data science.",
+            "de": "zzz"
+        },
+        "2":{
+            "en": "Worked on projects involving turbulent flows, optical and mechanical measurement techniques, system modeling.",
+            "de": "zzz"
+        },
+        "3":{
+            "en": "Proficient in Python, MATLAB, C++, SQL (open to learn new languages).",
+            "de": "zzz"
+        },
+        "4":{
+            "en": "Experienced with engineering software like NX, LabVIEW, Abaqus, ANSYS.",
+            "de": "zzz"
+        },
+        "5":{
+            "en": "Served as a teaching assistant for dynamics and held workshops for exam preparation.",
+            "de": "zzz"
+        },
+        "6":{
+            "en": "Extensive experience using tools like Abaqus and ANSYS for finite element analysis.",
+            "de": "zzz"
+        },
+        "7":{
+            "en": "Hands-on experience with CFD simulations in fluid dynamics projects.",
+            "de": "zzz"
+        },
+        "8":{
+            "en": "Strong background in data science, statistical methods, and machine learning techniques.",
+            "de": "zzz"
+        }
+    }
+}

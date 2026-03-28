@@ -17,8 +17,6 @@ import json
 with open("experience.json", "r", encoding="utf-8") as f:
     data = json.load(f)
 
-experience = extract_lang(data, "en")
-
 job_link = "https://www.galaxus.ch/de/joboffer/4140"
 blocks = extract_blocks(job_link)
 
@@ -26,6 +24,7 @@ relevant_blocks = filter_relevant_blocks(blocks)
 
 job_title, company_name, language = filter_title_company(relevant_blocks)
 
+experience = extract_lang(data, language)
 
 selected_fields = prepare_cv_fields(relevant_blocks, experience)
 
