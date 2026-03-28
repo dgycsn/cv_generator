@@ -1,45 +1,31 @@
 import zipfile
 import shutil
+import re
 
 def fill_experience_placeholders(odt_path: str, output_path: str, experience_data: dict):
-    """
-    experience_data format:
-    {
-        "EXPERIENCE_1": {"1": "Led AI projects...", "2": "Built ML pipelines..."},
-        "EXPERIENCE_2": {"1": "Managed team...", "3": "Delivered product..."}
-    }
-    Entries not selected by LLM are replaced with empty string and the whole line removed.
-    """
-    # Build replacement map: {{EXPERIENCE_1_1}} -> "text" or ""
-    replacements = {}
+    with zipfile.ZipFile(odt_path, "r") as z:
+        names = z.namelist()
+        files = {name: z.read(name) for name in names}
+
+    content = files["content.xml"].decode("utf-8")
+
+    # Normalize split placeholders
+    content = re.sub(r'\{\{[^}]*\}\}', lambda m: re.sub(r'<[^>]+>', '', m.group()), content)
+
+    # Fill slots in order (1, 2, 3...) regardless of original numbers
     for section, entries in experience_data.items():
-        # Find max entry number from the template (we'll handle missing ones)
-        for num, text in entries.items():
-            replacements[f"{{{{{section}_{num}}}}}"] = text
+        for new_num, text in enumerate(entries.values(), start=1):
+            content = content.replace(f"{{{{{section}_{new_num}}}}}", text)
 
-    # Copy original to output
-    shutil.copy2(odt_path, output_path)
+    # Remove remaining unfilled bullet lines
+    bullet = '\u25b8'
+    content = re.sub(rf'<text:p text:style-name="[^"]*">{bullet} <text:span text:style-name="[^"]*">\{{\{{EXPERIENCE_\d+_\d+\}}\}}</text:span></text:p>', '', content)
 
-    # Read ODT (it's a ZIP), edit content.xml, write back
-    with zipfile.ZipFile(output_path, "r") as z:
-        content = z.read("content.xml").decode("utf-8")
+    files["content.xml"] = content.encode("utf-8")
 
-    # Replace matched placeholders with their text
-    for placeholder, text in replacements.items():
-        content = content.replace(placeholder, text)
-
-    # Remove entire lines with unfilled {{EXPERIENCE_*}} placeholders (including the ▸ bullet)
-    import re
-    content = re.sub(r'[^\n]*\{\{EXPERIENCE_\d+_\d+\}\}[^\n]*\n?', '', content)
-
-    # Write back
     with zipfile.ZipFile(output_path, "w", zipfile.ZIP_DEFLATED) as zout:
-        with zipfile.ZipFile(odt_path, "r") as zin:
-            for item in zin.infolist():
-                if item.filename == "content.xml":
-                    zout.writestr(item, content.encode("utf-8"))
-                else:
-                    zout.writestr(item, zin.read(item.filename))
+        for name in names:
+            zout.writestr(name, files[name])
 
     print(f"✓ Saved to {output_path}")
 

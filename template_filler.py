@@ -4,6 +4,7 @@ import shutil
 import os
 import subprocess
 from tempfile import mkdtemp
+import tempfile
 
 LIBREOFFICE_PATH = r"C:\Program Files\LibreOffice\program\soffice.exe"
 
@@ -57,20 +58,21 @@ def replace_placeholders_in_odt(template_path, output_path, replacements):
 
     shutil.rmtree(temp_dir)
 
-def convert_to_pdf(input_odt, output_dir):
-    filename = input_odt.replace(".odt", ".pdf")
-    if os.path.exists(filename):
+def convert_to_pdf(input_odt, output):
+    if os.path.exists(output):
         try:
-            os.remove(filename)
+            os.remove(output)
         except OSError:
             pass
-    subprocess.run([
-        LIBREOFFICE_PATH,
-        "--headless",
-        "--convert-to", "pdf",
-        "--outdir", output_dir,
-        input_odt
-    ], check=True)
+    
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        subprocess.run([
+            LIBREOFFICE_PATH,
+            "--headless",
+            "--convert-to", "pdf",
+            "--outdir", tmp_dir,
+            input_odt
+        ], check=True)
 
 
 def generate_document(filename, language = "en", output_folder = ""):

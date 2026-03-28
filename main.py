@@ -4,7 +4,7 @@ from extract_job import (extract_blocks,
                          extract_lang,
                          prepare_cv_fields)
 
-from template_filler import generate_document
+from template_filler import generate_document, convert_to_pdf
 from bulletpoint_select import fill_experience_placeholders
 from pathlib import Path
 import json
@@ -53,3 +53,5 @@ def prepare_fill_input(selected: dict, lang_data: dict, lang: str = "en") -> dic
 experience_data = prepare_fill_input(selected_fields, data)
 
 fill_experience_placeholders(output_path + ".odt", output_path + "_final.odt", experience_data)
+
+convert_to_pdf(output_path + "_final.odt", "" )
