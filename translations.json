@@ -15,6 +15,10 @@
         "en": "Fabasoft Switzerland AG",
         "de": "Fabasoft Schweiz AG"
     },
+    "COMPANY_3": {
+        "en": "Lumiphase",
+        "de": "Lumiphase"
+    },
     "JOB_TITLE_1": {
         "en": "Lead AI Engineer",
         "de": "Lead AI Engineer"
@@ -148,8 +152,8 @@
         "de": "23 April 1998"
     },
     "LINKEDIN": {
-        "en": "https://linkedin.com/in/alp-yucesan/",
-        "de": "https://linkedin.com/in/alp-yucesan/"
+        "en": "linkedin.com/in/alp-yucesan/",
+        "de": "linkedin.com/in/alp-yucesan/"
     },
     "EMAIL": {
         "en": "doga_yucesan@hotmail.com",
@@ -160,8 +164,24 @@
         "de": "+41 78 301 9140"
     },
     "WEBSITE": {
-        "en": "https://github.com/dgycsn",
-        "de": "https://github.com/dgycsn"
+        "en": "github.com/dgycsn",
+        "de": "github.com/dgycsn"
+    },
+    "JOB_LOCATION_1": {
+        "en": "Bern",
+        "de": "Bern"
+    },
+    "JOB_LOCATION_2": {
+        "en": "Bern",
+        "de": "Bern"
+    },
+    "JOB_LOCATION_3": {
+        "en": "Bern",
+        "de": "Bern"
+    },
+    "ZZ": {
+        "en": "ZZ",
+        "de": "ZZ"
     },
     "ZZ": {
         "en": "ZZ",
