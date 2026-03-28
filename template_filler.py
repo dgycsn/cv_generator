@@ -65,14 +65,15 @@ def convert_to_pdf(input_odt, output):
         except OSError:
             pass
     
-    with tempfile.TemporaryDirectory() as tmp_dir:
-        subprocess.run([
-            LIBREOFFICE_PATH,
-            "--headless",
-            "--convert-to", "pdf",
-            "--outdir", tmp_dir,
-            input_odt
-        ], check=True)
+    output_dir = os.path.dirname(os.path.abspath(input_odt))
+    
+    subprocess.run([
+        LIBREOFFICE_PATH,
+        "--headless",
+        "--convert-to", "pdf",
+        "--outdir", output_dir,
+        input_odt
+    ], check=True)
 
 
 def generate_document(filename, language = "en", output_folder = ""):
