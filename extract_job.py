@@ -194,10 +194,9 @@ def prepare_skills(blocks: list[str], skills: str) -> list[str]:
     Given the candidate's skill list and the role classification above, select the most relevant skills.
     
     Rules:
-    - Select between 4 and 6 skills maximum
+    - Select between 6 and 9 skills maximum
     - Prioritize exact or near-exact matches to the job offer's required technical stack
-    - Do NOT pad to reach 6 — fewer strong matches beat more weak ones
-    - Prefer hard technical skills over process skills (e.g. prefer "Python" over "Team-Based Development")
+    - Prefer hard technical skills over process skills
     - Mirror the terminology used in the job offer where possible
     
     --- CANDIDATE SKILLS ---
@@ -243,6 +242,7 @@ def prepare_summary(blocks: list[str], selected_bullets: str) -> list[str]:
     bullets below.
     
     Rules:
+    - Write in first person, Never use third person.
     - Do NOT invent, infer, or add any experience, tools, or claims not present in the bullets
     - When bridging your experience to the role, use the job offer's terminology 
   but rephrase in your own words, do not copy sentence structures
@@ -252,7 +252,7 @@ def prepare_summary(blocks: list[str], selected_bullets: str) -> list[str]:
     - Do NOT use filler phrases like "passionate about", "proven track record", "dynamic"
     - If PARTIAL FIT: explicitly bridge the candidate's background to the target role in 
       1-2 sentences — make the connection clear rather than leaving it to the reader
-    - If DIRECT FIT: focus purely on relevant experience and impact
+    - If DIRECT FIT: focus purely on relevant experience and impact, write 3 sentences.
     
     --- SELECTED EXPERIENCE BULLETS ---
     {selected_bullets}

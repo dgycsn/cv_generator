@@ -91,7 +91,7 @@ def apply_defaults(selected_experience: dict, experience: dict, language: str = 
     
     return result
 
-filled_experience = apply_defaults(selected_experience, experience, language="en")
+filled_experience = apply_defaults(selected_experience, experience_data, language="en")
 
 #%%
 
