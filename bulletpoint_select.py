@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
+
 import zipfile
-import shutil
 import re
+import html
 
 def fill_experience_placeholders(odt_path: str, output_path: str, experience_data: dict):
     with zipfile.ZipFile(odt_path, "r") as z:
@@ -8,28 +10,46 @@ def fill_experience_placeholders(odt_path: str, output_path: str, experience_dat
         files = {name: z.read(name) for name in names}
 
     content = files["content.xml"].decode("utf-8")
+    
 
-    # Normalize split placeholders
+    # 1. Normalize split placeholders
     content = re.sub(r'\{\{[^}]*\}\}', lambda m: re.sub(r'<[^>]+>', '', m.group()), content)
 
-    # Fill slots in order (1, 2, 3...) regardless of original numbers
+    # 2. Fill slots
     for section, entries in experience_data.items():
         for new_num, text in enumerate(entries.values(), start=1):
-            content = content.replace(f"{{{{{section}_{new_num}}}}}", text)
+            safe_text = html.escape(text)  # escapes &, <, >, ", '
+            bullet = "\u25b8"  # ▸
+            content = content.replace(f"{{{{{section}_{new_num}}}}}", f"{bullet} {safe_text}")
 
-    # Remove remaining unfilled bullet lines
-    bullet = '\u25b8'
-    content = re.sub(rf'<text:p text:style-name="[^"]*">{bullet} <text:span text:style-name="[^"]*">\{{\{{EXPERIENCE_\d+_\d+\}}\}}</text:span></text:p>', '', content)
+    # 3. Clear all remaining unfilled placeholders
+    content = re.sub(r'\{\{[A-Z_0-9]+\}\}', '', content)
 
+    # 4. Remove now-empty paragraph lines (no real text content)
+    def is_empty_paragraph(tag_text):
+        # If it contains any child XML elements, keep it (images, draws, etc.)
+        if re.search(r'<[a-zA-Z]', tag_text[len('<text:p'):]):  # has child tags
+            return False
+        text_only = re.sub(r'<[^>]+>', '', tag_text).strip()
+        return text_only == ''
+    
+    content = re.sub(
+        r'<text:p [^>]*>.*?</text:p>',
+        lambda m: '' if is_empty_paragraph(m.group()) else m.group(),
+        content,
+        flags=re.DOTALL
+    )
+
+    # 5. Save
     files["content.xml"] = content.encode("utf-8")
-
     with zipfile.ZipFile(output_path, "w", zipfile.ZIP_DEFLATED) as zout:
         for name in names:
-            zout.writestr(name, files[name])
-
-    print(f"✓ Saved to {output_path}")
-
-
+            data = files[name]
+            if isinstance(data, str):
+                data = data.encode("utf-8")
+            zout.writestr(name, data)
+            
+            
 if __name__ == "__main__":
     experience_data = {
         "EXPERIENCE_1": {

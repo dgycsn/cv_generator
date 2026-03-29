@@ -131,6 +131,10 @@
         "en": "Deep Learning",
         "de": "Deep Learning"
     },
+    "CERT_3": {
+        "en": "Efficient &amp; Fast Reading",
+        "de": "Effizientes &amp; schnelles Lesen"
+    },
     "INTERESTS": {
         "en": "Hobbies",
         "de": "Interessen"
@@ -178,6 +182,22 @@
     "JOB_LOCATION_3": {
         "en": "Bern",
         "de": "Bern"
+    },
+    "CONTACT": {
+        "en": "Contact",
+        "de": "Kontakt"
+    },
+    "SKILLS": {
+        "en": "Skills",
+        "de": "Kenntnisse"
+    },
+    "ZZ": {
+        "en": "ZZ",
+        "de": "ZZ"
+    },
+    "ZZ": {
+        "en": "ZZ",
+        "de": "ZZ"
     },
     "ZZ": {
         "en": "ZZ",

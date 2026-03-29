@@ -49,8 +49,9 @@ def prepare_fill_input(selected: dict, lang_data: dict, lang: str = "en") -> dic
         if "numbers" in data and section in lang_data
     }
 
-experience_data = prepare_fill_input(selected_fields, data)
+experience_selected = prepare_fill_input(selected_fields, data)
 
-fill_experience_placeholders(output_path + ".odt", output_path + "_final.odt", experience_data)
+fill_experience_placeholders(output_path + ".odt", output_path + "_final.odt", experience_selected)
 
 convert_to_pdf(output_path + "_final.odt", "" )
+

@@ -30,33 +30,41 @@ def replace_placeholders_in_odt(template_path, output_path, replacements):
             os.remove(output_path)
         except OSError:
             pass
-        
+
     temp_dir = mkdtemp()
+    try:
+        with zipfile.ZipFile(template_path, 'r') as zip_ref:
+            zip_ref.extractall(temp_dir)
 
-    # Unzip ODT
-    with zipfile.ZipFile(template_path, 'r') as zip_ref:
-        zip_ref.extractall(temp_dir)
+        for root, dirs, files in os.walk(temp_dir):
+            for filename in files:
+                if not filename.endswith(('.xml', '.rdf')):
+                    continue
+                filepath = os.path.join(root, filename)
+                with open(filepath, 'r', encoding='utf-8') as f:
+                    text = f.read()
+                for key, value in replacements.items():
+                    # Normalize: strip any existing braces from key so both
+                    # "EMAIL" and "{{EMAIL}}" passed as key work correctly
+                    clean_key = key.strip('{}')
+                    placeholder = '{{' + clean_key + '}}'
+                    text = text.replace(placeholder, str(value))
+                with open(filepath, 'w', encoding='utf-8') as f:
+                    f.write(text)
 
-    content_file = os.path.join(temp_dir, "content.xml")
-
-    # Read XML
-    with open(content_file, "r", encoding="utf-8") as f:
-        content = f.read()
-
-    # Replace placeholders
-    for key, value in replacements.items():
-        placeholder = "{{" + key + "}}"
-        content = content.replace(placeholder, str(value))
-
-    # Write back
-    with open(content_file, "w", encoding="utf-8") as f:
-        f.write(content)
-
-    # Zip back to ODT
-    shutil.make_archive(output_path.replace(".odt", ""), 'zip', temp_dir)
-    os.rename(output_path.replace(".odt", "") + ".zip", output_path)
-
-    shutil.rmtree(temp_dir)
+        with zipfile.ZipFile(output_path, 'w', zipfile.ZIP_DEFLATED) as zout:
+            mimetype_path = os.path.join(temp_dir, 'mimetype')
+            if os.path.exists(mimetype_path):
+                zout.write(mimetype_path, 'mimetype', compress_type=zipfile.ZIP_STORED)
+            for root, dirs, files in os.walk(temp_dir):
+                for filename in files:
+                    filepath = os.path.join(root, filename)
+                    arcname = os.path.relpath(filepath, temp_dir)
+                    if arcname == 'mimetype':
+                        continue
+                    zout.write(filepath, arcname)
+    finally:
+        shutil.rmtree(temp_dir)
 
 def convert_to_pdf(input_odt, output):
     if os.path.exists(output):
@@ -79,6 +87,7 @@ def convert_to_pdf(input_odt, output):
 def generate_document(filename, language = "en", output_folder = ""):
     template_folder = "./templates/"
     template = template_folder + "template.odt"
+    
     # output_folder = "./outputs/"
     filled_odt = f"{output_folder}/{filename}_{language}.odt"
 
