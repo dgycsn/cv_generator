@@ -47,8 +47,6 @@ for key, value in experience_numbers.items():
             # Add defaults that aren't already in the list
             missing = [n for n in DEFAULT_NUMBERS if n not in value['numbers']]
             value['numbers'] = value['numbers'] + missing
-            
-print(experience_numbers)
 
 #%%
 
