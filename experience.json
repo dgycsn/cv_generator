@@ -5,7 +5,7 @@
             "de": "zzz"
         },
         "2":{
-            "en": "Experience with Docker for containerization and Kubernetes/OpenShift for orchestration.",
+            "en": "Engineered and deployed Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG) systems.",
             "de": "zzz"
         },
         "3":{
@@ -13,7 +13,7 @@
             "de": "zzz"
         },
         "4":{
-            "en": "Engineered and deployed Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG) systems.",
+            "en": "Experience with Docker for containerization and Kubernetes/OpenShift for orchestration.",
             "de": "zzz"
         },
         "5":{
@@ -139,11 +139,11 @@
             "de": "zzz"
         },
         "2":{
-            "en": "Worked on projects involving turbulent flows, optical and mechanical measurement techniques, system modeling.",
+            "en": "Proficient in Python, MATLAB, C++, SQL.",
             "de": "zzz"
         },
         "3":{
-            "en": "Proficient in Python, MATLAB, C++, SQL (open to learn new languages).",
+            "en": "Worked on projects involving turbulent flows, optical and mechanical measurement techniques, system modeling.",
             "de": "zzz"
         },
         "4":{
@@ -164,12 +164,6 @@
         },
         "8":{
             "en": "Strong background in data science, statistical methods, and machine learning techniques.",
-            "de": "zzz"
-        }
-    },
-    "SKILLS": {
-	"1":{
-            "en": "zzz",
             "de": "zzz"
         }
     }

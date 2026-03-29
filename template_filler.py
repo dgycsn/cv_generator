@@ -71,6 +71,13 @@ def replace_placeholders_in_odt(template_path, output_path, replacements):
                     zout.write(filepath, arcname)
     finally:
         shutil.rmtree(temp_dir)
+        
+def prepare_fill_input(selected: dict, lang_data: dict, lang: str = "en") -> dict:
+    return {
+        section: {str(num): lang_data[section][str(num)][lang] for num in data["numbers"]}
+        for section, data in selected.items()
+        if "numbers" in data and section in lang_data
+    }
 
 def convert_to_pdf(input_odt, output):
     if os.path.exists(output):

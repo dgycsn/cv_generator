@@ -162,7 +162,7 @@ def prepare_cv_fields(blocks: list[str], experience: str) -> list[str]:
              "EDUCATION_1": {{ 
                  ...}},
              "EXPERIENCE_MISSING": {{
-                 ...}}
+                 "description": "..."}}
          }} 
     
     --- CANDIDATE EXPERIENCE ---
@@ -174,6 +174,48 @@ def prepare_cv_fields(blocks: list[str], experience: str) -> list[str]:
     
     response = chat(model=model, messages=[{"role": "user", "content": prompt}], format="json")
     fields = json.loads(response.message.content)
+    
+
+    return fields
+
+def prepare_skills(blocks: list[str], skills: str) -> list[str]:
+    job_blocks = "\n\n".join(f" {b}" for i, b in enumerate(blocks))
+    
+    prompt = f"""
+    You are a professional CV writer. Given a numbered list of candidate's skills and a job offer, 
+    select which experience best corresponds to the given job. 
+    
+    # Example json input for experience:
+        {{ 
+             "SKILL": {{ 
+                 "1":"...",
+                 "2":"...",
+                 }} 
+         }} 
+        
+    In your output json, return a list of bulletpoint numbers for each skill.
+    Aim for 6 skills. If total number is less than required, add other experience
+    that makes the candidate look good.
+    Additionally, return your reasoning for choosing the relevant skill bulletpoints.
+    
+    # Example json output for experience:
+        {{ 
+             "SKILLS": {{ 
+                 "numbers":[1,2,3],
+                 "reason":"..."
+                 }},
+         }} 
+    
+    --- CANDIDATE EXPERIENCE ---
+    {skills}
+    
+    --- JOB OFFER ---
+    {job_blocks}
+    """
+    
+    response = chat(model=model, messages=[{"role": "user", "content": prompt}], format="json")
+    fields = json.loads(response.message.content)
+    
 
     return fields
 
