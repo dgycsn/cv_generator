@@ -147,7 +147,7 @@ def prepare_cv_fields(blocks: list[str], experience: str) -> list[str]:
         
     In your output json, return a list of bulletpoint numbers for each experience.
     Aim for at least 5 experiences. If total number is less than required, add other experience
-    that makes the candidate look good.
+    that makes the candidate look good. When possible aim for more experiences rather than none.
     Additionally, return your reasoning for choosing the relevant experience bulletpoints.
     Finally, return an extra field that describes what experience candidate is missing.
     
@@ -200,7 +200,7 @@ def prepare_skills(blocks: list[str], skills: str) -> list[str]:
     
     # Example json output for experience:
         {{ 
-             "SKILLS": {{ 
+             "SKILL": {{ 
                  "numbers":[1,2,3],
                  "reason":"..."
                  }},
