@@ -14,6 +14,11 @@ def fill_experience_placeholders(odt_path: str, output_path: str, experience_dat
 
     # 1. Normalize split placeholders
     content = re.sub(r'\{\{[^}]*\}\}', lambda m: re.sub(r'<[^>]+>', '', m.group()), content)
+    
+    if "SUMMARY" in experience_data:
+        safe_summary = html.escape(experience_data["SUMMARY"]["text"])
+        content = content.replace("{{PROFILE_SUMMARY}}", safe_summary)
+        experience_data = {k: v for k, v in experience_data.items() if k != "SUMMARY"}
 
     # 2. Fill slots
     for section, entries in experience_data.items():

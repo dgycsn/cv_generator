@@ -99,7 +99,7 @@ def convert_to_pdf(input_odt, output):
 
 def generate_document(filename, language = "en", output_folder = ""):
     template_folder = "./templates/"
-    template = template_folder + "template.odt"
+    template = template_folder + "template_new.odt"
     
     # output_folder = "./outputs/"
     filled_odt = f"{output_folder}/{filename}_{language}.odt"

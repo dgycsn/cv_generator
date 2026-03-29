@@ -222,6 +222,51 @@ def prepare_skills(blocks: list[str], skills: str) -> list[str]:
 
     return fields
 
+def prepare_summary(blocks: list[str], selected_bullets: str) -> list[str]:
+    job_blocks = "\n\n".join(f" {b}" for i, b in enumerate(blocks))
+    
+    prompt = f"""
+    You are a professional CV writer specializing in ATS optimization.
+    
+    ## Step 1 — Classify the role
+    Read the job offer and identify:
+    - Primary role type (e.g. Data Engineer, AI/ML Engineer, Backend Developer)
+    - Top 5 technical requirements
+    
+    ## Step 2 — Write summary
+    Write a 2-3 sentence professional summary for the candidate based STRICTLY on the
+    selected experience bullets below. 
+    
+    Rules:
+    - Do NOT invent, infer, or add any experience, tools, or claims not present in the bullets
+    - Mirror the terminology used in the job offer where possible
+    - Start with the candidate's current role and strongest relevant qualification
+    - End with what value they bring to this specific role
+    - Do NOT use filler phrases like "passionate about", "proven track record", "dynamic"
+    
+    --- SELECTED EXPERIENCE BULLETS ---
+    {selected_bullets}
+    
+    --- JOB OFFER ---
+    {job_blocks}
+    
+    Return ONLY valid JSON in this exact format:
+    {{
+      "role_classification": {{
+        "role_type": "...",
+        "top_technical_requirements": ["..."]
+      }},
+      "SUMMARY": {{"text": "...", "reason": "..."}}
+    }}
+    """
+    
+    response = chat(model=model, messages=[{"role": "user", "content": prompt}], format="json")
+    fields = json.loads(response.message.content)
+    
+
+    return fields
+
+
 #%%
 
 if __name__ == "__main__":

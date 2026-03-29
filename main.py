@@ -3,7 +3,8 @@ from extract_job import (extract_blocks,
                          filter_title_company,
                          extract_lang,
                          prepare_cv_fields,
-                         prepare_skills)
+                         prepare_skills,
+                         prepare_summary)
 
 from template_filler import generate_document, convert_to_pdf, prepare_fill_input
 from bulletpoint_select import fill_experience_placeholders
@@ -35,6 +36,20 @@ skills = extract_lang(skills_data, language)
 experience_numbers = prepare_cv_fields(relevant_blocks, experience)
 skill_numbers = prepare_skills(relevant_blocks, skills)
 
+selected_experience = prepare_fill_input(experience_numbers, experience_data)
+selected_skill = prepare_fill_input(skill_numbers, skills_data)
+
+#%%
+
+selected_bullets = []
+for block, data in selected_experience.items():
+    for num, text in data.items():
+        selected_bullets.append(text)
+
+selected_bullets_text = "\n".join(f"- {b}" for b in selected_bullets)
+
+summary = prepare_summary(relevant_blocks, selected_bullets_text)
+
 #%%
 
 # if llm doesnt select enough bulletpoints, chose first two by default
@@ -62,10 +77,11 @@ generate_document(filename, language, output_folder)
 
 output_path = str(output_folder / filename ) + "_" + language
 
-experience_selected = prepare_fill_input(experience_numbers, experience_data)
-skill_selected = prepare_fill_input(skill_numbers, skills_data)
 
-fill_experience_placeholders(output_path + ".odt", output_path + "_final.odt", experience_selected | skill_selected)
+
+fill_experience_placeholders(output_path + ".odt", 
+                             output_path + "_final.odt", 
+                             selected_experience | selected_skill | {"SUMMARY": summary["SUMMARY"]})
 
 convert_to_pdf(output_path + "_final.odt", "" )
 
