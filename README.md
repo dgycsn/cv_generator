@@ -49,7 +49,7 @@ Job URL
 
 ## Example output
 
-The CV below was generated for a Senior Data Engineer role at a Swiss e-commerce company. Input was a job URL. Total runtime: ~100 seconds on a local GPU.
+Total runtime: ~100 seconds on a local GPU.
 
 ---
 
@@ -93,7 +93,7 @@ Edit `experience.json`,  and `skills.json` with your own experience and skills. 
 
 - Pipeline tested primarily against Swiss and German job postings
 - Very long or poorly structured job pages may confuse the HTML block filter
-- Model quality affects selection accuracy — `qwen2.5:32b` works well; smaller models may make weaker choices
+- Model quality affects selection accuracy — `qwen2.5:32b` works well; smaller models may make weaker choices (skill issue)
 
 ---
 

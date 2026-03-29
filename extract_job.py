@@ -246,8 +246,12 @@ def prepare_summary(blocks: list[str], selected_bullets: str) -> list[str]:
     - Do NOT invent, infer, or add any experience, tools, or claims not present in the bullets
     - When bridging your experience to the role, use the job offer's terminology 
   but rephrase in your own words, do not copy sentence structures
+    - Every claim in the summary must be traceable to a specific 
+  selected bullet. If you cannot point to the bullet, remove the claim
     - Mirror the terminology used in the job offer where possible
     - Start with the candidate's current role and strongest relevant qualification
+    - Always open with the candidate's actual current job title, 
+  never the target role title
     - End with what value they bring to this specific role
     - Do NOT use filler phrases like "passionate about", "proven track record", "dynamic"
     - If PARTIAL FIT: explicitly bridge the candidate's background to the target role in 
