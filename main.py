@@ -52,16 +52,46 @@ summary = prepare_summary(relevant_blocks, selected_bullets_text)
 
 #%%
 
-# if llm doesnt select enough bulletpoints, chose first two by default
-DEFAULT_NUMBERS = [1, 2]
-LIMIT = 3
+# select some default experiences so they are there even if llm does not choose
+DEFAULTS = {
+    "EXPERIENCE_1": ["1", "7", "10", "12", "6"],  # LLM+RAG, sole engineer, agents, prompt eng, feasibility
+    "EXPERIENCE_2": ["1", "2", "7"],               # dev+team, CI/CD, REST APIs
+    "EXPERIENCE_3": ["1", "2"],                    # research, simulation pipeline
+    "EDUCATION_1":  ["1", "2", "3"],               # thesis, coursework, teaching assistant
+}
 
-for key, value in experience_numbers.items():
-    if 'numbers' in value:
-        if len(value['numbers']) < LIMIT:
-            # Add defaults that aren't already in the list
-            missing = [n for n in DEFAULT_NUMBERS if n not in value['numbers']]
-            value['numbers'] = value['numbers'] + missing
+MIN_BULLETS = {
+    "EXPERIENCE_1": 4,
+    "EXPERIENCE_2": 2,
+    "EXPERIENCE_3": 2,
+    "EDUCATION_1":  2,
+}
+
+def apply_defaults(selected_experience: dict, experience: dict, language: str = "en") -> dict:
+    result = {}
+    for block, min_count in MIN_BULLETS.items():
+        current_nums = list(selected_experience.get(block, {}).get("numbers", []))
+        current_nums_str = [str(n) for n in current_nums]
+        
+        # Add defaults if below minimum, avoiding duplicates
+        if len(current_nums_str) < min_count:
+            for default_num in DEFAULTS.get(block, []):
+                if len(current_nums_str) >= min_count:
+                    break
+                if default_num not in current_nums_str:
+                    current_nums_str.append(default_num)
+        
+        # Build the resolved text dict in order
+        resolved = {}
+        for num in current_nums_str:
+            if num in experience.get(block, {}):
+                resolved[num] = experience[block][num][language]
+        
+        result[block] = resolved
+    
+    return result
+
+filled_experience = apply_defaults(selected_experience, experience, language="en")
 
 #%%
 
@@ -81,7 +111,7 @@ output_path = str(output_folder / filename ) + "_" + language
 
 fill_experience_placeholders(output_path + ".odt", 
                              output_path + "_final.odt", 
-                             selected_experience | selected_skill | {"SUMMARY": summary["SUMMARY"]})
+                             filled_experience | selected_skill | {"SUMMARY": summary["SUMMARY"]})
 
 convert_to_pdf(output_path + "_final.odt", "" )
 

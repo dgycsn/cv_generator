@@ -233,16 +233,26 @@ def prepare_summary(blocks: list[str], selected_bullets: str) -> list[str]:
     - Primary role type (e.g. Data Engineer, AI/ML Engineer, Backend Developer)
     - Top 5 technical requirements
     
-    ## Step 2 — Write summary
-    Write a 2-3 sentence professional summary for the candidate based STRICTLY on the
-    selected experience bullets below. 
+    ## Step 2 — Assess fit
+    Determine whether the candidate's work experience directly matches the role type.
+    - DIRECT FIT: candidate's experience closely matches the role
+    - PARTIAL FIT: candidate has relevant transferable skills but comes from a different domain
+    
+    ## Step 3 — Write summary
+    Write a 2-3 sentence professional summary based STRICTLY on the selected experience 
+    bullets below.
     
     Rules:
     - Do NOT invent, infer, or add any experience, tools, or claims not present in the bullets
+    - When bridging your experience to the role, use the job offer's terminology 
+  but rephrase in your own words, do not copy sentence structures
     - Mirror the terminology used in the job offer where possible
     - Start with the candidate's current role and strongest relevant qualification
     - End with what value they bring to this specific role
     - Do NOT use filler phrases like "passionate about", "proven track record", "dynamic"
+    - If PARTIAL FIT: explicitly bridge the candidate's background to the target role in 
+      1-2 sentences — make the connection clear rather than leaving it to the reader
+    - If DIRECT FIT: focus purely on relevant experience and impact
     
     --- SELECTED EXPERIENCE BULLETS ---
     {selected_bullets}
@@ -256,6 +266,7 @@ def prepare_summary(blocks: list[str], selected_bullets: str) -> list[str]:
         "role_type": "...",
         "top_technical_requirements": ["..."]
       }},
+      "fit_assessment": "DIRECT FIT" or "PARTIAL FIT",
       "SUMMARY": {{"text": "...", "reason": "..."}}
     }}
     """
