@@ -130,50 +130,47 @@ def prepare_cv_fields(blocks: list[str], experience: str) -> list[str]:
     job_blocks = "\n\n".join(f" {b}" for i, b in enumerate(blocks))
     
     prompt = f"""
-    You are a professional CV writer. Given a numbered list of candidate's experience and a job offer, 
-    select which experience best corresponds to the given job. 
+    You are a professional CV writer specializing in ATS optimization.
+
+    ## Step 1 — Classify the role
+    Read the job offer and identify:
+    - Primary role type (e.g. Data Engineer, AI/ML Engineer, Backend Developer, Researcher etc.)
+    - Top 5 technical requirements
+    - Top 3 soft/process requirements
     
-    # Example json input for experience:
-        {{ 
-             "EXPERIENCE_1": {{ 
-                 "1":"...",
-                 "2":"...",
-                 }} ,
-             "EXPERIENCE_2": {{ 
-                 ...}},
-             "EXPERIENCE_3": {{ 
-                 ...}},
-             "EDUCATION_1": {{ 
-                 ...}}
-         }} 
-        
-    In your output json, return a list of bulletpoint numbers for each experience.
-    Aim for at least 5 experiences. If total number is less than required, add other experience
-    that makes the candidate look good. When possible aim for more experiences rather than none.
-    Additionally, return your reasoning for choosing the relevant experience bulletpoints.
-    Finally, return an extra field that describes what experience candidate is missing.
+    ## Step 2 — Select bullets
+    Given the candidate's experience and the role classification above, select the most relevant bullet points per experience block.
     
-    # Example json output for experience:
-        {{ 
-             "EXPERIENCE_1": {{ 
-                 "numbers":[1,2,3],
-                 "reason":"..."
-                 }},
-             "EXPERIENCE_2": {{ 
-                 ...}},
-             "EXPERIENCE_3": {{ 
-                 ...}}, 
-             "EDUCATION_1": {{ 
-                 ...}},
-             "EXPERIENCE_MISSING": {{
-                 "description": "..."}}
-         }} 
+    Rules:
+    - Prioritize EXPERIENCE_1 (most recent role) — select up to 5 bullets
+    - EXPERIENCE_2 — select up to 4 bullets, only if directly relevant
+    - EXPERIENCE_3 — select at most 2 bullets, only if directly relevant; otherwise return empty list
+    - EDUCATION_1 — select at most 3 bullets, only if they add something not covered by work experience
+    - Quality over quantity. Do NOT pad to hit a number. An empty list is better than a weak bullet.
+    - Select bullets that mirror the language and priorities of the job offer
+    
+    ## Step 3 — Identify gaps
+    List what relevant experience or skills the candidate is missing for this role.
     
     --- CANDIDATE EXPERIENCE ---
     {experience}
     
     --- JOB OFFER ---
     {job_blocks}
+    
+    Return ONLY valid JSON in this exact format:
+    {{
+      "role_classification": {{
+        "role_type": "...",
+        "top_technical_requirements": ["..."],
+        "top_process_requirements": ["..."]
+      }},
+      "EXPERIENCE_1": {{"numbers": [], "reason": "..."}},
+      "EXPERIENCE_2": {{"numbers": [], "reason": "..."}},
+      "EXPERIENCE_3": {{"numbers": [], "reason": "..."}},
+      "EDUCATION_1": {{"numbers": [], "reason": "..."}},
+      "EXPERIENCE_MISSING": {{"description": "..."}}
+    }}
     """
     
     response = chat(model=model, messages=[{"role": "user", "content": prompt}], format="json")
@@ -186,35 +183,37 @@ def prepare_skills(blocks: list[str], skills: str) -> list[str]:
     job_blocks = "\n\n".join(f" {b}" for i, b in enumerate(blocks))
     
     prompt = f"""
-    You are a professional CV writer. Given a numbered list of candidate's skills and a job offer, 
-    select which experience best corresponds to the given job. 
+    You are a professional CV writer specializing in ATS optimization.
     
-    # Example json input for experience:
-        {{ 
-             "SKILL": {{ 
-                 "1":"...",
-                 "2":"...",
-                 }} 
-         }} 
-        
-    In your output json, return a list of bulletpoint numbers for each skill.
-    Aim for 6 skills. If total number is less than required, add other experience
-    that makes the candidate look good.
-    Additionally, return your reasoning for choosing the relevant skill bulletpoints.
+    ## Step 1 — Classify the role
+    Read the job offer and identify:
+    - Primary role type (e.g. Data Engineer, AI/ML Engineer, Backend Developer)
+    - Top 5 technical requirements
     
-    # Example json output for experience:
-        {{ 
-             "SKILL": {{ 
-                 "numbers":[1,2,3],
-                 "reason":"..."
-                 }},
-         }} 
+    ## Step 2 — Select skills
+    Given the candidate's skill list and the role classification above, select the most relevant skills.
     
-    --- CANDIDATE EXPERIENCE ---
+    Rules:
+    - Select between 4 and 6 skills maximum
+    - Prioritize exact or near-exact matches to the job offer's required technical stack
+    - Do NOT pad to reach 6 — fewer strong matches beat more weak ones
+    - Prefer hard technical skills over process skills (e.g. prefer "Python" over "Team-Based Development")
+    - Mirror the terminology used in the job offer where possible
+    
+    --- CANDIDATE SKILLS ---
     {skills}
     
     --- JOB OFFER ---
     {job_blocks}
+    
+    Return ONLY valid JSON in this exact format:
+    {{
+      "role_classification": {{
+        "role_type": "...",
+        "top_technical_requirements": ["..."]
+      }},
+      "SKILL": {{"numbers": [], "reason": "..."}}
+    }}
     """
     
     response = chat(model=model, messages=[{"role": "user", "content": prompt}], format="json")
