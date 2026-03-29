@@ -1,0 +1,153 @@
+{
+{
+    "SKILLS": {
+        "1": {
+            "en": "AI Development",
+            "de": "zzz"
+        },
+        "2": {
+            "en": "Deep Learning (PyTorch)",
+            "de": "zzz"
+        },
+        "3": {
+            "en": "Large Language Models (LLMs)",
+            "de": "zzz"
+        },
+        "4": {
+            "en": "Retrieval-Augmented Generation (RAG) Systems",
+            "de": "zzz"
+        },
+        "5": {
+            "en": "AI Agents",
+            "de": "zzz"
+        },
+        "6": {
+            "en": "MLOps Practices",
+            "de": "zzz"
+        },
+        "7": {
+            "en": "Data Processing Pipelines",
+            "de": "zzz"
+        },
+        "8": {
+            "en": "Semantic Search",
+            "de": "zzz"
+        },
+        "9": {
+            "en": "Similarity Matching",
+            "de": "zzz"
+        },
+        "10": {
+            "en": "Vector-Based Analysis",
+            "de": "zzz"
+        },
+        "11": {
+            "en": "Java Programming",
+            "de": "zzz"
+        },
+        "12": {
+            "en": "Git for Version Control",
+            "de": "zzz"
+        },
+        "13": {
+            "en": "CI/CD Pipelines",
+            "de": "zzz"
+        },
+        "14": {
+            "en": "Scrum Framework",
+            "de": "zzz"
+        },
+        "15": {
+            "en": "JUnit Testing",
+            "de": "zzz"
+        },
+        "16": {
+            "en": "Code Reviews",
+            "de": "zzz"
+        },
+        "17": {
+            "en": "API Design",
+            "de": "zzz"
+        },
+        "18": {
+            "en": "Team-Based Development",
+            "de": "zzz"
+        },
+        "19": {
+            "en": "Python (Pandas, NumPy, PIL, cv2)",
+            "de": "zzz"
+        },
+        "20": {
+            "en": "Data Visualization",
+            "de": "zzz"
+        },
+        "21": {
+            "en": "Data Engineering",
+            "de": "zzz"
+        },
+        "22": {
+            "en": "Mathematical Simulations &amp; Optimization",
+            "de": "zzz"
+        },
+        "23": {
+            "en": "Scientific Research &amp; Reporting",
+            "de": "zzz"
+        },
+        "24": {
+            "en": "Docker Containerization",
+            "de": "zzz"
+        },
+        "25": {
+            "en": "Kubernetes/OpenShift Orchestration",
+            "de": "zzz"
+        },
+        "26": {
+            "en": "Proof-of-Concept (PoC) Development",
+            "de": "zzz"
+        },
+        "27": {
+            "en": "Feasibility Studies",
+            "de": "zzz"
+        },
+        "28": {
+            "en": "Technical Discussions with Stakeholders",
+            "de": "zzz"
+        },
+        "29": {
+            "en": "Customer Presentations",
+            "de": "zzz"
+        },
+        "30": {
+            "en": "NX",
+            "de": "zzz"
+        },
+        "31": {
+            "en": "LabVIEW",
+            "de": "zzz"
+        },
+        "32": {
+            "en": "Abaqus",
+            "de": "zzz"
+        },
+        "33": {
+            "en": "ANSYS",
+            "de": "zzz"
+        },
+        "34": {
+            "en": "CFD Simulations",
+            "de": "zzz"
+        },
+        "35": {
+            "en": "MATLAB",
+            "de": "zzz"
+        },
+        "36": {
+            "en": "C++",
+            "de": "zzz"
+        },
+        "37": {
+            "en": "SQL",
+            "de": "zzz"
+        }
+    }
+}
