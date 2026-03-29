@@ -141,6 +141,8 @@ def prepare_cv_fields(blocks: list[str], experience: str) -> list[str]:
                  }} ,
              "EXPERIENCE_2": {{ 
                  ...}},
+             "EXPERIENCE_3": {{ 
+                 ...}},
              "EDUCATION_1": {{ 
                  ...}}
          }} 
@@ -158,6 +160,8 @@ def prepare_cv_fields(blocks: list[str], experience: str) -> list[str]:
                  "reason":"..."
                  }},
              "EXPERIENCE_2": {{ 
+                 ...}},
+             "EXPERIENCE_3": {{ 
                  ...}}, 
              "EDUCATION_1": {{ 
                  ...}},
