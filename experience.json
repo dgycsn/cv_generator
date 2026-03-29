@@ -1,193 +1,137 @@
 {
     "EXPERIENCE_1": {
         "1": {
-            "en": "Led end-to-end AI use case development from ideation to deployment.",
+            "en": "Delivered end-to-end LLM and RAG solutions — including document search, metadata extraction, and customer-facing chatbots — automating manual workflows for hundreds of enterprise clients.",
             "de": "zzz"
         },
         "2": {
-            "en": "Engineered and deployed Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG) systems.",
+            "en": "Maintained and managed Docker and Kubernetes/OpenShift infrastructure for AI application deployment across test and production environments, serving both internal teams and external clients.",
             "de": "zzz"
         },
         "3": {
-            "en": "Proficient in Python for AI development and PyTorch for deep learning projects.",
+            "en": "Managed data processing pipelines with a focus on data security, compliance, and telemetry, ensuring MLOps practices met enterprise governance requirements.",
             "de": "zzz"
         },
         "4": {
-            "en": "Experience with Docker for containerization and Kubernetes/OpenShift for orchestration.",
+            "en": "Integrated and monitored vector database indexing pipelines to power semantic search and RAG applications, providing system feedback on index state and retrieval quality.",
             "de": "zzz"
         },
         "5": {
-            "en": "Expertise in data processing pipelines and MLOps practices.",
+            "en": "Led feasibility studies and literature reviews across AI projects including document classification, speech-to-text, and PoC initiatives, directly influencing which projects were greenlit or abandoned.",
             "de": "zzz"
         },
         "6": {
-            "en": "Conducted feasibility studies and thorough reviews of scientific literature to evaluate project success.",
+            "en": "Led technical discussions with internal management and external clients to prioritize AI use cases, driving feedback cycles that produced roadmaps and go/no-go decisions.",
             "de": "zzz"
         },
         "7": {
-            "en": "Led use case prioritization and technical discussions with stakeholders.",
+            "en": "Sole engineer responsible for building and iterating on AI PoCs end-to-end, taking multiple projects from ideation through to production while managing stakeholder feedback cycles.",
             "de": "zzz"
         },
         "8": {
-            "en": "Developed Proof-of-Concept (PoC) projects and gathered iterative feedback for refinement.",
+            "en": "Presented AI solutions to audiences of 10–100, spanning sales pitches and technical deep-dives across onboarding, PoC demonstrations, and business development meetings.",
             "de": "zzz"
         },
         "9": {
-            "en": "Conducted presentations for customers to showcase AI solutions and benefits.",
+            "en": "Built and deployed agentic AI systems for autonomous task execution, multi-step reasoning, and tool-calling, accelerating meeting and document workflows for both internal teams and external clients.",
             "de": "zzz"
         },
         "10": {
-            "en": "Participated in online courses, attended ML conferences, and obtained relevant certificates.",
+            "en": "Developed and maintained AI capabilities on top of existing public sector software, including document management and meeting management systems.",
             "de": "zzz"
         },
         "11": {
-            "en": "Implemented Agentic AI systems and sped up existing workflows.",
+            "en": "Proactively stay current with AI research through conference attendance, paper reading, and self-directed courses — applying new techniques directly to ongoing projects.",
             "de": "zzz"
         },
         "12": {
-            "en": "Data engineering, processing and visualizing using Python libraries such as Pandas, NumPy, PIL, cv2.",
+            "en": "Systematically engineered and optimized prompts for classification, extraction, and generation tasks, maintaining versioned prompt libraries and testing frameworks to validate performance.",
             "de": "zzz"
         },
         "13": {
-            "en": "Worked on software for the public sector such as document management and meeting management.",
-            "de": "zzz"
-        },
-        "14": {
-            "en": "Implemented semantic search, similarity matching, and vector-based analysis.",
-            "de": "zzz"
-        },
-        "15": {
-            "en": "Designed and optimized prompts for large language models to guide outputs and improve task performance.",
-            "de": "zzz"
-        },
-        "16": {
-            "en": "Worked with vector databases to store and retrieve embeddings for semantic search and RAG applications.",
-            "de": "zzz"
-        },
-        "17": {
-            "en": "Mentored colleagues and shared knowledge on AI tools, techniques, and best practices.",
+            "en": "Mentored colleagues through formal sessions and informal knowledge sharing on AI tools and techniques, enabling independent adoption of AI workflows across the team.",
             "de": "zzz"
         }
     },
     "EXPERIENCE_2": {
         "1": {
-            "en": "Worked as a Java developer; implementing user stories, testing, and performing code reviews.",
+            "en": "Developed backend services, APIs, and full-stack features as part of a 10-person agile team, delivering user stories from implementation through testing and code review on cloud infrastructure.",
             "de": "zzz"
         },
         "2": {
-            "en": "Ensured high-quality deliverables through detailed development processes.",
+            "en": "Worked within CI/CD pipelines using Jenkins, GitHub Actions, and GitLab CI, adhering to ISO 27001 and enterprise compliance standards throughout the software delivery process.",
             "de": "zzz"
         },
         "3": {
-            "en": "Proficient in Git for version control including branching, merging, and conflict resolution.",
+            "en": "Wrote and maintained automated test suites using JUnit alongside manual testing, ensuring comprehensive coverage in compliance with ISO 9001 quality management standards.",
             "de": "zzz"
         },
         "4": {
-            "en": "Experienced with CI/CD pipelines.",
+            "en": "Participated actively in code reviews to uphold coding standards and share technical knowledge across the team.",
             "de": "zzz"
         },
         "5": {
-            "en": "Followed the Scrum framework including sprint planning, daily stand-ups, reviews, and retrospectives.",
+            "en": "Ensured comprehensive test coverage across application components through both new test authoring and maintenance.",
             "de": "zzz"
         },
         "6": {
-            "en": "Conducted automated testing using frameworks like JUnit and manual testing to validate software functionality.",
+            "en": "Implemented and evaluated REST API designs for internal and external communication, contributing feedback on specifications to improve modularity and maintainability.",
             "de": "zzz"
         },
         "7": {
-            "en": "Ensured comprehensive test coverage for application components.",
+            "en": "Deployed and managed applications on Fabasoft's proprietary cloud infrastructure, handling both deployment pipelines and ongoing infrastructure management.",
             "de": "zzz"
         },
         "8": {
-            "en": "Actively participated in code reviews to maintain coding standards and improve code quality.",
+            "en": "Used Linux and Bash scripting for environment setup and deployment automation, handling both simple tasks and complex scripting requirements as needed.",
             "de": "zzz"
         },
         "9": {
-            "en": "Proficient in Java programming with experience in developing scalable and maintainable software solutions.",
-            "de": "zzz"
-        },
-        "10": {
-            "en": "Utilized various Java frameworks and libraries as needed.",
-            "de": "zzz"
-        },
-        "11": {
-            "en": "Designed and used APIs for modular systems.",
-            "de": "zzz"
-        },
-        "12": {
-            "en": "Collaboration & Version Control: Git, merge requests, team-based development.",
-            "de": "zzz"
-        },
-        "13": {
-            "en": "Consumed and integrated REST APIs for communication between modular backend services.",
-            "de": "zzz"
-        },
-        "14": {
-            "en": "Worked in cloud environments for application deployment and infrastructure management.",
-            "de": "zzz"
-        },
-        "15": {
-            "en": "Used Linux and Bash scripting for environment setup, automation, and deployment tasks.",
+            "en": "Followed Scrum methodology across full sprint cycles including planning, stand-ups, reviews, and retrospectives.",
             "de": "zzz"
         }
     },
     "EXPERIENCE_3": {
         "1": {
-            "en": "Scientific research & reporting.",
+            "en": "Researched light phases and modes, reviewing existing semiconductor designs to evaluate their adaptability to the company's optical systems.",
             "de": "zzz"
         },
         "2": {
-            "en": "Mathematical simulations & optimization.",
+            "en": "Automated simulation pipelines and developed data analysis workflows to process and interpret semiconductor design outputs.",
             "de": "zzz"
         },
         "3": {
-            "en": "Semiconductor design.",
+            "en": "Produced semiconductor designs in CAD based on research findings and simulation results.",
             "de": "zzz"
         }
     },
     "EDUCATION_1": {
         "1": {
-            "en": "Deepened knowledge through courses on numerical methods, machine learning, statistics, and data science.",
+            "en": "Master's thesis: developed synthetic data generation pipelines for AI model training, applied to 3D printer process optimization.",
             "de": "zzz"
         },
         "2": {
-            "en": "Proficient in Python, MATLAB, C++, SQL.",
+            "en": "Completed advanced coursework in machine learning, statistics, numerical methods, and data science.",
             "de": "zzz"
         },
         "3": {
-            "en": "Worked on projects involving turbulent flows, optical and mechanical measurement techniques, system modeling.",
+            "en": "Served as teaching assistant for Dynamics, conducting workshops and exam preparation sessions for undergraduate students.",
             "de": "zzz"
         },
         "4": {
-            "en": "Experienced with engineering software like NX, LabVIEW, Abaqus, ANSYS.",
+            "en": "Applied finite element analysis using Abaqus and ANSYS for structural and mechanical simulations across multiple projects.",
             "de": "zzz"
         },
         "5": {
-            "en": "Served as a teaching assistant for dynamics and held workshops for exam preparation.",
+            "en": "Conducted CFD simulations and worked with optical and mechanical measurement techniques in fluid dynamics research.",
             "de": "zzz"
         },
         "6": {
-            "en": "Extensive experience using tools like Abaqus and ANSYS for finite element analysis.",
+            "en": "Developed and validated system models for dynamic and physical systems using MATLAB and LabVIEW.",
             "de": "zzz"
         },
         "7": {
-            "en": "Hands-on experience with CFD simulations in fluid dynamics projects.",
-            "de": "zzz"
-        },
-        "8": {
-            "en": "Strong background in data science, statistical methods, and machine learning techniques.",
-            "de": "zzz"
-        },
-        "9": {
-            "en": "Applied finite element analysis (FEA) using Abaqus and ANSYS for structural and mechanical simulations.",
-            "de": "zzz"
-        },
-        "10": {
-            "en": "Experienced in signal processing and measurement techniques including optical and mechanical methods.",
-            "de": "zzz"
-        },
-        "11": {
-            "en": "Developed and applied system models for dynamic and physical systems.",
+            "en": "Experienced in signal processing and data analysis across optical and mechanical measurement projects.",
             "de": "zzz"
         }
     }
