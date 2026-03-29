@@ -27,10 +27,14 @@ def fill_experience_placeholders(odt_path: str, output_path: str, experience_dat
 
     # 4. Remove now-empty paragraph lines (no real text content)
     def is_empty_paragraph(tag_text):
-        # If it contains any child XML elements, keep it (images, draws, etc.)
-        if re.search(r'<[a-zA-Z]', tag_text[len('<text:p'):]):  # has child tags
+        # Keep paragraphs with real child elements (images, draws, etc.)
+        inner = tag_text[tag_text.index('>') + 1:]  # strip opening <text:p ...>
+        # Remove self-closing tags - they have no content
+        inner = re.sub(r'<[^>]+/>', '', inner)
+        # If real child elements remain, keep it
+        if re.search(r'<[a-zA-Z]', inner):
             return False
-        text_only = re.sub(r'<[^>]+>', '', tag_text).strip()
+        text_only = re.sub(r'<[^>]+>', '', inner).strip()
         return text_only == ''
     
     content = re.sub(

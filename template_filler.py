@@ -4,7 +4,8 @@ import shutil
 import os
 import subprocess
 from tempfile import mkdtemp
-import tempfile
+from urllib.parse import quote
+
 
 LIBREOFFICE_PATH = r"C:\Program Files\LibreOffice\program\soffice.exe"
 
@@ -44,11 +45,16 @@ def replace_placeholders_in_odt(template_path, output_path, replacements):
                 with open(filepath, 'r', encoding='utf-8') as f:
                     text = f.read()
                 for key, value in replacements.items():
-                    # Normalize: strip any existing braces from key so both
-                    # "EMAIL" and "{{EMAIL}}" passed as key work correctly
                     clean_key = key.strip('{}')
                     placeholder = '{{' + clean_key + '}}'
+                    
+                    # Replace plain placeholder (in text content)
                     text = text.replace(placeholder, str(value))
+                    
+                    # Replace URL-encoded placeholder (in href attributes like mailto:)
+                    encoded_placeholder = quote(placeholder, safe='')  # → %7B%7BEMAIL%7D%7D
+                    encoded_value = quote(str(value), safe='@.')       # keep @ and . unencoded in emails
+                    text = text.replace(encoded_placeholder, encoded_value)
                 with open(filepath, 'w', encoding='utf-8') as f:
                     f.write(text)
 

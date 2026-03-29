@@ -107,7 +107,7 @@
             "de": "zzz"
         },
         "12":{
-            "en": "Collaboration & Version Control: Git, merge requests, team-based development.",
+            "en": "Collaboration &amp; Version Control: Git, merge requests, team-based development.",
             "de": "zzz"
         },
         "13":{
@@ -115,7 +115,25 @@
             "de": "zzz"
         }
     },
-    "DEGREE_1": {
+    "EXPERIENCE_2": {
+	"1":{
+            "en": "Semiconductor design",
+            "de": "zzz"
+        },
+	"2":{
+            "en": "Mathematical simulations &amp; optimization",
+            "de": "zzz"
+        },
+	"3":{
+            "en": "Scientific research &amp; reporting",
+            "de": "zzz"
+        },
+	"4":{
+            "en": "zzz",
+            "de": "zzz"
+        }
+    },
+    "EDUCATION_1": {
         "1": {
             "en": "Deepened knowledge through courses on numerical methods, machine learning, statistics, and data science.",
             "de": "zzz"
@@ -146,6 +164,12 @@
         },
         "8":{
             "en": "Strong background in data science, statistical methods, and machine learning techniques.",
+            "de": "zzz"
+        }
+    },
+    "SKILLS": {
+	"1":{
+            "en": "zzz",
             "de": "zzz"
         }
     }

@@ -135,14 +135,14 @@ def prepare_cv_fields(blocks: list[str], experience: str) -> list[str]:
     
     # Example json input for experience:
         {{ 
-             "EXPERIENCE_1":{{ 
+             "EXPERIENCE_1": {{ 
                  "1":"...",
                  "2":"...",
                  }} ,
-             "EXPERIENCE_2":{{ 
-                 ...}} 
-             "EDUCATION_1":{{ 
-                 ...}} 
+             "EXPERIENCE_2": {{ 
+                 ...}},
+             "EDUCATION_1": {{ 
+                 ...}}
          }} 
         
     In your output json, return a list of bulletpoint numbers for each experience.
@@ -153,15 +153,16 @@ def prepare_cv_fields(blocks: list[str], experience: str) -> list[str]:
     
     # Example json output for experience:
         {{ 
-             "EXPERIENCE_1":{{ 
+             "EXPERIENCE_1": {{ 
                  "numbers":[1,2,3],
                  "reason":"..."
                  }},
-             "EXPERIENCE_2":{{ 
+             "EXPERIENCE_2": {{ 
                  ...}}, 
-             "EDUCATION_1":{{ 
+             "EDUCATION_1": {{ 
                  ...}},
-             "EXPERIENCE_MISSING":{{}}
+             "EXPERIENCE_MISSING": {{
+                 ...}}
          }} 
     
     --- CANDIDATE EXPERIENCE ---
