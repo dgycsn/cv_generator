@@ -28,8 +28,8 @@
         "de": "Softwareentwickler"
     },
     "JOB_TITLE_3": {
-        "en": "Internship",
-        "de": "Praktikum"
+        "en": "Process & Simulation Engineer (Intern)",
+        "de": "Process & Simulation Engineer (Praktikant)"
     },
     "START_DATE_1": {
         "en": "June 2024",
@@ -100,7 +100,7 @@
         "de": "Deutsch"
     },
     "LANG_LEVEL_1": {
-        "en": "Mastery",
+        "en": "Fluent",
         "de": "DSD C1"
     },
     "LANGUAGE_2": {
@@ -108,7 +108,7 @@
         "de": "Englisch"
     },
     "LANG_LEVEL_2": {
-        "en": "Advanced",
+        "en": "Proficient",
         "de": "Fortgeschritten"
     },
     "LANGUAGE_3": {
@@ -124,16 +124,12 @@
         "de": "Zertifizierungen"
     },
     "CERT_1": {
-        "en": "Agentic AI in Python",
-        "de": "Agentic AI in Python"
+        "en": "Agentic AI with Python (https://coursera.org/verify/NGB2F6768S7J)",
+        "de": "Agentic AI with Python (https://coursera.org/verify/NGB2F6768S7J)"
     },
     "CERT_2": {
-        "en": "Deep Learning",
-        "de": "Deep Learning"
-    },
-    "CERT_3": {
-        "en": "Efficient &amp; Fast Reading",
-        "de": "Effizientes &amp; schnelles Lesen"
+        "en": "Neural Networks and Deep Learning (https://coursera.org/verify/A72WZ6ZNZITB)",
+        "de": "Neural Networks and Deep Learning (https://coursera.org/verify/A72WZ6ZNZITB)"
     },
     "INTERESTS": {
         "en": "Hobbies",

@@ -1,7 +1,7 @@
 {
     "EXPERIENCE_1": {
         "1": {
-            "en": "Delivered end-to-end LLM and RAG solutions — including document search, metadata extraction, and customer-facing chatbots — automating manual workflows for hundreds of enterprise clients.",
+            "en": "Delivered end-to-end LLM and RAG solutions; including document search, metadata extraction, customer-facing chatbots and automating manual workflows for hundreds of enterprise clients.",
             "de": "zzz"
         },
         "2": {
@@ -25,11 +25,11 @@
             "de": "zzz"
         },
         "7": {
-            "en": "Sole engineer responsible for building and iterating on AI PoCs end-to-end, taking multiple projects from ideation through to production while managing stakeholder feedback cycles.",
+            "en": "Lead engineer responsible for building and iterating on AI PoCs end-to-end, taking multiple projects from ideation through to production while managing stakeholder feedback cycles.",
             "de": "zzz"
         },
         "8": {
-            "en": "Presented AI solutions to audiences of 10–100, spanning sales pitches and technical deep-dives across onboarding, PoC demonstrations, and business development meetings.",
+            "en": "Presented AI solutions to audiences of 10–100, spanning sales pitches and technical deep-dives across onboarding, Proof of Concept demonstrations, and business development meetings.",
             "de": "zzz"
         },
         "9": {
@@ -37,11 +37,11 @@
             "de": "zzz"
         },
         "10": {
-            "en": "Developed and maintained AI capabilities on top of existing public sector software, including document management and meeting management systems.",
+            "en": "Developed and maintained AI capabilities on public sector software, including document management and meeting management systems.",
             "de": "zzz"
         },
         "11": {
-            "en": "Proactively stay current with AI research through conference attendance, paper reading, and self-directed courses — applying new techniques directly to ongoing projects.",
+            "en": "Proactively stay current with AI research through conference attendance, paper reading, and self-directed courses while applying new techniques directly to ongoing projects.",
             "de": "zzz"
         },
         "12": {
@@ -55,7 +55,7 @@
     },
     "EXPERIENCE_2": {
         "1": {
-            "en": "Developed backend services, APIs, and full-stack features as part of a 10-person agile team, delivering user stories from implementation through testing and code review on cloud infrastructure.",
+            "en": "Developed backend services, APIs, and full-stack features, delivering user stories from implementation through testing and code review on cloud infrastructure.",
             "de": "zzz"
         },
         "2": {
@@ -93,7 +93,7 @@
     },
     "EXPERIENCE_3": {
         "1": {
-            "en": "Researched light phases and modes, reviewing existing semiconductor designs to evaluate their adaptability to the company's optical systems.",
+            "en": "Researched light phases and modes, reviewing semiconductor designs to evaluate their adaptability to the company's optical systems.",
             "de": "zzz"
         },
         "2": {
