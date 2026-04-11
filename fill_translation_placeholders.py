@@ -1,4 +1,3 @@
-import json
 import zipfile
 import shutil
 import os
@@ -6,24 +5,10 @@ import subprocess
 from tempfile import mkdtemp
 from urllib.parse import quote
 
+from helpers import find_soffice, load_translations
 
-LIBREOFFICE_PATH = r"C:\Program Files\LibreOffice\program\soffice.exe"
 
-def load_translations(language="en"):
-    with open("translations.json", "r", encoding="utf-8") as f:
-        raw = json.load(f)
-
-    resolved = {}
-
-    for key, translations in raw.items():
-        if language in translations:
-            resolved[key] = translations[language]
-        else:
-            # fallback (optional)
-            resolved[key] = translations.get("en", "")
-
-    return resolved
-
+LIBREOFFICE_PATH = find_soffice()
 
 def replace_placeholders_in_odt(template_path, output_path, replacements):
     if os.path.exists(output_path):
@@ -97,22 +82,19 @@ def convert_to_pdf(input_odt, output):
     ], check=True)
 
 
-def generate_document(filename, language = "en", output_folder = ""):
-    template_folder = "./templates/"
-    template = template_folder + "template_new.odt"
+def generate_document(filename, 
+                      template = "./templates/template_new.odt", 
+                      output_folder = "./outputs/",
+                      language = "en"):
     
     # output_folder = "./outputs/"
     filled_odt = f"{output_folder}/{filename}_{language}.odt"
 
-    data = load_translations(language)
+    data = load_translations("translations.json", language)
 
     replace_placeholders_in_odt(template, filled_odt, data)
 
-    # convert_to_pdf(filled_odt, ".")
-
-    # print(f"Generated: {filled_odt} and PDF")
 
 
 if __name__ == "__main__":
-    # generate_document("en")
-    generate_document("de")
+    generate_document("en")
