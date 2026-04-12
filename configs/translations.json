@@ -124,12 +124,12 @@
         "de": "Zertifizierungen"
     },
     "CERT_1": {
-        "en": "Agentic AI with Python (https://coursera.org/verify/NGB2F6768S7J)",
-        "de": "Agentic AI with Python (https://coursera.org/verify/NGB2F6768S7J)"
+        "en": "[Agentic AI with Python](https://coursera.org/verify/NGB2F6768S7J)",
+        "de": "[Agentic AI with Python](https://coursera.org/verify/NGB2F6768S7J)"
     },
     "CERT_2": {
-        "en": "Neural Networks and Deep Learning (https://coursera.org/verify/A72WZ6ZNZITB)",
-        "de": "Neural Networks and Deep Learning (https://coursera.org/verify/A72WZ6ZNZITB)"
+        "en": "[Neural Networks and Deep Learning](https://coursera.org/verify/A72WZ6ZNZITB)",
+        "de": "[Neural Networks and Deep Learning](https://coursera.org/verify/A72WZ6ZNZITB)"
     },
     "INTERESTS": {
         "en": "Hobbies",
@@ -187,13 +187,13 @@
         "en": "Skills",
         "de": "Kenntnisse"
     },
-    "ZZ": {
-        "en": "ZZ",
-        "de": "ZZ"
+    "REFERENCES_TITLE": {
+        "en": "References",
+        "de": "Referenzen"
     },
-    "ZZ": {
-        "en": "ZZ",
-        "de": "ZZ"
+    "REFERENCES_TEXT": {
+        "en": "Available on Request",
+        "de": "auf Anfrage erhältlich"
     },
     "ZZ": {
         "en": "ZZ",

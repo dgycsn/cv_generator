@@ -6,13 +6,15 @@ def fill_experience_placeholders(odt_path: str, output_path: str, experience_dat
     with zipfile.ZipFile(odt_path, "r") as z:
         names = z.namelist()
         files = {name: z.read(name) for name in names}
-
     content = files["content.xml"].decode("utf-8")
-    
 
-    # 1. Normalize split placeholders
-    content = re.sub(r'\{\{[^}]*\}\}', lambda m: re.sub(r'<[^>]+>', '', m.group()), content)
-    
+    # 1. Normalize split placeholders (LibreOffice may inject spans inside {{ }})
+    content = re.sub(
+        r'\{\{(<[^>]+>)*([A-Z_0-9]+)(<[^>]+>)*\}\}',
+        r'{{\2}}',
+        content
+    )
+
     if "SUMMARY" in experience_data:
         safe_summary = html.escape(experience_data["SUMMARY"]["text"])
         content = content.replace("{{PROFILE_SUMMARY}}", safe_summary)
@@ -21,25 +23,22 @@ def fill_experience_placeholders(odt_path: str, output_path: str, experience_dat
     # 2. Fill slots
     for section, entries in experience_data.items():
         for new_num, text in enumerate(entries.values(), start=1):
-            safe_text = html.escape(text)  # escapes &, <, >, ", '
+            safe_text = html.escape(text)
             bullet = "\u25b8"  # ▸
             content = content.replace(f"{{{{{section}_{new_num}}}}}", f"{bullet} {safe_text}")
 
     # 3. Clear all remaining unfilled placeholders
     content = re.sub(r'\{\{[A-Z_0-9]+\}\}', '', content)
 
-    # 4. Remove now-empty paragraph lines (no real text content)
+    # 4. Remove now-empty paragraph lines
     def is_empty_paragraph(tag_text):
-        # Keep paragraphs with real child elements (images, draws, etc.)
-        inner = tag_text[tag_text.index('>') + 1:]  # strip opening <text:p ...>
-        # Remove self-closing tags - they have no content
+        inner = tag_text[tag_text.index('>') + 1:]
         inner = re.sub(r'<[^>]+/>', '', inner)
-        # If real child elements remain, keep it
         if re.search(r'<[a-zA-Z]', inner):
             return False
         text_only = re.sub(r'<[^>]+>', '', inner).strip()
         return text_only == ''
-    
+
     content = re.sub(
         r'<text:p [^>]*>.*?</text:p>',
         lambda m: '' if is_empty_paragraph(m.group()) else m.group(),

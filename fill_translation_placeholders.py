@@ -4,11 +4,44 @@ import os
 import subprocess
 from tempfile import mkdtemp
 from urllib.parse import quote
+from xml.sax.saxutils import escape
+import re
 
 from helpers import find_soffice, load_translations
 
 
 LIBREOFFICE_PATH = find_soffice()
+
+
+def convert_markdown_links_to_odf(value):
+    """
+    Convert markdown links [text](url) in a string to ODF XML hyperlink fragments.
+    Non-link parts are XML-escaped. Returns a string ready to splice into XML.
+    """
+    LINK_RE = re.compile(r'\[([^\]]+)\]\(([^)]+)\)')
+    
+    parts = []
+    last = 0
+    for m in LINK_RE.finditer(value):
+        # Escape plain text before this link
+        if m.start() > last:
+            parts.append(escape(value[last:m.start()]))
+        
+        link_text = escape(m.group(1))
+        link_url  = escape(m.group(2))          # escapes & etc. in the URL
+        parts.append(
+            f'<text:a xlink:type="simple" xlink:href="{link_url}">'
+            f'{link_text}'
+            f'</text:a>'
+        )
+        last = m.end()
+    
+    # Escape any trailing plain text
+    if last < len(value):
+        parts.append(escape(value[last:]))
+    
+    return ''.join(parts)
+
 
 def replace_placeholders_in_odt(template_path, output_path, replacements):
     if os.path.exists(output_path):
@@ -16,7 +49,6 @@ def replace_placeholders_in_odt(template_path, output_path, replacements):
             os.remove(output_path)
         except OSError:
             pass
-
     temp_dir = mkdtemp()
     try:
         with zipfile.ZipFile(template_path, 'r') as zip_ref:
@@ -29,17 +61,28 @@ def replace_placeholders_in_odt(template_path, output_path, replacements):
                 filepath = os.path.join(root, filename)
                 with open(filepath, 'r', encoding='utf-8') as f:
                     text = f.read()
+
                 for key, value in replacements.items():
                     clean_key = key.strip('{}')
                     placeholder = '{{' + clean_key + '}}'
-                    
-                    # Replace plain placeholder (in text content)
-                    text = text.replace(placeholder, str(value))
-                    
-                    # Replace URL-encoded placeholder (in href attributes like mailto:)
-                    encoded_placeholder = quote(placeholder, safe='')  # → %7B%7BEMAIL%7D%7D
-                    encoded_value = quote(str(value), safe='@.')       # keep @ and . unencoded in emails
+                    value_str = str(value)
+
+                    # Check whether this value contains any markdown links
+                    if re.search(r'\[([^\]]+)\]\(([^)]+)\)', value_str):
+                        # Produce ODF XML — must NOT be additionally escaped
+                        safe_value = convert_markdown_links_to_odf(value_str)
+                    else:
+                        # Plain text — escape XML special chars as before
+                        safe_value = escape(value_str)
+
+                    text = text.replace(placeholder, safe_value)
+
+                    # URL-encoded placeholder replacement (e.g. inside href attributes)
+                    # Links inside href don't make sense here, so keep existing behaviour
+                    encoded_placeholder = quote(placeholder, safe='')
+                    encoded_value = quote(value_str, safe='@.')
                     text = text.replace(encoded_placeholder, encoded_value)
+
                 with open(filepath, 'w', encoding='utf-8') as f:
                     f.write(text)
 
@@ -83,18 +126,19 @@ def convert_to_pdf(input_odt, output):
 
 
 def generate_document(filename, 
-                      template = "./templates/template_new.odt", 
-                      output_folder = "./outputs/",
-                      language = "en"):
+                      config="./configs/",
+                      template="./templates/template_new.odt", 
+                      output_folder="./outputs/",
+                      language="en"):
     
-    # output_folder = "./outputs/"
-    filled_odt = f"{output_folder}/{filename}_{language}.odt"
-
-    data = load_translations("translations.json", language)
-
+    os.makedirs(output_folder, exist_ok=True)
+    filled_odt = os.path.join(output_folder, f"{filename}.odt")
+    
+    data = load_translations(config + "translations.json", language)
     replace_placeholders_in_odt(template, filled_odt, data)
 
 
 
 if __name__ == "__main__":
-    generate_document("en")
+    print("hi")
+    # generate_document("en")

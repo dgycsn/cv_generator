@@ -101,55 +101,40 @@ def prepare_summary(blocks: list[str], selected_bullets: str, model: str) -> lis
     job_blocks = "\n\n".join(f" {b}" for i, b in enumerate(blocks))
     
     prompt = f"""
-    You are a professional CV writer specializing in ATS optimization.
+    You are writing a CV summary. You must follow the structure exactly.
     
-    ## Step 1 — Classify the role
-    Read the job offer and identify:
-    - Primary role type (e.g. Data Engineer, AI/ML Engineer, Backend Developer)
-    - Top 5 technical requirements
+    ## Hard constraints
+    - Exactly 2 sentences. No more.
+    - Maximum 45 words total.
+    - Every claim must map to one of the provided bullets. If no bullet supports it, omit it.
+    - No filler: no "passionate", "proven track record", "seasoned", "robust", "dynamic".
+    - First person. Present tense for current role.
     
-    ## Step 2 — Assess fit
-    Determine whether the candidate's work experience directly matches the role type.
-    - DIRECT FIT: candidate's experience closely matches the role
-    - PARTIAL FIT: candidate has relevant transferable skills but comes from a different domain
+    ## Sentence structure (follow this exactly)
+    Sentence 1 — CURRENT ROLE + STRONGEST MATCH:
+      "Engineer with experience in [skill from bullets most 
+      relevant to job offer]."
     
-    ## Step 3 — Write summary
-    Write a 2-3 sentence professional summary based STRICTLY on the selected experience 
-    bullets below.
+    Sentence 2 — VALUE TO THIS ROLE:
+      "At [target company], I would bring [specific capability from bullets] to 
+      [specific need from job offer]."
     
-    Rules:
-    - Write in first person, Never use third person.
-    - Do NOT invent, infer, or add any experience, tools, or claims not present in the bullets
-    - When bridging your experience to the role, use the job offer's terminology 
-  but rephrase in your own words, do not copy sentence structures
-    - Every claim in the summary must be traceable to a specific 
-  selected bullet. If you cannot point to the bullet, remove the claim
-    - Mirror the terminology used in the job offer where possible
-    - Start with the candidate's current role and strongest relevant qualification
-    - Always open with the candidate's actual current job title, 
-  never the target role title
-    - End with what value they bring to this specific role
-    - Do NOT use filler phrases like "passionate about", "proven track record", "dynamic"
-    - If PARTIAL FIT: explicitly bridge the candidate's background to the target role in 
-      1-2 sentences — make the connection clear rather than leaving it to the reader
-    - If DIRECT FIT: focus purely on relevant experience and impact, write 3 sentences.
+    ## Inputs
     
-    --- SELECTED EXPERIENCE BULLETS ---
+    SELECTED BULLETS (only draw from these):
     {selected_bullets}
     
-    --- JOB OFFER ---
+    JOB OFFER (extract role name, company, top needs):
     {job_blocks}
     
-    Return ONLY valid JSON in this exact format:
+    Return ONLY valid JSON:
     {{
-      "role_classification": {{
-        "role_type": "...",
-        "top_technical_requirements": ["..."]
-      }},
-      "fit_assessment": "DIRECT FIT" or "PARTIAL FIT",
-      "SUMMARY": {{"text": "...", "reason": "..."}}
+      "summary": {{
+        "text": "...",
+        "reason": "explain your reasoning behind writing the summary text",
+      }}
     }}
-    """
+"""
     
     response = chat(model=model, messages=[{"role": "user", "content": prompt}], format="json")
     fields = json.loads(response.message.content)

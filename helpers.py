@@ -97,9 +97,12 @@ MIN_BULLETS = {
 def apply_defaults(selected_experience: dict, experience: dict, language: str = "en") -> dict:
     result = {}
     for block, min_count in MIN_BULLETS.items():
-        current_nums = list(selected_experience.get(block, {}).get("numbers", []))
-        current_nums_str = [str(n) for n in current_nums]
-        
+        current_nums_str = list(selected_experience.get(block, {}).keys())
+
+        # Always include bullet "1" if it exists in source data and isn't already selected
+        if "1" not in current_nums_str and "1" in experience.get(block, {}):
+            current_nums_str.insert(0, "1")
+
         # Add defaults if below minimum, avoiding duplicates
         if len(current_nums_str) < min_count:
             for default_num in DEFAULTS.get(block, []):
@@ -107,13 +110,15 @@ def apply_defaults(selected_experience: dict, experience: dict, language: str = 
                     break
                 if default_num not in current_nums_str:
                     current_nums_str.append(default_num)
-        
-        # Build the resolved text dict in order
+
+        # Build the resolved text dict in order, preferring LLM text when available
         resolved = {}
         for num in current_nums_str:
-            if num in experience.get(block, {}):
+            if num in selected_experience.get(block, {}):
+                resolved[num] = selected_experience[block][num]
+            elif num in experience.get(block, {}):
                 resolved[num] = experience[block][num][language]
-        
+
         result[block] = resolved
-    
+
     return result
