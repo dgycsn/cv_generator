@@ -133,6 +133,7 @@ def build_page2(root, pipeline_fn, on_done):
         "Selecting experience",
         "Selecting skills",
         "Generating summary",
+        "Saving PDF",
     ]
     N = len(STEPS)
 
