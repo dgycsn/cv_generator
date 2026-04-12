@@ -111,11 +111,18 @@ def prepare_summary(blocks: list[str], selected_bullets: str, model: str) -> lis
     - First person. Present tense for current role.
     
     ## Sentence structure (follow this exactly)
+    - Built entirely from SELECTED BULLETS.
+    - Explains candidate's experience (source of truth)
+    Includes:
+        - The single strongest technical capability (must appear explicitly in a bullet)
+        - One concrete achievement or tool (must appear explicitly in a bullet)
     Sentence 1 — CURRENT ROLE + STRONGEST MATCH:
       "Engineer with experience in [skill from bullets most 
       relevant to job offer]."
     
     Sentence 2 — VALUE TO THIS ROLE:
+    - Connect to Sentence 1, but only use Sentence 1 material on the candidate's side.
+    - Explains why the candidate is a good fit for this role.
       "At this position, I would bring [specific capability from bullets] to 
       [specific need from job offer]."
     
