@@ -116,7 +116,7 @@ def prepare_summary(blocks: list[str], selected_bullets: str, model: str) -> lis
       relevant to job offer]."
     
     Sentence 2 — VALUE TO THIS ROLE:
-      "At [target company], I would bring [specific capability from bullets] to 
+      "At this position, I would bring [specific capability from bullets] to 
       [specific need from job offer]."
     
     ## Inputs
@@ -129,7 +129,7 @@ def prepare_summary(blocks: list[str], selected_bullets: str, model: str) -> lis
     
     Return ONLY valid JSON:
     {{
-      "summary": {{
+      "SUMMARY": {{
         "text": "...",
         "reason": "explain your reasoning behind writing the summary text",
       }}

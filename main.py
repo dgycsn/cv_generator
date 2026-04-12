@@ -1,5 +1,5 @@
 from dialogs import run_dialog
-from helpers import dict2str, apply_defaults
+from helpers import dict2str, apply_defaults, enforce_maximums
 from extract_job_page import extract_blocks, filter_relevant_blocks, filter_title_company
 from generate_placeholders import prepare_experiences, prepare_skills, prepare_summary
 from fill_translation_placeholders import generate_document, convert_to_pdf, prepare_fill_input
@@ -7,7 +7,6 @@ from fill_experience_placeholders import fill_experience_placeholders
 import json
 import os
 import time
-import sys
 
 model = "qwen2.5:32b"
 
@@ -107,6 +106,7 @@ def finish(result):
     output_folder = result["output_folder"]
 
     filled_experience = apply_defaults(selected_experience, experience_data, language="en")
+    filled_experience = enforce_maximums(filled_experience)
 
     cv_folder = output_folder + "/" + company_name.split(" ")[0]
     os.makedirs(cv_folder, exist_ok=True)   # ensure output folder exists

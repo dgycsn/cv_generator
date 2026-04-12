@@ -122,3 +122,55 @@ def apply_defaults(selected_experience: dict, experience: dict, language: str = 
         result[block] = resolved
 
     return result
+
+
+MAX_TOTAL_BULLETS = 12
+
+MAX_PER_BLOCK_WHEN_OVERFLOW = {
+    "EXPERIENCE_3": 1,
+    "EDUCATION_1": 1,
+}
+
+
+def enforce_maximums(result: dict) -> dict:
+    # Count total bullets
+    total = sum(len(v) for v in result.values())
+
+    if total <= MAX_TOTAL_BULLETS:
+        return result
+
+    # Trim based on per-block caps
+    trimmed = {}
+
+    for block, bullets in result.items():
+        max_allowed = MAX_PER_BLOCK_WHEN_OVERFLOW.get(block, None)
+
+        if max_allowed is not None:
+            # Keep only first N bullets (preserve order)
+            trimmed[block] = dict(list(bullets.items())[:max_allowed])
+        else:
+            trimmed[block] = bullets
+
+    # Recount after trimming
+    total = sum(len(v) for v in trimmed.values())
+
+    # If STILL too many, do a global fallback trim
+    if total > MAX_TOTAL_BULLETS:
+        overflow = total - MAX_TOTAL_BULLETS
+
+        # Flatten (block, key) pairs in priority order
+        flat = [
+            (block, key)
+            for block, bullets in trimmed.items()
+            for key in bullets.keys()
+        ]
+
+        # Remove from the end (least important)
+        for block, key in reversed(flat):
+            if overflow <= 0:
+                break
+            if key != "1":  # optional: protect bullet "1"
+                del trimmed[block][key]
+                overflow -= 1
+
+    return trimmed
