@@ -49,8 +49,11 @@ Job URL
 
 ## Example output
 
-Total runtime: ~100 seconds on a local GPU.
+Total runtime: ~300 seconds on a local GPU.
 
+WATCH DEMO BY CLICKING ON CAR!!!
+
+ \>>> [![Watch the video](car.png)](https://www.youtube.com/watch?v=yNdxS3wlHVA) <<<
 ---
 
 ## Installation
