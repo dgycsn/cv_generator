@@ -1,34 +1,71 @@
-from datetime import datetime
 from fill_translation_placeholders import generate_document
-
 from helpers import apply_defaults
-
 from ollama import chat
 import json
 
+
+from extract_job_page import extract_blocks, filter_relevant_blocks
+from research_agent import research, get_company_address
+
 model = "qwen2.5:32b"
 
-DATE = datetime.today().strftime('%d-%m-%Y')
-datedict = {"DATE": DATE}
 
-filename = "CL_Alp_Yuecesan"
-cl_template = "./templates/motivation_letter_template.odt"
-output_folder = "./outputs/"
-config_folder = "./configs"
-language = "en"
+# ── Step 1: Extract recipient info from job page ───────────────────────────────
+
+def extract_recipient(relevant_blocks: list[str], model: str) -> tuple[str, str]:
+    """
+    Extract the recipient name and title from the job listing blocks.
+    Returns ("", "") if not found — these fields are optional in the template.
+    """
+    numbered = "\n\n".join(f"[{i}] {b}" for i, b in enumerate(relevant_blocks))
+
+    prompt = f"""You are extracting contact information from a job listing.
+Look for a named recruiter, HR contact, or hiring manager — someone the applicant should address the letter to.
+
+Return ONLY a JSON object with exactly these two keys:
+- "RECIPIENT_NAME": the full name of the contact person, or "" if not found
+- "RECIPIENT_TITLE": their job title (e.g. "HR Manager", "Recruiter"), or "" if not found
+
+Do NOT invent names. If no specific person is mentioned, return empty strings.
+
+Blocks:
+{numbered}
+
+Respond with ONLY a JSON object, e.g.:
+{{"RECIPIENT_NAME": "Anna Müller", "RECIPIENT_TITLE": "HR Manager"}}"""
+
+    response = chat(model=model, messages=[{"role": "user", "content": prompt}])
+    result = json.loads(response.message.content)
+    return result.get("RECIPIENT_NAME", ""), result.get("RECIPIENT_TITLE", "")
 
 
+# ── Step 2: Generate letter body paragraphs ───────────────────────────────────
 
-#%%
+def generate_paragraphs(
+    filled_experience: dict,
+    relevant_blocks: list[str],
+    company_name: str,
+    job_title: str,
+    company_research: str,
+    model: str,
+) -> dict[str, str]:
+    """
+    Uses the LLM to generate the four letter body paragraphs.
+    Returns a dict with keys: OPENING_PARAGRAPH, EXPERIENCE_PARAGRAPH,
+    COMPANY_PARAGRAPH, CLOSING_PARAGRAPH — values are the final text strings.
+    """
+    # Flatten experience bullets into a readable list
+    bullets = [
+        text
+        for block_data in filled_experience.values()
+        for text in block_data.values()
+    ]
+    bullets_text = "\n".join(f"- {b}" for b in bullets)
 
-filled_experience = apply_defaults(selected_experience, experience_data, language="en")
+    # Flatten job page blocks into a readable job offer summary
+    job_offer_text = "\n\n".join(relevant_blocks)
 
-company_research = ""
-
-job_offer = ""
-
-prompt = f"""
-You are writing a motivation letter. You must follow all constraints exactly.
+    prompt = f"""You are writing a motivation letter. You must follow all constraints exactly.
 
 ══════════════════════════════════════════════
 EXAMPLE — FOR STRUCTURE REFERENCE ONLY
@@ -80,7 +117,7 @@ END OF EXAMPLE — YOUR TASK STARTS HERE
 ══════════════════════════════════════════════
 
 ## Hard constraints — apply to ALL paragraphs
-- No filler: no "passionate", "excited", "proven track record", "dynamic", "robust", "thrilled", "seasoned"
+- No filler words: no "passionate", "excited", "proven track record", "dynamic", "robust", "thrilled", "seasoned"
 - Every factual claim must map to a provided bullet. If no bullet supports it, omit it.
 - COMPANY_PARAGRAPH must only use facts from COMPANY RESEARCH. Do not invent company facts.
 - First person. Present tense for current role, past tense for previous roles.
@@ -90,38 +127,38 @@ END OF EXAMPLE — YOUR TASK STARTS HERE
 
 OPENING_PARAGRAPH:
 - Exactly 2 sentences. Maximum 50 words.
-- Sentence 1: who you are + strongest skill match to job
-- Sentence 2: why this role + specific overlap with job's top need
+- Sentence 1: who you are + strongest skill match to the job
+- Sentence 2: why this role + specific overlap with the job's top need
 
 EXPERIENCE_PARAGRAPH:
 - Exactly 3 sentences. Maximum 80 words.
 - Sentence 1: current role + concrete achievement with specific detail
-- Sentence 2: relevant past experience supporting the job's needs
+- Sentence 2: relevant past experience that supports the job's needs
 - Sentence 3: bridge between your skill cluster and a specific job requirement
 
 COMPANY_PARAGRAPH:
 - Exactly 2 sentences. Maximum 50 words.
-- Sentence 1: specific fact from COMPANY RESEARCH — why this company
-- Sentence 2: your specific skill from bullets → their specific need
+- Sentence 1: one specific fact from COMPANY RESEARCH explaining why this company
+- Sentence 2: your specific skill from bullets mapped to their specific need
 
 CLOSING_PARAGRAPH:
 - Exactly 2 sentences. Maximum 40 words.
-- No new claims. End with a call to action naming the company.
+- No new claims. End with a call to action that names the company.
 
 ## Inputs
 
-SELECTED BULLETS (only draw from these — no other facts allowed):
-{filled_experience}
+SELECTED BULLETS (draw facts only from these):
+{bullets_text}
 
 JOB OFFER (extract: position title, company name, top needs):
-{job_offer}
+{job_offer_text}
 
 COMPANY NAME: {company_name}
 
-COMPANY RESEARCH (only draw from these for COMPANY_PARAGRAPH):
+COMPANY RESEARCH (use only these facts in COMPANY_PARAGRAPH):
 {company_research}
 
-Return ONLY valid JSON, no preamble, no markdown fences:
+Return ONLY valid JSON with no preamble and no markdown fences:
 {{
   "OPENING_PARAGRAPH": {{
     "text": "...",
@@ -139,26 +176,133 @@ Return ONLY valid JSON, no preamble, no markdown fences:
     "text": "...",
     "reason": "..."
   }}
-}}
-"""
+}}"""
 
-response = chat(model=model, messages=[{"role": "user", "content": prompt}], format="json")
-fields = json.loads(response.message.content)
+    response = chat(model=model, messages=[{"role": "user", "content": prompt}], format="json")
+    fields = json.loads(response.message.content)
+
+    # Strip the "reason" field — only keep the final text
+    return {key: value["text"] for key, value in fields.items()}
+
+
+# ── Main function ─────────────────────────────────────────────────────────────
+
+def generate_motivation_letter(
+    relevant_blocks: list[str],
+    selected_experience: dict,
+    experience_data: dict,
+    company_name: str,
+    job_title: str,
+    company_research: str,
+    company_address: str,
+    language: str,
+    filename: str,
+    cl_template: str,
+    config_folder: str,
+    output_folder: str,
+    model: str = "qwen2.5:32b",
+) -> None:
+    """
+    Full motivation letter pipeline:
+      1. Extract recipient info from job page
+      2. Generate the four letter body paragraphs
+      3. Fill the template and write the output .odt
+
+    Fields handled automatically by generate_document (from translations JSON):
+      FULL_NAME, CITY, DATE, PHONE, EMAIL, LINKEDIN, WEBSITE, CLOSING_PHRASE
+
+    Fields handled here:
+      RECIPIENT_NAME, RECIPIENT_TITLE, COMPANY_NAME, COMPANY_ADDRESS,
+      POSITION_TITLE, SALUTATION,
+      OPENING_PARAGRAPH, EXPERIENCE_PARAGRAPH, COMPANY_PARAGRAPH, CLOSING_PARAGRAPH
+    """
+
+    # Step 1: Flatten experience with language fallback
+    filled_experience = apply_defaults(selected_experience, experience_data, language="en")
+
+    # Step 2: Extract recipient from job page
+    recipient_name, recipient_title = extract_recipient(relevant_blocks, model)
+
+    # Step 3: Generate letter body
+    paragraphs = generate_paragraphs(
+        filled_experience=filled_experience,
+        relevant_blocks=relevant_blocks,
+        company_name=company_name,
+        job_title=job_title,
+        company_research=company_research,
+        model=model,
+    )
+
+    # Step 4: Build salutation — use recipient name if found, fall back to company team
+    if recipient_name:
+        salutation = f"Dear {recipient_name},"
+    else:
+        salutation = f"Dear {company_name} Team,"
+
+    # Step 5: Assemble all dynamic placeholders
+    dynamic_fields = {
+        "RECIPIENT_NAME":    recipient_name,
+        "RECIPIENT_TITLE":   recipient_title,
+        "COMPANY_NAME":      company_name,
+        "COMPANY_ADDRESS":   company_address,
+        "POSITION_TITLE":    job_title,
+        "SALUTATION":        salutation,
+        **paragraphs,
+    }
+
+    # Step 6: Fill template (generate_document injects translation fields on top)
+    generate_document(filename, config_folder, cl_template, output_folder, language, dynamic_fields)
 
 
 #%%
+# ── Standalone entry point ────────────────────────────────────────────────────
 
-fields_final = {key: value["text"] for key, value in fields.items()}
-fields_dict = {
-    "COMPANY_NAME": company_name,
-    "POSITION_TITLE":job_title
-    "SALUTATION": "Dear " + company_name + " Team,"
-    }
+if __name__ == "__main__":
 
-generate_document(filename, config_folder, cl_template, output_folder, language, datedict | fields_final)
+    # ── Config ────────────────────────────────────────────────────────────────
+    job_link      = "https://www.galaxus.ch/de/joboffer/4176"
+    filename      = "CL_Alp_Yuecesan"
+    cl_template   = "./templates/motivation_letter_template.odt"
+    config_folder = "./configs/"
+    output_folder = "./outputs/"
+    language      = "en"
+    model         = "qwen2.5:32b"
 
+    with open(config_folder + "experience.json", "r", encoding="utf-8") as f:
+        experience_data = json.load(f)
 
+    # Simulate selected_experience as full defaults for standalone run
+    selected_experience = {}
 
+    # ── Run ───────────────────────────────────────────────────────────────────
+    print("[CL] Extracting job page...")
+    blocks          = extract_blocks(job_link)
+    relevant_blocks = filter_relevant_blocks(blocks, model)
 
+    # Import here to reuse filter_title_company without running full CV pipeline
+    from extract_job_page import filter_title_company
+    job_title, company_name, language = filter_title_company(relevant_blocks, model)
 
+    print(f"[CL] Job: {job_title} @ {company_name} ({language})")
 
+    print("[CL] Researching company...")
+    company_research = research(company_name)
+    company_address  = get_company_address(company_name)
+
+    print("[CL] Generating motivation letter...")
+    generate_motivation_letter(
+        relevant_blocks    = relevant_blocks,
+        selected_experience= selected_experience,
+        experience_data    = experience_data,
+        company_name       = company_name,
+        job_title          = job_title,
+        company_research   = company_research,
+        company_address    = company_address,
+        language           = language,
+        filename           = filename,
+        cl_template        = cl_template,
+        config_folder      = config_folder,
+        output_folder      = output_folder,
+        model              = model,
+    )
+    print(f"[CL] Done → {output_folder}{filename}_{language}.odt")
