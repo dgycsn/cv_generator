@@ -10,6 +10,44 @@ import time
 
 model = "qwen2.5:32b"
 
+import torch
+
+# ─── CPU THREAD LIMITS ───────────────────────────────────────────
+os.environ["OMP_NUM_THREADS"] = "4"          # OpenMP threads (used by PyTorch, numpy)
+os.environ["MKL_NUM_THREADS"] = "4"          # Intel MKL threads
+os.environ["NUMEXPR_NUM_THREADS"] = "4"      # NumExpr threads
+os.environ["OPENBLAS_NUM_THREADS"] = "4"     # OpenBLAS threads
+os.environ["VECLIB_MAXIMUM_THREADS"] = "4"   # macOS Accelerate threads
+os.environ["TOKENIZERS_PARALLELISM"] = "false" # Suppress HuggingFace tokenizer warnings + limits forks
+
+# ─── PYTORCH THREAD LIMITS ───────────────────────────────────────
+torch.set_num_threads(4)          # intra-op parallelism (single op, e.g. matmul)
+torch.set_num_interop_threads(2)  # inter-op parallelism (parallel ops in graph)
+
+# ─── GPU / CUDA LIMITS ───────────────────────────────────────────
+if torch.cuda.is_available():
+    torch.cuda.set_per_process_memory_fraction(0.75)  # max 75% VRAM, tweak as needed
+    os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"    # consistent GPU ordering
+
+# ─── PROCESS PRIORITY (cross-platform) ───────────────────────────
+import psutil, os as _os
+try:
+    p = psutil.Process(_os.getpid())
+    p.nice(10)                    # Linux/Mac: 10 = low priority (range -20 to 19)
+    # p.nice(psutil.BELOW_NORMAL_PRIORITY_CLASS)  # swap this in on Windows instead
+except Exception:
+    pass  # silently skip if psutil not installed or permission denied
+
+# ─── OLLAMA-SPECIFIC ENV VARS ─────────────────────────────────────
+os.environ["OLLAMA_NUM_PARALLEL"] = "1"      # max parallel requests Ollama handles
+os.environ["OLLAMA_MAX_LOADED_MODELS"] = "1" # only keep 1 model in VRAM at a time
+os.environ["OLLAMA_FLASH_ATTENTION"] = "1"   # faster + less VRAM (if supported)
+
+# ─── GARBAGE COLLECTION (helps with memory pressure) ─────────────
+import gc
+gc.enable()
+gc.collect()
+
 
 #%%
 # ── Pipeline (runs in background thread) ──────────────────────────────────────
@@ -72,7 +110,7 @@ def pipeline(dialog_data, progress_callback, stop_event):
     summary = prepare_summary(relevant_blocks, selected_bullets_text, model)
     check()
 
-    return {
+    result = {
         "job_title":           job_title,
         "company_name":        company_name,
         "language":            language,
@@ -82,6 +120,10 @@ def pipeline(dialog_data, progress_callback, stop_event):
         "summary":             summary,
         **dialog_data,
     }
+    globals().update(result)   # ← add this
+    
+    globals().update(relevant_blocks)
+    return result
 
 
 #%%
@@ -93,6 +135,8 @@ def finish(result):
     Called on the main thread once the pipeline completes.
     Retries convert_to_pdf once on failure to handle stale LibreOffice processes.
     """
+    globals().update(result)   # ← add this
+
     job_title           = result["job_title"]
     company_name        = result["company_name"]
     language            = result["language"]
@@ -130,7 +174,7 @@ def finish(result):
                 time.sleep(2)   # wait for any lingering soffice.exe to exit
             else:
                 raise
-
+    
 #%%
 # ── Launch ────────────────────────────────────────────────────────────────────
 
