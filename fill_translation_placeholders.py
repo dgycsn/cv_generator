@@ -129,16 +129,18 @@ def generate_document(filename,
                       config="./configs/",
                       template="./templates/template_new.odt", 
                       output_folder="./outputs/",
-                      language="en"):
+                      language="en",
+                      extra_translations = {}):
     
     os.makedirs(output_folder, exist_ok=True)
     filled_odt = os.path.join(output_folder, f"{filename}.odt")
     
     data = load_translations(config + "translations.json", language)
-    replace_placeholders_in_odt(template, filled_odt, data)
+    replace_placeholders_in_odt(template, filled_odt, data | extra_translations)
 
 
 
 if __name__ == "__main__":
     print("hi")
-    # generate_document("en")
+    # generate_document("test", template = "./templates/motivation_letter_template.odt")
+    

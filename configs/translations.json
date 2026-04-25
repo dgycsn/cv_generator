@@ -195,6 +195,14 @@
         "en": "Available on Request",
         "de": "auf Anfrage erhältlich"
     },
+    "CITY": {
+        "en": "Bern",
+        "de": "Bern"
+    },
+    "CLOSING_PHRASE": {
+        "en": "Best regards",
+        "de": "Mit besten Grüssen"
+    },
     "ZZ": {
         "en": "ZZ",
         "de": "ZZ"
@@ -202,5 +210,26 @@
     "ZZ": {
         "en": "ZZ",
         "de": "ZZ"
-    }
+    },
+    "ZZ": {
+        "en": "ZZ",
+        "de": "ZZ"
+    },
+    "ZZ": {
+        "en": "ZZ",
+        "de": "ZZ"
+    },
+    "ZZ": {
+        "en": "ZZ",
+        "de": "ZZ"
+    },
+    "ZZ": {
+        "en": "ZZ",
+        "de": "ZZ"
+    },
+    "ZZ": {
+        "en": "ZZ",
+        "de": "ZZ"
+    },
+
 }
