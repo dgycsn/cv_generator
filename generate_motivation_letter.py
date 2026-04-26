@@ -270,7 +270,7 @@ Return ONLY a JSON array, no preamble."""
 
 
 # ── Main function ─────────────────────────────────────────────────────────────
-
+ 
 def generate_motivation_letter(
     relevant_blocks: list[str],
     selected_experience: dict,
@@ -289,25 +289,39 @@ def generate_motivation_letter(
     """
     Full motivation letter pipeline:
       1. Extract recipient info from job page
-      2. Generate the four letter body paragraphs
-      3. Fill the template and write the output .odt
-
+      2. Assess job fit and warn if score is low
+      3. Generate the four letter body paragraphs (with validation)
+      4. Fill the template and write the output .odt
+ 
     Fields handled automatically by generate_document (from translations JSON):
       FULL_NAME, CITY, DATE, PHONE, EMAIL, LINKEDIN, WEBSITE, CLOSING_PHRASE
-
+ 
     Fields handled here:
       RECIPIENT_NAME, RECIPIENT_TITLE, COMPANY_NAME, COMPANY_ADDRESS,
       POSITION_TITLE, SALUTATION,
       OPENING_PARAGRAPH, EXPERIENCE_PARAGRAPH, COMPANY_PARAGRAPH, CLOSING_PARAGRAPH
     """
-
+ 
     # Step 1: Flatten experience with language fallback
     filled_experience = apply_defaults(selected_experience, experience_data, language="en")
-
+ 
     # Step 2: Extract recipient from job page
     recipient_name, recipient_title = extract_recipient(relevant_blocks, model)
-
-    # Step 3: Generate letter body
+ 
+    # Step 3: Flatten bullets for fit check
+    bullets = [
+        text
+        for block_data in filled_experience.values()
+        for text in block_data.values()
+    ]
+    bullets_text = "\n".join(f"- {b}" for b in bullets)
+    job_offer_text = "\n\n".join(relevant_blocks)
+ 
+    # Step 4: Assess fit — warns if score is low, but does not block generation
+    print("[CL] Assessing job fit...")
+    assess_fit(bullets_text, job_offer_text, model)
+ 
+    # Step 5: Generate letter body (includes validation internally)
     paragraphs = generate_paragraphs(
         filled_experience=filled_experience,
         relevant_blocks=relevant_blocks,
@@ -316,14 +330,17 @@ def generate_motivation_letter(
         company_research=company_research,
         model=model,
     )
-
-    # Step 4: Build salutation — use recipient name if found, fall back to company team
+ 
+    # Step 6: Build salutation — use recipient name if found, fall back to company team
+    # Note: salutation string must NOT end with a comma if the template already has one.
+    # Check your ODT template: if SALUTATION placeholder is followed by a comma, remove
+    # the trailing comma here. Currently we include it so the template should have none.
     if recipient_name:
         salutation = f"Dear {recipient_name},"
     else:
         salutation = f"Dear {company_name} Team,"
-
-    # Step 5: Assemble all dynamic placeholders
+ 
+    # Step 7: Assemble all dynamic placeholders
     dynamic_fields = {
         "RECIPIENT_NAME":    recipient_name,
         "RECIPIENT_TITLE":   recipient_title,
@@ -334,19 +351,21 @@ def generate_motivation_letter(
         "DATE":              datetime.today().strftime('%d-%m-%Y'),
         **paragraphs,
     }
-
-    # Step 6: Fill template (generate_document injects translation fields on top)
+ 
+    # Step 8: Fill template (generate_document injects translation fields on top)
     generate_document(filename, config_folder, cl_template, output_folder, language, dynamic_fields)
-
+    
     return dynamic_fields
 
+ 
+ 
 #%%
 # ── Standalone entry point ────────────────────────────────────────────────────
-
+ 
 if __name__ == "__main__":
     from extract_job_page import extract_blocks, filter_relevant_blocks, filter_title_company
-    from research_agent import research, get_company_address
-
+    from research_agent import research_full
+ 
     # ── Config ────────────────────────────────────────────────────────────────
     job_link      = "https://www.galaxus.ch/de/joboffer/4176"
     filename      = "CL_Alp_Yuecesan"
@@ -355,40 +374,36 @@ if __name__ == "__main__":
     output_folder = "./outputs/"
     language      = "en"
     model         = "qwen2.5:32b"
-
+ 
     with open(config_folder + "experience.json", "r", encoding="utf-8") as f:
         experience_data = json.load(f)
-
+ 
     # ── Step 1: Extract job page ──────────────────────────────────────────────
-    # Re-run only the steps whose variables are not yet defined.
-    # To re-run a step, delete its variables in your IDE's variable explorer,
-    # or comment out the `if` guard temporarily.
-
     if "blocks" not in dir():
         print("[CL] Extracting job page blocks...")
         blocks = extract_blocks(job_link)
-
+ 
     if "relevant_blocks" not in dir():
         print("[CL] Filtering relevant blocks...")
         relevant_blocks = filter_relevant_blocks(blocks, model)
-
+ 
     if "job_title" not in dir():
         print("[CL] Extracting title & company...")
         job_title, company_name, _ = filter_title_company(relevant_blocks, model)
         print(f"[CL] Job: {job_title} @ {company_name} ({language})")
-
-    # ── Step 2: Research ──────────────────────────────────────────────────────
-    if "company_research" not in dir():
+ 
+    # ── Step 2: Research (single pass for both brief and address) ─────────────
+    if "company_research" not in dir() or "company_address" not in dir():
         print("[CL] Researching company...")
-        company_research = research(company_name)
-
-    if "company_address" not in dir():
-        company_address = get_company_address(company_name)
-
+        company_research, company_address = research_full(company_name)
+ 
     # ── Step 3: Experience ────────────────────────────────────────────────────
+    # NOTE: Replace the empty dict below with your actual selected_experience.
+    # Passing {} here uses ALL experience bullets with no selection — which
+    # floods the prompt and weakens relevance. Always select before this step.
     if "selected_experience" not in dir():
         selected_experience = apply_defaults({}, experience_data, language=language)
-
+ 
     # ── Step 4: Generate letter ───────────────────────────────────────────────
     print("[CL] Generating motivation letter...")
     dynamic_fields = generate_motivation_letter(

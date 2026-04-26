@@ -70,17 +70,21 @@ def build_page1(root, config, on_continue):
         if browse_fn:
             tk.Button(frame, text="📂", command=browse_fn).grid(row=row, column=2, padx=(0, 10))
 
+    def get_entry(row):
+        return frame.grid_slaves(row=row, column=1)[0]
+
     job_link_var      = tk.StringVar(value=config.get("job_link", ""))
     template_var      = tk.StringVar(value=config.get("template", ""))
+    cl_template_var   = tk.StringVar(value=config.get("cl_template", ""))
     config_folder_var = tk.StringVar(value=config.get("config_folder", ""))
     output_folder_var = tk.StringVar(value=config.get("output_folder", ""))
     filename_var      = tk.StringVar(value=config.get("filename", ""))
 
-    def get_entry(row):
-        return frame.grid_slaves(row=row, column=1)[0]
+    gen_cv_var = tk.BooleanVar(value=config.get("gen_cv", True))
+    gen_cl_var = tk.BooleanVar(value=config.get("gen_cl", False))
 
     add_field(1, "Job URL:",         job_link_var)
-    add_field(2, "Template (.odt):", template_var,
+    add_field(2, "CV template (.odt):", template_var,
               lambda: browse_file(get_entry(2), config, "template",
                                   filetypes=[("ODT files", "*.odt"), ("All files", "*.*")]))
     add_field(3, "Config folder:",   config_folder_var,
@@ -89,16 +93,53 @@ def build_page1(root, config, on_continue):
               lambda: browse_directory(get_entry(4), config, "output_folder"))
     add_field(5, "Filename:",        filename_var)
 
+    # ── Document selection checkboxes ─────────────────────────────────────────
+    check_frame = tk.Frame(frame)
+    check_frame.grid(row=6, column=0, columnspan=3, sticky="w", padx=10, pady=(6, 0))
+    tk.Label(check_frame, text="Generate:").pack(side="left", padx=(0, 8))
+    tk.Checkbutton(check_frame, text="CV",                 variable=gen_cv_var).pack(side="left", padx=4)
+    tk.Checkbutton(check_frame, text="Motivation letter",  variable=gen_cl_var,
+                   command=lambda: _toggle_cl_row()).pack(side="left", padx=4)
+
+    # ── CL template row (shown/hidden based on checkbox) ──────────────────────
+    cl_label  = tk.Label(frame, text="CL template (.odt):")
+    cl_entry  = tk.Entry(frame, textvariable=cl_template_var, width=40)
+    cl_button = tk.Button(frame, text="📂",
+                          command=lambda: browse_file(cl_entry, config, "cl_template",
+                                                      filetypes=[("ODT files", "*.odt"),
+                                                                 ("All files", "*.*")]))
+
+    def _toggle_cl_row():
+        if gen_cl_var.get():
+            cl_label.grid( row=7, column=0, sticky="w",  **pad)
+            cl_entry.grid( row=7, column=1, sticky="ew", **pad)
+            cl_button.grid(row=7, column=2, padx=(0, 10))
+            root.geometry(f"560x{370}+{root.winfo_x()}+{root.winfo_y()}")
+        else:
+            cl_label.grid_remove()
+            cl_entry.grid_remove()
+            cl_button.grid_remove()
+            root.geometry(f"560x{310}+{root.winfo_x()}+{root.winfo_y()}")
+
+    # Show CL row immediately if it was previously enabled
+    if gen_cl_var.get():
+        _toggle_cl_row()
+
     error_label = tk.Label(frame, text="", fg="red")
-    error_label.grid(row=6, column=1, sticky="w", padx=10)
+    error_label.grid(row=8, column=1, sticky="w", padx=10)
 
     def on_continue_click():
         errors = []
         if not job_link_var.get().strip():      errors.append("Job URL is required")
-        if not template_var.get().strip():      errors.append("Template file is required")
         if not config_folder_var.get().strip(): errors.append("Config folder is required")
         if not output_folder_var.get().strip(): errors.append("Output folder is required")
         if not filename_var.get().strip():      errors.append("Filename is required")
+        if not gen_cv_var.get() and not gen_cl_var.get():
+            errors.append("Select at least one document to generate")
+        if gen_cv_var.get() and not template_var.get().strip():
+            errors.append("CV template is required when generating a CV")
+        if gen_cl_var.get() and not cl_template_var.get().strip():
+            errors.append("CL template is required when generating a motivation letter")
 
         if errors:
             error_label.config(text="\n".join(errors))
@@ -108,33 +149,46 @@ def build_page1(root, config, on_continue):
         data = {
             "job_link":      job_link_var.get().strip(),
             "template":      template_var.get().strip(),
+            "cl_template":   cl_template_var.get().strip(),
             "config_folder": config_folder_var.get().strip().rstrip("/") + "/",
             "output_folder": output_folder_var.get().strip(),
             "filename":      filename_var.get().strip(),
+            "gen_cv":        gen_cv_var.get(),
+            "gen_cl":        gen_cl_var.get(),
         }
         config.update(data)
         save_config(config)
         on_continue(data)
 
     tk.Button(frame, text="Continue →", width=15, command=on_continue_click).grid(
-        row=7, column=1, pady=10)
+        row=9, column=1, pady=10)
 
     return frame
 
 
-def build_page2(root, pipeline_fn, on_done):
+def build_page2(root, pipeline_fn, on_done, gen_cv, gen_cl):
     """
     Page 2: Progress bar while pipeline runs in a background thread.
+    Steps are built dynamically based on which documents are being generated.
 
     Returns (frame, stop_event).
     """
-    STEPS = [
-        "Extracting job page blocks",
-        "Selecting experience",
-        "Selecting skills",
-        "Generating summary",
-        "Saving PDF",
-    ]
+    STEPS = ["Extracting job page blocks"]
+
+    if gen_cv:
+        STEPS += [
+            "Selecting experience",
+            "Selecting skills",
+            "Generating summary",
+        ]
+    if gen_cl:
+        STEPS += [
+            "Researching company",
+            "Generating motivation letter",
+        ]
+
+    STEPS += ["Saving documents"]
+
     N = len(STEPS)
 
     frame = tk.Frame(root)
@@ -163,15 +217,12 @@ def build_page2(root, pipeline_fn, on_done):
 
     start_time = time.time()
     _running   = [True]
-    _destroyed = [False]   # set to True when the frame is destroyed, guards all root.after calls
+    _destroyed = [False]
     stop_event = threading.Event()
 
-    # Bind to frame destruction so _destroyed is flipped automatically
-    # when root.destroy() is called (prevents Tkinter thread-safety crashes)
     frame.bind("<Destroy>", lambda e: _destroyed.__setitem__(0, True))
 
     def safe_after(fn):
-        """Schedule fn on the main thread only if the window is still alive."""
         if not _destroyed[0]:
             root.after(0, fn)
 
@@ -204,7 +255,7 @@ def build_page2(root, pipeline_fn, on_done):
             return
         except Exception as e:
             _running[0] = False
-            safe_after(lambda: error_var.set(f"Error: {e}"))
+            safe_after(lambda err=e: error_var.set(f"Error: {err}"))
             return
 
         _running[0] = False
@@ -220,7 +271,6 @@ def build_page2(root, pipeline_fn, on_done):
 def build_page3(root, result):
     """
     Page 3: Scrollable summary of what was generated.
-    Prints every bullet of selected_experience and selected_skill.
     """
     frame = tk.Frame(root)
     frame.columnconfigure(0, weight=1)
@@ -228,6 +278,11 @@ def build_page3(root, result):
 
     tk.Label(frame, text="✅ Complete!", font=("", 13, "bold"), fg="#2a7a2a").grid(
         row=0, column=0, pady=(14, 6))
+
+    if result.get("_finish_error"):
+        tk.Label(frame, text=f"⚠ Error: {result['_finish_error']}",
+                 fg="red", wraplength=500, justify="left").grid(
+            row=0, column=0, pady=(14, 6))
 
     info_frame = tk.LabelFrame(frame, text="Job details", padx=10, pady=6)
     info_frame.grid(row=1, column=0, sticky="ew", **pad)
@@ -241,6 +296,12 @@ def build_page3(root, result):
     kv(info_frame, 0, "Job title:", result.get("job_title", "—"))
     kv(info_frame, 1, "Company:",   result.get("company_name", "—"))
     kv(info_frame, 2, "Language:",  result.get("language", "—"))
+
+    # Show which documents were generated
+    docs = []
+    if result.get("gen_cv"):  docs.append("CV")
+    if result.get("gen_cl"):  docs.append("Motivation letter")
+    kv(info_frame, 3, "Generated:", ", ".join(docs) if docs else "—")
 
     canvas    = tk.Canvas(frame, borderwidth=0, highlightthickness=0)
     scrollbar = tk.Scrollbar(frame, orient="vertical", command=canvas.yview)
@@ -290,10 +351,31 @@ def build_page3(root, result):
                     row=r, column=0, sticky="ew")
                 r += 1
 
-    add_section(inner, 0, "Selected experience", result.get("selected_experience", {}))
-    add_section(inner, 1, "Selected skills",      result.get("selected_skill", {}))
+    inner_row = 0
+    if result.get("gen_cv"):
+        add_section(inner, inner_row, "Selected experience", result.get("selected_experience", {}))
+        inner_row += 1
+        add_section(inner, inner_row, "Selected skills",     result.get("selected_skill", {}))
+        inner_row += 1
+    if result.get("gen_cl"):
+        # Show the generated paragraphs in a simple label frame
+        cl_section = tk.LabelFrame(inner, text="Motivation letter", padx=10, pady=6)
+        cl_section.grid(row=inner_row, column=0, sticky="ew", pady=(0, 8))
+        cl_section.columnconfigure(0, weight=1)
+        para_keys = ["OPENING_PARAGRAPH", "EXPERIENCE_PARAGRAPH",
+                     "COMPANY_PARAGRAPH",  "CLOSING_PARAGRAPH"]
+        for i, key in enumerate(para_keys):
+            text = result.get(key, "")
+            if text:
+                tk.Label(cl_section, text=key.replace("_", " ").title(),
+                         font=("", 9, "bold"), anchor="w").grid(
+                    row=i*2, column=0, sticky="w", pady=(4 if i > 0 else 0, 2))
+                tk.Label(cl_section, text=text, anchor="w",
+                         justify="left", wraplength=460).grid(
+                    row=i*2+1, column=0, sticky="ew")
 
-    tk.Label(frame, text="CV saved. You may close this window.",
+    docs_str = " and ".join(docs) if docs else "document"
+    tk.Label(frame, text=f"{docs_str} saved. You may close this window.",
              fg="grey", font=("", 9)).grid(row=3, column=0, pady=(4, 10))
 
     return frame
@@ -316,7 +398,7 @@ def run_dialog(pipeline_fn, finish_fn, initial_data=None):
         config.update(initial_data)
 
     root = tk.Tk()
-    root.title("CV Generator")
+    root.title("CV / CL Generator")
     root.resizable(True, True)
 
     root.update_idletasks()
@@ -357,13 +439,23 @@ def run_dialog(pipeline_fn, finish_fn, initial_data=None):
             try:
                 finish_fn(result)
             except Exception as e:
-                print(f"CV generation error: {e}")
-                return
+                import traceback
+                traceback.print_exc()
+                # Show error on page 2's error label if still visible
+                safe_show_error = getattr(on_pipeline_done, "_error_cb", None)
+                print(f"Document generation error: {e}")
+                # Still advance to page 3 so the user sees what was selected,
+                # but add the error to result so page 3 can display it
+                result["_finish_error"] = str(e)
             root.geometry(f"560x500+{x}+{y}")
             page3 = build_page3(root, result)
             show_frame(page3)
 
-        page2, stop_event = build_page2(root, wrapped_pipeline, on_done=on_pipeline_done)
+        page2, stop_event = build_page2(
+            root, wrapped_pipeline, on_done=on_pipeline_done,
+            gen_cv=data.get("gen_cv", True),
+            gen_cl=data.get("gen_cl", False),
+        )
         stop_ref["event"] = stop_event
         show_frame(page2)
 
@@ -392,6 +484,8 @@ if __name__ == "__main__":
             "job_title":    "Software Engineer",
             "company_name": "Acme Corp",
             "language":     "en",
+            "gen_cv":       dialog_data.get("gen_cv", True),
+            "gen_cl":       dialog_data.get("gen_cl", False),
             "selected_experience": {
                 "EXPERIENCE_1": {"1": "Built scalable APIs", "2": "Led team of 5 engineers"},
                 "EXPERIENCE_2": {"1": "Reduced latency by 40%"},
@@ -402,10 +496,14 @@ if __name__ == "__main__":
                 "SKILLS_1": {"1": "Python", "2": "Docker"},
                 "SKILLS_2": {},
             },
+            "OPENING_PARAGRAPH":    "Sample opening paragraph text.",
+            "EXPERIENCE_PARAGRAPH": "Sample experience paragraph text.",
+            "COMPANY_PARAGRAPH":    "Sample company paragraph text.",
+            "CLOSING_PARAGRAPH":    "Sample closing paragraph text.",
         }
 
     def dummy_finish(result):
-        print("finish_fn called — would generate CV here.")
+        print("finish_fn called — would generate documents here.")
         time.sleep(0.3)
 
     run_dialog(pipeline_fn=dummy_pipeline, finish_fn=dummy_finish)
