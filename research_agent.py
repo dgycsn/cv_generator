@@ -1,21 +1,23 @@
 import httpx
 from bs4 import BeautifulSoup
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from ddgs import DDGS
 import ollama
 
 # ── Config ────────────────────────────────────────────────────────────────────
 
-MODEL = "qwen2.5:32b"
+MODEL          = "qwen2.5:32b"
 MAX_CANDIDATES = 15      # max search results to fetch
 MIN_READABLE   = 5       # stop once this many pages yield actual content
 MIN_PAGE_CHARS = 200     # pages below this char count are considered unreadable
 MAX_CHARS      = 3000    # max chars extracted per page (keeps context small)
 TIMEOUT        = 10      # seconds per HTTP request
+MAX_RETRIES    = 2       # retry attempts on transient timeouts
 
 
 # ── Step 1: Search ────────────────────────────────────────────────────────────
 
-def search(company: str, query_suffix: str = "engineering culture values technology") -> list[dict]:
+def search(company: str, query_suffix: str) -> list[dict]:
     query = f"{company} {query_suffix}"
     with DDGS() as ddgs:
         results = list(ddgs.text(query, max_results=MAX_CANDIDATES))
@@ -25,24 +27,36 @@ def search(company: str, query_suffix: str = "engineering culture values technol
 # ── Step 2: Scrape ────────────────────────────────────────────────────────────
 
 def scrape(url: str) -> str:
-    """Fetch a URL and return cleaned visible text, or empty string if unreadable."""
-    try:
-        response = httpx.get(
-            url,
-            timeout=TIMEOUT,
-            follow_redirects=True,
-            headers={"User-Agent": "Mozilla/5.0 (research-bot/1.0)"},
-        )
-        response.raise_for_status()
-    except Exception:
-        return ""
+    """
+    Fetch a URL and return cleaned visible text, or empty string if unreadable.
+    Prefers <main> or <article> content to avoid nav/hero boilerplate.
+    Retries on timeout up to MAX_RETRIES times.
+    """
+    for attempt in range(MAX_RETRIES + 1):
+        try:
+            response = httpx.get(
+                url,
+                timeout=TIMEOUT,
+                follow_redirects=True,
+                headers={"User-Agent": "Mozilla/5.0 (research-bot/1.0)"},
+            )
+            response.raise_for_status()
+            break
+        except httpx.TimeoutException:
+            if attempt < MAX_RETRIES:
+                continue
+            return ""
+        except Exception:
+            return ""
 
     soup = BeautifulSoup(response.text, "html.parser")
 
     for tag in soup(["script", "style", "nav", "footer", "header", "aside"]):
         tag.decompose()
 
-    text = soup.get_text(separator=" ", strip=True)
+    # Prefer semantic content containers over full body
+    content_node = soup.find("main") or soup.find("article") or soup
+    text = content_node.get_text(separator=" ", strip=True)
     text = " ".join(text.split())
     return text[:MAX_CHARS]
 
@@ -136,35 +150,43 @@ def synthesize_address(company: str, summaries: list[str]) -> str:
     return "" if result.lower() in ("", "none", "not found") else result
 
 
-# ── Shared scraping loop ──────────────────────────────────────────────────────
+# ── Shared scraping loop (parallel) ──────────────────────────────────────────
 
 def _scrape_pages(company: str, query_suffix: str) -> list[str]:
     """
-    Internal helper: search and scrape pages for a company query.
+    Search for pages, scrape them in parallel, then summarize sequentially.
     Returns a list of per-page summaries.
     """
     print(f"[research] Searching for '{company}' ({query_suffix})...")
     results = search(company, query_suffix)
 
-    summaries = []
-    readable  = 0
+    # Filter to URLs that are worth fetching
+    candidates = [r for r in results if r.get("href")][:MAX_CANDIDATES]
 
-    for result in results:
-        if readable >= MIN_READABLE:
-            break
+    # Scrape all candidates in parallel
+    print(f"[research] Scraping {len(candidates)} pages in parallel...")
+    scraped: dict[str, tuple[str, str]] = {}  # url -> (title, text)
 
-        url   = result.get("href", "")
+    def fetch(result: dict) -> tuple[str, str, str]:
+        url   = result["href"]
         title = result.get("title", url)
-        print(f"[research] Scraping: {title[:60]}")
-        page_text = scrape(url)
+        text  = scrape(url)
+        return url, title, text
 
-        if len(page_text) < MIN_PAGE_CHARS:
-            print(f"[research] Skipped (unreadable): {title[:60]}")
-            continue
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        futures = {executor.submit(fetch, r): r for r in candidates}
+        for future in as_completed(futures):
+            url, title, text = future.result()
+            if len(text) >= MIN_PAGE_CHARS:
+                scraped[url] = (title, text)
+                print(f"[research] ✓ Readable: {title[:60]}")
+            else:
+                print(f"[research] ✗ Skipped:  {title[:60]}")
 
-        readable += 1
-        print(f"[research] Readable {readable}/{MIN_READABLE}: {title[:60]}")
-        summary = summarize_page(company, page_text, title)
+    # Summarize readable pages (sequential — LLM calls are stateful)
+    summaries = []
+    for url, (title, text) in list(scraped.items())[:MIN_READABLE]:
+        summary = summarize_page(company, text, title)
         summaries.append(summary)
 
     return summaries
@@ -172,11 +194,37 @@ def _scrape_pages(company: str, query_suffix: str) -> list[str]:
 
 # ── Public API ────────────────────────────────────────────────────────────────
 
+def research_full(company: str) -> tuple[str, str]:
+    """
+    Single-pass research: scrapes once and derives both the culture/tech brief
+    and the postal address from the same set of pages.
+
+    Returns:
+        brief   — 4 bullet points about culture, mission, technology
+        address — plain multiline postal address string, or ""
+
+    Use this instead of calling research() and get_company_address() separately,
+    which would double the scraping cost.
+    """
+    # Combined query hits both culture/tech and address signals in one search
+    summaries = _scrape_pages(company, "engineering culture values technology headquarters address contact")
+
+    print(f"[research] Synthesizing brief from {len(summaries)} sources...")
+    brief = synthesize(company, summaries)
+
+    print(f"[research] Extracting address from {len(summaries)} sources...")
+    address = synthesize_address(company, summaries)
+
+    return brief, address
+
+
+# ── Legacy single-purpose functions (kept for backward compatibility) ──────────
+
 def research(company: str) -> str:
     """
+    Deprecated: use research_full() to avoid a double scraping pass.
     Run a full research pass on a company.
-    Returns 4 bullet points about culture, mission, and technology —
-    suitable for use in the COMPANY_PARAGRAPH of a motivation letter.
+    Returns 4 bullet points about culture, mission, and technology.
     """
     summaries = _scrape_pages(company, "engineering culture values technology")
     print(f"[research] Synthesizing brief from {len(summaries)} sources...")
@@ -185,6 +233,7 @@ def research(company: str) -> str:
 
 def get_company_address(company: str) -> str:
     """
+    Deprecated: use research_full() to avoid a double scraping pass.
     Search for a company's official postal address.
     Returns a plain multiline string address, or "" if not found.
     """
@@ -198,11 +247,11 @@ def get_company_address(company: str) -> str:
 if __name__ == "__main__":
     company = "Digitec Galaxus"
 
-    brief   = research(company)
+    brief, address = research_full(company)
+
     print("\n── Company Brief ─────────────────────────────────────────\n")
     print(brief)
 
-    address = get_company_address(company)
     print("\n── Company Address ───────────────────────────────────────\n")
     print(address or "(not found)")
     print("\n──────────────────────────────────────────────────────────\n")

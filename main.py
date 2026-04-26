@@ -33,8 +33,8 @@ if torch.cuda.is_available():
 import psutil, os as _os
 try:
     p = psutil.Process(_os.getpid())
-    p.nice(10)                    # Linux/Mac: 10 = low priority (range -20 to 19)
-    # p.nice(psutil.BELOW_NORMAL_PRIORITY_CLASS)  # swap this in on Windows instead
+    # p.nice(10)                    # Linux/Mac: 10 = low priority (range -20 to 19)
+    p.nice(psutil.BELOW_NORMAL_PRIORITY_CLASS)  # swap this in on Windows instead
 except Exception:
     pass  # silently skip if psutil not installed or permission denied
 
