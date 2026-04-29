@@ -166,10 +166,11 @@ def finish(result):
     summary             = result["summary"]
     company_research    = result["company_research"]
     company_address     = result["company_address"]
+    config_folder       = result["config_folder"]
     filename            = result["filename"]
+    cl_filename         = result.get("cl_filename", "Cover_Letter") # Get the new name
     template            = result.get("template", "")
     cl_template         = result.get("cl_template", "")
-    config_folder       = result["config_folder"]
     output_folder       = result["output_folder"]
     gen_cv              = result.get("gen_cv", True)
     gen_cl              = result.get("gen_cl", False)
@@ -178,33 +179,32 @@ def finish(result):
     cv_folder = os.path.join(output_folder, company_name.split(" ")[0])
     os.makedirs(cv_folder, exist_ok=True)
 
-    # ── Generate CV ───────────────────────────────────────────────────────────
+# ── Generate CV ───────────────────────────────────────────────────────────
     if gen_cv:
         filled_experience = apply_defaults(selected_experience, experience_data, language=language)
         filled_experience = enforce_maximums(filled_experience)
 
         generate_document(filename, config_folder, template, cv_folder, language)
-
         output_path = os.path.join(cv_folder, filename)
+        
+        # This creates the .odt
         fill_experience_placeholders(
             output_path + ".odt",
             output_path + "_" + language + ".odt",
             filled_experience | selected_skill | {"SUMMARY": summary["SUMMARY"]}
         )
 
-        # Retry once — LibreOffice sometimes has a stale headless process
+        # Convert CV to PDF
         for attempt in range(2):
             try:
                 convert_to_pdf(output_path + "_" + language + ".odt", "")
                 break
             except Exception:
-                if attempt == 0:
-                    time.sleep(2)
-                else:
-                    raise
+                time.sleep(2)
 
     # ── Generate motivation letter ────────────────────────────────────────────
     if gen_cl:
+        # Pass cl_filename instead of the CV filename
         cl_paragraphs = generate_motivation_letter(
             relevant_blocks     = relevant_blocks,
             selected_experience = selected_experience,
@@ -214,15 +214,25 @@ def finish(result):
             company_research    = company_research,
             company_address     = company_address,
             language            = language,
-            filename            = filename,
+            filename            = cl_filename, # Fixed: uses CL specific name
             cl_template         = cl_template,
             config_folder       = config_folder,
             output_folder       = cv_folder,
             model               = model,
         )
-        # Bubble up paragraphs so page 3 can display them
-        result.update(cl_paragraphs)
+        
+        # Convert CL to PDF (Matching logic for CV)
+        cl_output_path = os.path.join(cv_folder, cl_filename + ".odt")
+        for attempt in range(2):
+            try:
+                if os.path.exists(cl_output_path):
+                    convert_to_pdf(cl_output_path, "")
+                break
+            except Exception as e:
+                print(f"CL PDF Error: {e}")
+                time.sleep(2)
 
+        result.update(cl_paragraphs)
 
 #%%
 # ── Launch ────────────────────────────────────────────────────────────────────

@@ -71,31 +71,36 @@ def build_page1(root, config, on_continue):
             tk.Button(frame, text="📂", command=browse_fn).grid(row=row, column=2, padx=(0, 10))
 
     def get_entry(row):
-        return frame.grid_slaves(row=row, column=1)[0]
+        # Helper to find the entry widget in a specific row for the browse functions
+        for slave in frame.grid_slaves(row=row, column=1):
+            if isinstance(slave, tk.Entry):
+                return slave
+        return None
 
+    # Variables
     job_link_var      = tk.StringVar(value=config.get("job_link", ""))
     template_var      = tk.StringVar(value=config.get("template", ""))
     cl_template_var   = tk.StringVar(value=config.get("cl_template", ""))
     config_folder_var = tk.StringVar(value=config.get("config_folder", ""))
     output_folder_var = tk.StringVar(value=config.get("output_folder", ""))
     filename_var      = tk.StringVar(value=config.get("filename", ""))
+    cl_filename_var   = tk.StringVar(value=config.get("cl_filename", ""))
 
     gen_cv_var = tk.BooleanVar(value=config.get("gen_cv", True))
     gen_cl_var = tk.BooleanVar(value=config.get("gen_cl", False))
 
+    # Grid Layout
     add_field(1, "Job URL:",         job_link_var)
-    add_field(2, "CV template (.odt):", template_var,
-              lambda: browse_file(get_entry(2), config, "template",
-                                  filetypes=[("ODT files", "*.odt"), ("All files", "*.*")]))
-    add_field(3, "Config folder:",   config_folder_var,
-              lambda: browse_directory(get_entry(3), config, "config_folder"))
-    add_field(4, "Output folder:",   output_folder_var,
-              lambda: browse_directory(get_entry(4), config, "output_folder"))
-    add_field(5, "Filename:",        filename_var)
+    add_field(2, "CV template (.odt):", template_var, 
+              lambda: browse_file(get_entry(2), config, "template", [("ODT files", "*.odt")]))
+    add_field(3, "Config folder:",   config_folder_var, lambda: browse_directory(get_entry(3), config, "config_folder"))
+    add_field(4, "Output folder:",   output_folder_var, lambda: browse_directory(get_entry(4), config, "output_folder"))
+    add_field(5, "CV Filename:",     filename_var)
+    add_field(6, "CL Filename:",     cl_filename_var) # Now on its own row
 
     # ── Document selection checkboxes ─────────────────────────────────────────
     check_frame = tk.Frame(frame)
-    check_frame.grid(row=6, column=0, columnspan=3, sticky="w", padx=10, pady=(6, 0))
+    check_frame.grid(row=7, column=0, columnspan=3, sticky="w", padx=10, pady=(6, 0)) # Moved to row 7
     tk.Label(check_frame, text="Generate:").pack(side="left", padx=(0, 8))
     tk.Checkbutton(check_frame, text="CV",                 variable=gen_cv_var).pack(side="left", padx=4)
     tk.Checkbutton(check_frame, text="Motivation letter",  variable=gen_cl_var,
@@ -111,35 +116,41 @@ def build_page1(root, config, on_continue):
 
     def _toggle_cl_row():
         if gen_cl_var.get():
-            cl_label.grid( row=7, column=0, sticky="w",  **pad)
-            cl_entry.grid( row=7, column=1, sticky="ew", **pad)
-            cl_button.grid(row=7, column=2, padx=(0, 10))
-            root.geometry(f"560x{370}+{root.winfo_x()}+{root.winfo_y()}")
+            cl_label.grid( row=8, column=0, sticky="w",  **pad) # Moved to row 8
+            cl_entry.grid( row=8, column=1, sticky="ew", **pad)
+            cl_button.grid(row=8, column=2, padx=(0, 10))
+            root.geometry(f"560x{420}+{root.winfo_x()}+{root.winfo_y()}") # Increased height for extra field
         else:
             cl_label.grid_remove()
             cl_entry.grid_remove()
             cl_button.grid_remove()
-            root.geometry(f"560x{310}+{root.winfo_x()}+{root.winfo_y()}")
+            root.geometry(f"560x{350}+{root.winfo_x()}+{root.winfo_y()}")
 
     # Show CL row immediately if it was previously enabled
     if gen_cl_var.get():
         _toggle_cl_row()
+    else:
+        root.geometry(f"560x{350}+{root.winfo_x()}+{root.winfo_y()}")
 
     error_label = tk.Label(frame, text="", fg="red")
-    error_label.grid(row=8, column=1, sticky="w", padx=10)
+    error_label.grid(row=9, column=0, columnspan=3, sticky="w", padx=10) # Moved to row 9
 
     def on_continue_click():
         errors = []
         if not job_link_var.get().strip():      errors.append("Job URL is required")
         if not config_folder_var.get().strip(): errors.append("Config folder is required")
         if not output_folder_var.get().strip(): errors.append("Output folder is required")
-        if not filename_var.get().strip():      errors.append("Filename is required")
+        
+        if gen_cv_var.get():
+            if not filename_var.get().strip():  errors.append("CV Filename is required")
+            if not template_var.get().strip():  errors.append("CV template is required")
+            
+        if gen_cl_var.get():
+            if not cl_filename_var.get().strip(): errors.append("Cover Letter filename is required")
+            if not cl_template_var.get().strip(): errors.append("CL template is required")
+
         if not gen_cv_var.get() and not gen_cl_var.get():
             errors.append("Select at least one document to generate")
-        if gen_cv_var.get() and not template_var.get().strip():
-            errors.append("CV template is required when generating a CV")
-        if gen_cl_var.get() and not cl_template_var.get().strip():
-            errors.append("CL template is required when generating a motivation letter")
 
         if errors:
             error_label.config(text="\n".join(errors))
@@ -153,6 +164,7 @@ def build_page1(root, config, on_continue):
             "config_folder": config_folder_var.get().strip().rstrip("/") + "/",
             "output_folder": output_folder_var.get().strip(),
             "filename":      filename_var.get().strip(),
+            "cl_filename":   cl_filename_var.get().strip(),
             "gen_cv":        gen_cv_var.get(),
             "gen_cl":        gen_cl_var.get(),
         }
@@ -161,7 +173,7 @@ def build_page1(root, config, on_continue):
         on_continue(data)
 
     tk.Button(frame, text="Continue →", width=15, command=on_continue_click).grid(
-        row=9, column=1, pady=10)
+        row=10, column=1, pady=10) # Moved to row 10
 
     return frame
 
@@ -421,6 +433,12 @@ def run_dialog(pipeline_fn, finish_fn, initial_data=None):
             current_frame["ref"].pack_forget()
         new_frame.pack(fill="both", expand=True)
         current_frame["ref"] = new_frame
+        
+        # Force window to front on every frame switch
+        root.lift()
+        root.attributes("-topmost", True)
+        root.after(200, lambda: root.attributes("-topmost", False))
+        root.focus_force()
 
     def on_close():
         if stop_ref["event"] is not None:
