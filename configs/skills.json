@@ -1,164 +1,164 @@
 {
-    "SKILL": {
-        "1": {
-            "en": "Deep Learning (PyTorch)",
-            "de": "zzz"
-        },
-        "2": {
-            "en": "Large Language Models (LLMs)",
-            "de": "zzz"
-        },
-        "3": {
-            "en": "Retrieval-Augmented Generation (RAG) Systems",
-            "de": "zzz"
-        },
-        "4": {
-            "en": "AI Agents",
-            "de": "zzz"
-        },
-        "5": {
-            "en": "MLOps Practices",
-            "de": "zzz"
-        },
-        "6": {
-            "en": "Data Processing Pipelines",
-            "de": "zzz"
-        },
-        "7": {
-            "en": "Vector Search & Semantic Similarity",
-            "de": "zzz"
-        },
-        "8": {
-            "en": "Java Programming",
-            "de": "zzz"
-        },
-        "9": {
-            "en": "Git for Version Control",
-            "de": "zzz"
-        },
-        "10": {
-            "en": "CI/CD Pipelines",
-            "de": "zzz"
-        },
-        "11": {
-            "en": "Scrum Framework",
-            "de": "zzz"
-        },
-        "12": {
-            "en": "JUnit Testing",
-            "de": "zzz"
-        },
-        "13": {
-            "en": "API Design & Integration",
-            "de": "zzz"
-        },
-        "14": {
-            "en": "Python (Pandas, NumPy)",
-            "de": "zzz"
-        },
-        "15": {
-            "en": "Data Visualization",
-            "de": "zzz"
-        },
-        "16": {
-            "en": "Data Engineering",
-            "de": "zzz"
-        },
-        "17": {
-            "en": "Mathematical Simulations & Optimization",
-            "de": "zzz"
-        },
-        "18": {
-            "en": "Scientific Research & Reporting",
-            "de": "zzz"
-        },
-        "19": {
-            "en": "Docker Containerization",
-            "de": "zzz"
-        },
-        "20": {
-            "en": "Kubernetes/OpenShift Orchestration",
-            "de": "zzz"
-        },
-        "21": {
-            "en": "Synthetic Data Generation",
-            "de": "zzz"
-        },
-        "22": {
-            "en": "ISO 27001 / Enterprise Compliance",
-            "de": "zzz"
-        },
-        "23": {
-            "en": "NX",
-            "de": "zzz"
-        },
-        "24": {
-            "en": "LabVIEW",
-            "de": "zzz"
-        },
-        "25": {
-            "en": "Abaqus",
-            "de": "zzz"
-        },
-        "26": {
-            "en": "ANSYS",
-            "de": "zzz"
-        },
-        "27": {
-            "en": "CFD Simulations",
-            "de": "zzz"
-        },
-        "28": {
-            "en": "MATLAB",
-            "de": "zzz"
-        },
-        "29": {
-            "en": "C++",
-            "de": "zzz"
-        },
-        "30": {
-            "en": "SQL",
-            "de": "zzz"
-        },
-        "31": {
-            "en": "Prompt Engineering",
-            "de": "zzz"
-        },
-        "32": {
-            "en": "Vector Databases",
-            "de": "zzz"
-        },
-        "33": {
-            "en": "Linux / Bash",
-            "de": "zzz"
-        },
-        "34": {
-            "en": "Cloud Platforms",
-            "de": "zzz"
-        },
-        "35": {
-            "en": "REST APIs",
-            "de": "zzz"
-        },
-        "36": {
-            "en": "Technical Mentoring",
-            "de": "zzz"
-        },
-        "37": {
-            "en": "Finite Element Analysis (FEA)",
-            "de": "zzz"
-        },
-        "38": {
-            "en": "Signal Processing & Measurement",
-            "de": "zzz"
-        },
-        "39": {
-            "en": "System Modeling",
-            "de": "zzz"
-        },
-        "40": {
-            "en": "Optical Systems & Measurement",
-            "de": "zzz"
-        }
+  "SKILL": {
+    "1": {
+      "en": "Deep Learning (PyTorch)",
+      "de": "Deep Learning (PyTorch)"
+    },
+    "2": {
+      "en": "Large Language Models (LLMs)",
+      "de": "Large Language Models (LLMs)"
+    },
+    "3": {
+      "en": "Retrieval-Augmented Generation (RAG)",
+      "de": "Retrieval-Augmented Generation (RAG)"
+    },
+    "4": {
+      "en": "AI Agents & Autonomous Systems",
+      "de": "KI-Agenten & Autonome Systeme"
+    },
+    "5": {
+      "en": "MLOps & AI Lifecycle Management",
+      "de": "MLOps & KI-Lebenszyklusmanagement"
+    },
+    "6": {
+      "en": "Data Processing Pipelines",
+      "de": "Datenverarbeitungspipelines"
+    },
+    "7": {
+      "en": "Vector Search & Semantic Similarity",
+      "de": "Vektorsuche & Semantische Ähnlichkeit"
+    },
+    "8": {
+      "en": "Java Software Development",
+      "de": "Java Softwareentwicklung"
+    },
+    "9": {
+      "en": "Version Control (Git)",
+      "de": "Versionsverwaltung (Git)"
+    },
+    "10": {
+      "en": "CI/CD & DevOps Automation",
+      "de": "CI/CD & DevOps-Automatisierung"
+    },
+    "11": {
+      "en": "Agile Methodologies (Scrum)",
+      "de": "Agile Methoden (Scrum)"
+    },
+    "12": {
+      "en": "Automated Testing (JUnit)",
+      "de": "Automatisiertes Testen (JUnit)"
+    },
+    "13": {
+      "en": "API Design & Integration",
+      "de": "API-Design & Integration"
+    },
+    "14": {
+      "en": "Python (Pandas, NumPy, Scikit-learn)",
+      "de": "Python (Pandas, NumPy, Scikit-learn)"
+    },
+    "15": {
+      "en": "Data Visualization",
+      "de": "Datenvisualisierung"
+    },
+    "16": {
+      "en": "Data Engineering",
+      "de": "Data Engineering"
+    },
+    "17": {
+      "en": "Mathematical Modeling & Optimization",
+      "de": "Mathematische Modellierung & Optimierung"
+    },
+    "18": {
+      "en": "Scientific Research & Reporting",
+      "de": "Wissenschaftliches Arbeiten & Reporting"
+    },
+    "19": {
+      "en": "Docker Containerization",
+      "de": "Docker Containerisierung"
+    },
+    "20": {
+      "en": "Kubernetes & OpenShift Orchestration",
+      "de": "Kubernetes & OpenShift Orchestrierung"
+    },
+    "21": {
+      "en": "Synthetic Data Generation",
+      "de": "Synthetische Datengenerierung"
+    },
+    "22": {
+      "en": "ISO 27001 / Enterprise Compliance",
+      "de": "ISO 27001 / Enterprise Compliance"
+    },
+    "23": {
+      "en": "CAD Modeling (NX)",
+      "de": "CAD-Modellierung (NX)"
+    },
+    "24": {
+      "en": "LabVIEW System Design",
+      "de": "LabVIEW Systemdesign"
+    },
+    "25": {
+      "en": "Abaqus (FEA)",
+      "de": "Abaqus (FEA)"
+    },
+    "26": {
+      "en": "ANSYS (Simulations)",
+      "de": "ANSYS (Simulationen)"
+    },
+    "27": {
+      "en": "CFD (Computational Fluid Dynamics)",
+      "de": "CFD (Numerische Strömungsmechanik)"
+    },
+    "28": {
+      "en": "MATLAB & Simulink",
+      "de": "MATLAB & Simulink"
+    },
+    "29": {
+      "en": "C++ Programming",
+      "de": "C++ Programmierung"
+    },
+    "30": {
+      "en": "SQL & Database Management",
+      "de": "SQL & Datenbankmanagement"
+    },
+    "31": {
+      "en": "Advanced Prompt Engineering",
+      "de": "Fortgeschrittenes Prompt Engineering"
+    },
+    "32": {
+      "en": "Vector Databases (Chroma, Pinecone, etc.)",
+      "de": "Vektordatenbanken (Chroma, Pinecone, etc.)"
+    },
+    "33": {
+      "en": "Linux Systems & Bash Scripting",
+      "de": "Linux-Systeme & Bash-Scripting"
+    },
+    "34": {
+      "en": "Cloud Computing Platforms",
+      "de": "Cloud-Computing-Plattformen"
+    },
+    "35": {
+      "en": "RESTful Web Services",
+      "de": "RESTful Web Services"
+    },
+    "36": {
+      "en": "Technical Mentoring & Leadership",
+      "de": "Technisches Mentoring & Leadership"
+    },
+    "37": {
+      "en": "Finite Element Analysis (FEA)",
+      "de": "Finite-Elemente-Methode (FEM)"
+    },
+    "38": {
+      "en": "Signal Processing & Measurement",
+      "de": "Signalverarbeitung & Messtechnik"
+    },
+    "39": {
+      "en": "Dynamic System Modeling",
+      "de": "Modellierung dynamischer Systeme"
+    },
+    "40": {
+      "en": "Optical Systems Engineering",
+      "de": "Optische Systemtechnik"
     }
+  }
 }

@@ -60,12 +60,12 @@
         "de": "AUSBILDUNG"
     },
     "DEGREE_1": {
-        "en": "MSc. Mechanical Engineering (D-MAVT)",
-        "de": "MSc. Maschinenbau (D-MAVT)"
+        "en": "MSc. Mechanical Engineering (D-MAVT) | GPA 5.2",
+        "de": "MSc. Maschinenbau (D-MAVT) | Abschlussnote 5.2"
     },
     "DEGREE_2": {
-        "en": "BSc. Mechanical Engineering (D-MAVT)",
-        "de": "BSc. Maschinenbau (D-MAVT)"
+        "en": "BSc. Mechanical Engineering (D-MAVT) | GPA 5.3",
+        "de": "BSc. Maschinenbau (D-MAVT) | Abschlussnote 5.3"
     },
     "UNIVERSITY_1": {
         "en": "ETH Zürich",

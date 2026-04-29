@@ -1,138 +1,138 @@
 {
     "EXPERIENCE_1": {
         "1": {
-            "en": "Delivered end-to-end LLM and RAG solutions; including document search, metadata extraction, customer-facing chatbots and automating manual workflows for hundreds of enterprise clients.",
-            "de": "zzz"
+            "en": "Delivered end-to-end LLM and RAG solutions, including document search, metadata extraction, and customer-facing chatbots, automating manual workflows for hundreds of enterprise clients.",
+            "de": "Bereitstellung von End-to-End-LLM- und RAG-Lösungen, einschließlich Dokumentensuche, Metadatenextraktion und kundenorientierten Chatbots zur Automatisierung von Workflows für hunderte Unternehmenskunden."
         },
         "2": {
-            "en": "Maintained and managed Docker and Kubernetes/OpenShift infrastructure for AI application deployment across test and production environments, serving both internal teams and external clients.",
-            "de": "zzz"
+            "en": "Architected and managed Docker and Kubernetes/OpenShift infrastructure for AI application deployment across test and production environments.",
+            "de": "Architektur und Verwaltung von Docker- und Kubernetes/OpenShift-Infrastrukturen für das Deployment von KI-Anwendungen in Test- und Produktionsumgebungen."
         },
         "3": {
-            "en": "Managed data processing pipelines with a focus on data security, compliance, and telemetry, ensuring MLOps practices met enterprise governance requirements.",
-            "de": "zzz"
+            "en": "Orchestrated data processing pipelines with a focus on security, compliance, and telemetry, ensuring MLOps practices met strict enterprise governance requirements.",
+            "de": "Orchestrierung von Datenverarbeitungspipelinen mit Fokus auf Sicherheit, Compliance und Telemetrie unter Einhaltung von MLOps-Standards und Enterprise-Governance-Richtlinien."
         },
         "4": {
-            "en": "Integrated and monitored vector database indexing pipelines to power semantic search and RAG applications, providing system feedback on index state and retrieval quality.",
-            "de": "zzz"
+            "en": "Integrated and monitored vector database indexing pipelines to power semantic search and RAG applications, optimizing retrieval quality through system feedback.",
+            "de": "Integration und Monitoring von Indexierungs-Pipelines für Vektordatenbanken zur Optimierung von semantischer Suche und RAG-Anwendungen sowie Verbesserung der Retrieval-Qualität."
         },
         "5": {
-            "en": "Led feasibility studies and literature reviews across AI projects including document classification, speech-to-text, and PoC initiatives, directly influencing which projects were greenlit or abandoned.",
-            "de": "zzz"
+            "en": "Spearheaded feasibility studies and literature reviews for AI initiatives (classification, STT, PoCs), directly influencing strategic project roadmaps.",
+            "de": "Leitung von Machbarkeitsstudien und Literature Reviews für KI-Initiativen (Klassifizierung, STT, PoCs) mit direktem Einfluss auf die strategische Projektplanung."
         },
         "6": {
-            "en": "Led technical discussions with internal management and external clients to prioritize AI use cases, driving feedback cycles that produced roadmaps and go/no-go decisions.",
-            "de": "zzz"
+            "en": "Facilitated technical discussions with internal stakeholders and external clients to prioritize AI use cases and drive go/no-go decisions.",
+            "de": "Leitung technischer Abstimmungen mit internen Stakeholdern und externen Kunden zur Priorisierung von KI-Anwendungsfällen und Herbeiführung von Go/No-Go-Entscheidungen."
         },
         "7": {
-            "en": "Lead engineer responsible for building and iterating on AI PoCs end-to-end, taking multiple projects from ideation through to production while managing stakeholder feedback cycles.",
-            "de": "zzz"
+            "en": "Acted as Lead Engineer for end-to-end AI PoCs, managing the full lifecycle from ideation to production-ready deployment while incorporating stakeholder feedback.",
+            "de": "Lead Engineer für End-to-End KI-PoCs; Verantwortung für den gesamten Lebenszyklus von der Ideation bis zum produktionsreifen Deployment unter Berücksichtigung von Stakeholder-Feedback."
         },
         "8": {
-            "en": "Presented AI solutions to audiences of 10–100, spanning sales pitches and technical deep-dives across onboarding, Proof of Concept demonstrations, and business development meetings.",
-            "de": "zzz"
+            "en": "Presented AI solutions to audiences of up to 100 people, ranging from technical deep-dives to strategic sales pitches and PoC demonstrations.",
+            "de": "Präsentation von KI-Lösungen vor bis zu 100 Teilnehmern, von technischen Deep-Dives bis hin zu strategischen Sales-Pitches und PoC-Demonstrationen."
         },
         "9": {
-            "en": "Built and deployed agentic AI systems for autonomous task execution, multi-step reasoning, and tool-calling, accelerating meeting and document workflows for both internal teams and external clients.",
-            "de": "zzz"
+            "en": "Developed agentic AI systems for autonomous task execution and multi-step reasoning, significantly accelerating document workflows for enterprise clients.",
+            "de": "Entwicklung agenter KI-Systeme für autonome Aufgabenausführung und mehrstufige Logik zur signifikanten Beschleunigung von Dokumenten-Workflows für Unternehmenskunden."
         },
         "10": {
-            "en": "Developed and maintained AI capabilities on public sector software, including document management and meeting management systems.",
-            "de": "zzz"
+            "en": "Engineered AI capabilities for public sector software, specializing in secure document and meeting management systems.",
+            "de": "Entwicklung von KI-Funktionen für Software im öffentlichen Sektor, spezialisiert auf sichere Dokumenten- und Sitzungsmanagementsysteme."
         },
         "11": {
-            "en": "Proactively stay current with AI research through conference attendance, paper reading, and self-directed courses while applying new techniques directly to ongoing projects.",
-            "de": "zzz"
+            "en": "Proactively stay at the forefront of AI research (conferences, papers, courses) to rapidly implement cutting-edge techniques into production projects.",
+            "de": "Kontinuierliche Weiterbildung im Bereich KI-Forschung (Konferenzen, Papers, Kurse) zur direkten Implementierung neuester Technologien in laufende Projekte."
         },
         "12": {
-            "en": "Systematically engineered and optimized prompts for classification, extraction, and generation tasks, maintaining versioned prompt libraries and testing frameworks to validate performance.",
-            "de": "zzz"
+            "en": "Optimized prompt engineering frameworks for classification and extraction, maintaining versioned libraries and testing suites to ensure high performance.",
+            "de": "Optimierung von Prompt-Engineering-Frameworks für Klassifizierung und Extraktion sowie Verwaltung versionierter Bibliotheken und Test-Suites zur Qualitätssicherung."
         },
         "13": {
-            "en": "Mentored colleagues through formal sessions and informal knowledge sharing on AI tools and techniques, enabling independent adoption of AI workflows across the team.",
-            "de": "zzz"
+            "en": "Mentored team members through formal workshops and knowledge sharing, fostering independent expertise in AI tools and workflows.",
+            "de": "Mentoring von Teammitgliedern durch Workshops und Wissenstransfer zur Förderung eigenständiger Expertise in KI-Tools und Workflows."
         }
     },
     "EXPERIENCE_2": {
         "1": {
-            "en": "Developed backend services, APIs, and full-stack features, delivering user stories from implementation through testing and code review on cloud infrastructure.",
-            "de": "zzz"
+            "en": "Developed robust backend services and full-stack features, managing the lifecycle from user story implementation to cloud-based code reviews.",
+            "de": "Entwicklung robuster Backend-Services und Full-Stack-Features, von der Implementierung der User Stories bis hin zu cloudbasierten Code-Reviews."
         },
         "2": {
-            "en": "Worked within CI/CD pipelines using Jenkins, GitHub Actions, and GitLab CI, adhering to ISO 27001 and enterprise compliance standards throughout the software delivery process.",
-            "de": "zzz"
+            "en": "Leveraged CI/CD pipelines (Jenkins, GitHub Actions, GitLab CI) in strict adherence to ISO 27001 and enterprise security standards.",
+            "de": "Nutzung von CI/CD-Pipelines (Jenkins, GitHub Actions, GitLab CI) unter strikter Einhaltung von ISO 27001 und Enterprise-Sicherheitsstandards."
         },
         "3": {
-            "en": "Wrote and maintained automated test suites using JUnit alongside manual testing, ensuring comprehensive coverage in compliance with ISO 9001 quality management standards.",
-            "de": "zzz"
+            "en": "Maintained automated test suites (JUnit) and manual testing procedures to comply with ISO 9001 quality management standards.",
+            "de": "Wartung automatisierter Test-Suites (JUnit) und manueller Testverfahren zur Sicherstellung der Qualitätsmanagement-Standards nach ISO 9001."
         },
         "4": {
-            "en": "Participated actively in code reviews to uphold coding standards and share technical knowledge across the team.",
-            "de": "zzz"
+            "en": "Contributed to high-standard code reviews to ensure maintainability and facilitate cross-team technical knowledge transfer.",
+            "de": "Durchführung anspruchsvoller Code-Reviews zur Sicherstellung der Wartbarkeit und Förderung des teamübergreifenden Wissenstransfers."
         },
         "5": {
-            "en": "Ensured comprehensive test coverage across application components through both new test authoring and maintenance.",
-            "de": "zzz"
+            "en": "Ensured maximum application stability through comprehensive test coverage and proactive maintenance of existing components.",
+            "de": "Sicherstellung maximaler Applikationsstabilität durch umfassende Testabdeckung und proaktive Wartung bestehender Komponenten."
         },
         "6": {
-            "en": "Implemented and evaluated REST API designs for internal and external communication, contributing feedback on specifications to improve modularity and maintainability.",
-            "de": "zzz"
+            "en": "Architected and evaluated REST API designs, providing critical feedback to enhance system modularity and scalability.",
+            "de": "Konzeption und Evaluierung von REST-API-Designs sowie Feedback zur Verbesserung der Systemmodularität und Skalierbarkeit."
         },
         "7": {
-            "en": "Deployed and managed applications on Fabasoft's proprietary cloud infrastructure, handling both deployment pipelines and ongoing infrastructure management.",
-            "de": "zzz"
+            "en": "Deployed and managed enterprise applications on proprietary cloud infrastructure, overseeing both pipeline automation and resource management.",
+            "de": "Deployment und Management von Enterprise-Anwendungen auf proprietärer Cloud-Infrastruktur sowie Überwachung der Pipeline-Automatisierung."
         },
         "8": {
-            "en": "Used Linux and Bash scripting for environment setup and deployment automation, handling both simple tasks and complex scripting requirements as needed.",
-            "de": "zzz"
+            "en": "Utilized Linux and Bash scripting to automate complex environment setups and deployment workflows.",
+            "de": "Einsatz von Linux- und Bash-Scripting zur Automatisierung komplexer Environment-Setups und Deployment-Workflows."
         },
         "9": {
-            "en": "Followed Scrum methodology across full sprint cycles including planning, stand-ups, reviews, and retrospectives.",
-            "de": "zzz"
+            "en": "Executed full Scrum cycles, including sprint planning, daily stand-ups, and retrospectives to drive agile delivery.",
+            "de": "Durchführung vollständiger Scrum-Zyklen (Sprint Planning, Dailies, Retrospektiven) zur Förderung agiler Softwareentwicklung."
         }
     },
     "EXPERIENCE_3": {
         "1": {
-            "en": "Researched light phases and modes, reviewing semiconductor designs to evaluate their adaptability to the company's optical systems.",
-            "de": "zzz"
+            "en": "Analyzed light phases and semiconductor designs to evaluate compatibility with high-precision optical systems.",
+            "de": "Analyse von Lichtphasen und Halbleiterdesigns zur Evaluierung der Kompatibilität mit hochpräzisen optischen Systemen."
         },
         "2": {
-            "en": "Automated simulation pipelines and developed data analysis workflows to process and interpret semiconductor design outputs.",
-            "de": "zzz"
+            "en": "Automated simulation pipelines and data analysis workflows to streamline the interpretation of semiconductor design outputs.",
+            "de": "Automatisierung von Simulations-Pipelines und Datenanalyse-Workflows zur effizienten Interpretation von Halbleiter-Designergebnissen."
         },
         "3": {
-            "en": "Produced semiconductor designs in CAD based on research findings and simulation results.",
-            "de": "zzz"
+            "en": "Created advanced semiconductor designs using CAD tools based on empirical research and simulation data.",
+            "de": "Erstellung fortschrittlicher Halbleiterdesigns mittels CAD-Tools auf Basis empirischer Forschung und Simulationsdaten."
         }
     },
     "EDUCATION_1": {
         "1": {
-            "en": "Master's thesis: developed synthetic data generation pipelines for AI model training, applied to 3D printer process optimization.",
-            "de": "zzz"
+            "en": "Master's Thesis: Developed synthetic data generation pipelines for AI model training, applied to 3D printer process optimization.",
+            "de": "Masterarbeit: Entwicklung von Pipelines zur Generierung synthetischer Daten für das KI-Modelltraining, angewandt auf die Prozessoptimierung im 3D-Druck."
         },
         "2": {
-            "en": "Completed advanced coursework in machine learning, statistics, numerical methods, and data science.",
-            "de": "zzz"
+            "en": "Completed advanced coursework in Machine Learning, Statistics, Numerical Methods, and Data Science.",
+            "de": "Abschluss fortgeschrittener Module in den Bereichen Machine Learning, Statistik, Numerik und Data Science."
         },
         "3": {
-            "en": "Served as teaching assistant for Dynamics, conducting workshops and exam preparation sessions for undergraduate students.",
-            "de": "zzz"
+            "en": "Served as Teaching Assistant for Dynamics, leading workshops and exam preparation for undergraduate engineering students.",
+            "de": "Tutor für Dynamik: Leitung von Workshops und Prüfungsvorbereitungen für Bachelorstudierende der Ingenieurwissenschaften."
         },
         "4": {
-            "en": "Applied finite element analysis using Abaqus and ANSYS for structural and mechanical simulations across multiple projects.",
-            "de": "zzz"
+            "en": "Performed Finite Element Analysis (FEA) using Abaqus and ANSYS for complex structural and mechanical simulations.",
+            "de": "Durchführung von Finite-Elemente-Analysen (FEA) mit Abaqus und ANSYS für komplexe strukturelle und mechanische Simulationen."
         },
         "5": {
-            "en": "Conducted CFD simulations and worked with optical and mechanical measurement techniques in fluid dynamics research.",
-            "de": "zzz"
+            "en": "Conducted CFD simulations and employed optical/mechanical measurement techniques in fluid dynamics research.",
+            "de": "Durchführung von CFD-Simulationen und Anwendung optisch-mechanischer Messtechnik in der Strömungsforschung."
         },
         "6": {
-            "en": "Developed and validated system models for dynamic and physical systems using MATLAB and LabVIEW.",
-            "de": "zzz"
+            "en": "Developed and validated mathematical models for dynamic physical systems using MATLAB and LabVIEW.",
+            "de": "Entwicklung und Validierung mathematischer Modelle für dynamische physikalische Systeme mittels MATLAB und LabVIEW."
         },
         "7": {
-            "en": "Experienced in signal processing and data analysis across optical and mechanical measurement projects.",
-            "de": "zzz"
+            "en": "Extensive experience in signal processing and data analysis within optical and mechanical research environments.",
+            "de": "Umfassende Erfahrung in Signalverarbeitung und Datenanalyse im Kontext optischer und mechanischer Forschungsprojekte."
         }
     }
 }

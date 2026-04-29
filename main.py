@@ -1,5 +1,5 @@
 from dialogs import run_dialog
-from helpers import dict2str, apply_defaults, enforce_maximums
+from helpers import dict2str, apply_defaults, enforce_maximums, translate_to_german
 from extract_job_page import extract_blocks, filter_relevant_blocks, filter_title_company
 from generate_placeholders import prepare_experiences, prepare_skills, prepare_summary
 from fill_translation_placeholders import generate_document, convert_to_pdf, prepare_fill_input
@@ -100,22 +100,23 @@ def pipeline(dialog_data, progress_callback, stop_event):
         progress_callback(step); step += 1
         experience          = dict2str(experience_data, language)
         experience_numbers  = prepare_experiences(relevant_blocks, experience, model)
-        selected_experience = prepare_fill_input(experience_numbers, experience_data)
+        selected_experience = prepare_fill_input(experience_numbers, experience_data, lang = language)
         check()
 
         # Select skills
         progress_callback(step); step += 1
         skills         = dict2str(skills_data, language)
         skill_numbers  = prepare_skills(relevant_blocks, skills, model)
-        selected_skill = prepare_fill_input(skill_numbers, skills_data)
+        selected_skill = prepare_fill_input(skill_numbers, skills_data, lang = language)
         check()
 
         # Generate summary
         progress_callback(step); step += 1
-        filled_experience    = apply_defaults(selected_experience, experience_data, language="en")
+        filled_experience    = apply_defaults(selected_experience, experience_data, language=language)
         selected_bullets     = [t for block in filled_experience.values() for t in block.values()]
         selected_bullets_text = "\n".join(f"- {b}" for b in selected_bullets)
         summary = prepare_summary(relevant_blocks, selected_bullets_text, model)
+        summary = translate_to_german(summary, model)
         check()
 
     # ── CL-only steps ─────────────────────────────────────────────────────────
@@ -179,7 +180,7 @@ def finish(result):
 
     # ── Generate CV ───────────────────────────────────────────────────────────
     if gen_cv:
-        filled_experience = apply_defaults(selected_experience, experience_data, language="en")
+        filled_experience = apply_defaults(selected_experience, experience_data, language=language)
         filled_experience = enforce_maximums(filled_experience)
 
         generate_document(filename, config_folder, template, cv_folder, language)

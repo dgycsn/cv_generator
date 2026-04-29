@@ -3,6 +3,8 @@ import shutil
 import os
 import sys
 import glob
+from ollama import chat
+
 
 def dict2str(data: dict, lang = "en") -> str:
     """
@@ -75,8 +77,41 @@ def find_soffice():
                 return match
             
     raise FileNotFoundError("LibreOffice not found. Install it or add it to PATH.")
+
+
+def translate_to_german(data: dict, model: str) -> dict:
+    """
+    Translates job-related JSON data from English to German 
+    while preserving the specific schema structure.
+    """
     
+    prompt = f"""
+    Translate the following JSON content from English into German.
     
+    Rules:
+    1. Preserve the JSON keys exactly.
+    2. Translate the values (the strings) into professional German.
+    3. Keep technical terms (e.g., "Python", "AWS", "API") as they are if they are standard in the German tech industry.
+    4. Ensure the output is ONLY valid JSON.
+
+    SOURCE DATA:
+    {json.dumps(data, indent=2)}
+    
+    GERMAN TRANSLATION:
+    """
+    
+    # Executing the chat completion
+    # Note: Ensure your 'chat' function is available in your environment
+    response = chat(
+        model=model, 
+        messages=[{"role": "user", "content": prompt}], 
+        format="json"
+    )
+    
+    # Parse and return the translated dictionary
+    translated_fields = json.loads(response.message.content)
+    return translated_fields
+
 #%%
     
 # select some default experiences so they are there even if llm does not choose
