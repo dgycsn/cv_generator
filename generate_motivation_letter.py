@@ -101,120 +101,101 @@ def generate_paragraphs(
     # Flatten job page blocks into a readable job offer summary
     job_offer_text = "\n\n".join(relevant_blocks)
  
-    prompt = f"""You are writing a motivation letter. You must follow all constraints exactly.
- 
-══════════════════════════════════════════════
-EXAMPLE — FOR STRUCTURE REFERENCE ONLY
-DO NOT use any names, companies, facts, or claims from this example in your output.
-The example exists only to show the required sentence structure and JSON format.
-══════════════════════════════════════════════
- 
-EXAMPLE INPUTS:
- 
-SELECTED BULLETS:
-- Delivered end-to-end LLM and RAG solutions including document search and metadata extraction for enterprise clients
-- Managed data processing pipelines with focus on data security, compliance, and MLOps governance
-- Worked within CI/CD pipelines using Jenkins and GitHub Actions, adhering to ISO 27001 standards
-- Developed backend services and APIs, delivering user stories from implementation through testing
- 
-JOB OFFER:
-Title: Senior Data Engineer, Analytics and AI
-Company: Digitec Galaxus AG
-Top needs: production ML pipelines, scalable ETL/ELT data flows, Python and SQL expertise, CI/CD
- 
-COMPANY RESEARCH:
-- Digitec Galaxus is Switzerland's largest e-commerce platform, using behavioral data to drive shop features
-- Their team focuses on building clean data ecosystems to power ML and Generative AI applications
-- They value simplicity and autonomy, avoiding unnecessary process in favor of direct impact
-- They are expanding into new European markets and scaling their data infrastructure accordingly
- 
-EXAMPLE OUTPUT:
-{{
-  "OPENING_PARAGRAPH": {{
-    "text": "I am a Lead AI Engineer with hands-on experience delivering production LLM and RAG pipelines for enterprise clients. I am applying for the Senior Data Engineer role because my background in productionizing ML workflows and managing compliant data pipelines maps directly to the team's core needs.",
-    "reason": "Sentence 1 draws from bullet 1 (LLM/RAG, enterprise). Sentence 2 links bullet 3 (CI/CD, compliance) to the job's top need of production ML pipelines."
-  }},
-  "EXPERIENCE_PARAGRAPH": {{
-    "text": "In my current role at Fabasoft, I deliver end-to-end RAG solutions and manage MLOps-compliant data pipelines serving hundreds of enterprise clients. Previously, I built backend APIs and worked within CI/CD pipelines adhering to ISO 27001, giving me a strong software engineering foundation. This combination of ML delivery and engineering discipline directly supports the role's requirement for robust, fault-tolerant production systems.",
-    "reason": "Sentence 1 uses bullets 1 and 3 (RAG, MLOps). Sentence 2 uses bullet 4 (APIs, CI/CD). Sentence 3 bridges to the job's 'Systems Integrity' requirement."
-  }},
-  "COMPANY_PARAGRAPH": {{
-    "text": "I am drawn to Digitec Galaxus because your team is building a clean behavioral data ecosystem to power ML and Generative AI features at scale across European markets. I believe my experience operationalizing LLM solutions and managing data pipelines under governance constraints would contribute directly to that infrastructure.",
-    "reason": "Sentence 1 uses research facts 1 and 4 (behavioral data ecosystem, European expansion). Sentence 2 links bullet 1 (LLM delivery) and bullet 3 (governance) to the company's stated data platform focus."
-  }},
-  "CLOSING_PARAGRAPH": {{
-    "text": "I am confident that my background in ML engineering and data pipeline delivery makes me a strong candidate for this role. I would welcome the opportunity to discuss how I can contribute to Digitec Galaxus and am available at your convenience.",
-    "reason": "No new claims introduced. Company name taken from job offer. Skill summary derived from opening paragraph only."
-  }}
-}}
- 
-══════════════════════════════════════════════
-END OF EXAMPLE — YOUR TASK STARTS HERE
-══════════════════════════════════════════════
- 
-## Hard constraints — apply to ALL paragraphs
-- No filler words: no "passionate", "excited", "proven track record", "dynamic", "robust",
-  "thrilled", "seasoned", "eager", "delighted", "pleasure", "leverage", "synergy", "hard-working"
-- Every factual claim must map to a provided bullet. If no bullet supports it, omit it.
-- COMPANY_PARAGRAPH must only use facts from COMPANY RESEARCH. Do not invent company facts.
-- COMPANY_PARAGRAPH must not mention: employee count, revenue, founding year, stock price,
-  or generic praise. Only mission, product focus, or specific engineering challenges.
-- First person. Present tense for current role, past tense for previous roles.
-- Do not copy any sentence, name, company, or fact from the example above.
- 
-## Per-paragraph constraints
- 
-OPENING_PARAGRAPH:
-- Exactly 2 sentences. Maximum 50 words.
-- Sentence 1: who you are + strongest skill match to the job
-- Sentence 2: why this role + specific overlap with the job's top need
- 
-EXPERIENCE_PARAGRAPH:
-- Exactly 3 sentences. Maximum 80 words.
-- Sentence 1: current role + concrete achievement with specific detail
-- Sentence 2: relevant past experience that supports the job's needs
-- Sentence 3: bridge between your skill cluster and a specific job requirement
- 
-COMPANY_PARAGRAPH:
-- Exactly 2 sentences. Maximum 50 words.
-- Sentence 1: one specific fact from COMPANY RESEARCH explaining why this company
-- Sentence 2: your specific skill from bullets mapped to their specific need
- 
-CLOSING_PARAGRAPH:
-- Exactly 2 sentences. Maximum 40 words.
-- No new claims. End with a call to action that names the company.
- 
-## Inputs
- 
-SELECTED BULLETS (draw facts only from these):
+    prompt = f"""You are filling in a motivation letter template. Your ONLY task is to replace
+each [SLOT] with the correct value extracted from the provided inputs.
+Do NOT rewrite sentences. Do NOT add words outside the slots. Do NOT invent facts.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SLOT DEFINITIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[CURRENT_TITLE]
+  Source: SELECTED BULLETS (infer from current role context)
+  Rule: exact job title, e.g. "Lead AI Engineer" — do not invent or soften
+
+[PRIMARY_SKILL]
+  Source: SELECTED BULLETS
+  Rule: the single technical skill that best matches the job's PRIMARY requirement
+        — must be a concrete skill name, not a category (e.g. "vector database indexing pipelines",
+        not "machine learning")
+
+[PRIMARY_JOB_REQUIREMENT]
+  Source: JOB OFFER
+  Rule: copy or closely paraphrase the job's single most important technical requirement
+
+[CURRENT_ROLE_ACHIEVEMENT]
+  Source: SELECTED BULLETS — must come from the MOST RECENT role only
+  Rule: one concrete achievement — include a specific tool, system, or scale detail from the bullet
+        (e.g. "RAG pipelines serving hundreds of enterprise clients", not "AI solutions")
+
+[SUPPORTING_SKILL]
+  Source: SELECTED BULLETS — must come from a DIFFERENT bullet than [CURRENT_ROLE_ACHIEVEMENT]
+  Rule: a distinct capability the job also requires — name it concretely
+
+[JOB_REQUIREMENT_BRIDGE]
+  Source: JOB OFFER
+  Rule: quote or closely paraphrase a specific requirement from the job offer that
+        [CURRENT_ROLE_ACHIEVEMENT] + [SUPPORTING_SKILL] together address
+
+[COMPANY_SPECIFIC_FACT]
+  Source: COMPANY RESEARCH only — never invent
+  Rule: one concrete fact: a specific technical challenge, product area, or engineering
+        decision — NOT generic praise, NOT revenue/size/founding year
+        If no concrete fact exists in the research, use: "your focus on data-driven product features"
+
+[CANDIDATE_CONTRIBUTION]
+  Source: SELECTED BULLETS
+  Rule: the specific skill from bullets most relevant to [COMPANY_SPECIFIC_FACT]
+        — must be named concretely, not summarised generically
+
+[FIT_SUMMARY]
+  Source: derive only from [CURRENT_TITLE] + [PRIMARY_SKILL] — no new claims
+  Rule: one short phrase, e.g. "my background in [PRIMARY_SKILL] as [CURRENT_TITLE]"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TEMPLATE — fill every [SLOT], change nothing else
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+OPENING:
+"I am a [CURRENT_TITLE] with hands-on experience in [PRIMARY_SKILL].
+I am applying for the {job_title} role because [PRIMARY_JOB_REQUIREMENT] maps directly to my work."
+
+EXPERIENCE:
+"In my current role, I [CURRENT_ROLE_ACHIEVEMENT].
+I also bring [SUPPORTING_SKILL], developed through [X].
+Together, these directly address the role's requirement to [JOB_REQUIREMENT_BRIDGE]."
+
+COMPANY:
+"I am drawn to {company_name} because [COMPANY_SPECIFIC_FACT].
+My experience in [CANDIDATE_CONTRIBUTION] would contribute directly to that goal."
+
+CLOSING:
+"[FIT_SUMMARY] makes me a strong candidate for this position.
+I look forward to discussing how I can contribute to {company_name} and am available at your convenience."
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+INPUTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SELECTED BULLETS (only source for candidate facts):
 {bullets_text}
- 
-JOB OFFER (extract: position title, company name, top needs):
+
+JOB OFFER:
 {job_offer_text}
- 
-COMPANY NAME: {company_name}
- 
-COMPANY RESEARCH (use only these facts in COMPANY_PARAGRAPH):
+
+COMPANY RESEARCH (only source for [COMPANY_SPECIFIC_FACT]):
 {company_research}
- 
-Return ONLY valid JSON with no preamble and no markdown fences:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Return ONLY valid JSON, no preamble, no markdown fences.
+Each "text" value must be the fully filled paragraph — no remaining [SLOT] tokens.
+Each "reason" must name which bullet or research fact filled each slot.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 {{
-  "OPENING_PARAGRAPH": {{
-    "text": "...",
-    "reason": "..."
-  }},
-  "EXPERIENCE_PARAGRAPH": {{
-    "text": "...",
-    "reason": "..."
-  }},
-  "COMPANY_PARAGRAPH": {{
-    "text": "...",
-    "reason": "..."
-  }},
-  "CLOSING_PARAGRAPH": {{
-    "text": "...",
-    "reason": "..."
-  }}
+  "OPENING_PARAGRAPH":    {{"text": "...", "reason": "..."}},
+  "EXPERIENCE_PARAGRAPH": {{"text": "...", "reason": "..."}},
+  "COMPANY_PARAGRAPH":    {{"text": "...", "reason": "..."}},
+  "CLOSING_PARAGRAPH":    {{"text": "...", "reason": "..."}}
 }}"""
  
     response = chat(model=model, messages=[{"role": "user", "content": prompt}], format="json")
@@ -336,9 +317,15 @@ def generate_motivation_letter(
     # Check your ODT template: if SALUTATION placeholder is followed by a comma, remove
     # the trailing comma here. Currently we include it so the template should have none.
     if recipient_name:
-        salutation = f"Dear {recipient_name},"
+        if language == "de":
+            salutation = f"Guten Tag {recipient_name}"
+        else:
+            salutation = f"Dear {recipient_name}"
     else:
-        salutation = f"Dear {company_name} Team,"
+        if language == "de":
+            salutation = f"Guten Tag {company_name} Team"
+        else:
+            salutation = f"Dear {company_name} Team"
  
     # Step 7: Assemble all dynamic placeholders
     dynamic_fields = {

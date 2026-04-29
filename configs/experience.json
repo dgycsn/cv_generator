@@ -2,137 +2,169 @@
     "EXPERIENCE_1": {
         "1": {
             "en": "Delivered end-to-end LLM and RAG solutions, including document search, metadata extraction, and customer-facing chatbots, automating manual workflows for hundreds of enterprise clients.",
-            "de": "Bereitstellung von End-to-End-LLM- und RAG-Lösungen, einschließlich Dokumentensuche, Metadatenextraktion und kundenorientierten Chatbots zur Automatisierung von Workflows für hunderte Unternehmenskunden."
+            "de": "Bereitstellung von End-to-End-LLM- und RAG-Lösungen, einschließlich Dokumentensuche, Metadatenextraktion und kundenorientierten Chatbots zur Automatisierung von Workflows für hunderte Unternehmenskunden.",
+            "description": "Core LLM/RAG engineering with real-world deployment at scale. SELECT for: AI Engineer, ML Engineer, NLP Engineer, Data Scientist roles involving search or retrieval. Also select if the job mentions chatbots, automation, or enterprise AI. SKIP for: pure analytics, tabular-data-focused Data Scientist roles with no NLP/search component, or roles where LLMs are not relevant."
         },
         "2": {
             "en": "Architected and managed Docker and Kubernetes/OpenShift infrastructure for AI application deployment across test and production environments.",
-            "de": "Architektur und Verwaltung von Docker- und Kubernetes/OpenShift-Infrastrukturen für das Deployment von KI-Anwendungen in Test- und Produktionsumgebungen."
+            "de": "Architektur und Verwaltung von Docker- und Kubernetes/OpenShift-Infrastrukturen für das Deployment von KI-Anwendungen in Test- und Produktionsumgebungen.",
+            "description": "MLOps and production infrastructure experience. SELECT for: any role requiring model deployment, production ML systems, DevOps/MLOps, or cloud infrastructure. CRITICAL: select even when the job title is Data Scientist or ML Engineer if the posting mentions 'deployment', 'production', 'betrieb', or 'MLOps'. Often missed because the bullet mentions infrastructure rather than ML directly — do not skip it on that basis."
         },
         "3": {
             "en": "Orchestrated data processing pipelines with a focus on security, compliance, and telemetry, ensuring MLOps practices met strict enterprise governance requirements.",
-            "de": "Orchestrierung von Datenverarbeitungspipelinen mit Fokus auf Sicherheit, Compliance und Telemetrie unter Einhaltung von MLOps-Standards und Enterprise-Governance-Richtlinien."
+            "de": "Orchestrierung von Datenverarbeitungspipelinen mit Fokus auf Sicherheit, Compliance und Telemetrie unter Einhaltung von MLOps-Standards und Enterprise-Governance-Richtlinien.",
+            "description": "MLOps pipeline orchestration and data engineering. SELECT for: Data Scientist, ML Engineer, Data Engineer roles that mention pipelines, orchestration (e.g. Airflow), MLOps, or large-scale data processing. SKIP for: roles with no operational/pipeline component, or pure research positions."
         },
         "4": {
             "en": "Integrated and monitored vector database indexing pipelines to power semantic search and RAG applications, optimizing retrieval quality through system feedback.",
-            "de": "Integration und Monitoring von Indexierungs-Pipelines für Vektordatenbanken zur Optimierung von semantischer Suche und RAG-Anwendungen sowie Verbesserung der Retrieval-Qualität."
+            "de": "Integration und Monitoring von Indexierungs-Pipelines für Vektordatenbanken zur Optimierung von semantischer Suche und RAG-Anwendungen sowie Verbesserung der Retrieval-Qualität.",
+            "description": "Vector search, semantic retrieval, and Information Retrieval engineering. SELECT for: Data Scientist or ML Engineer roles mentioning search, retrieval, recommendations, ranking, or Information Retrieval. This bullet is directly relevant to recommendation systems because semantic similarity and retrieval quality are core shared concepts. SKIP for: roles with no search/retrieval/recommendation component."
         },
         "5": {
             "en": "Spearheaded feasibility studies and literature reviews for AI initiatives (classification, STT, PoCs), directly influencing strategic project roadmaps.",
-            "de": "Leitung von Machbarkeitsstudien und Literature Reviews für KI-Initiativen (Klassifizierung, STT, PoCs) mit direktem Einfluss auf die strategische Projektplanung."
+            "de": "Leitung von Machbarkeitsstudien und Literature Reviews für KI-Initiativen (Klassifizierung, STT, PoCs) mit direktem Einfluss auf die strategische Projektplanung.",
+            "description": "AI research and strategic decision-making. SELECT for: roles that mention research, proactive initiative, or influence on product strategy. SKIP for: purely implementation-focused roles, or when slots are limited and stronger technical bullets are available."
         },
         "6": {
             "en": "Facilitated technical discussions with internal stakeholders and external clients to prioritize AI use cases and drive go/no-go decisions.",
-            "de": "Leitung technischer Abstimmungen mit internen Stakeholdern und externen Kunden zur Priorisierung von KI-Anwendungsfällen und Herbeiführung von Go/No-Go-Entscheidungen."
+            "de": "Leitung technischer Abstimmungen mit internen Stakeholdern und externen Kunden zur Priorisierung von KI-Anwendungsfällen und Herbeiführung von Go/No-Go-Entscheidungen.",
+            "description": "Stakeholder management and cross-functional communication. SELECT for: roles that explicitly require strong communication, collaboration with product teams, or influencing non-technical stakeholders. SKIP for: deeply technical IC roles where stakeholder communication is not mentioned, or when bullet slots are needed for stronger technical evidence."
         },
         "7": {
             "en": "Acted as Lead Engineer for end-to-end AI PoCs, managing the full lifecycle from ideation to production-ready deployment while incorporating stakeholder feedback.",
-            "de": "Lead Engineer für End-to-End KI-PoCs; Verantwortung für den gesamten Lebenszyklus von der Ideation bis zum produktionsreifen Deployment unter Berücksichtigung von Stakeholder-Feedback."
+            "de": "Lead Engineer für End-to-End KI-PoCs; Verantwortung für den gesamten Lebenszyklus von der Ideation bis zum produktionsreifen Deployment unter Berücksichtigung von Stakeholder-Feedback.",
+            "description": "End-to-end ownership of ML/AI projects from ideation to production. SELECT for: roles that value ownership, autonomy, or full product lifecycle experience. Especially relevant when the job mentions 'eigenverantwortlich', 'proaktiv', or working closely with product teams. SKIP for: roles that are narrowly scoped to a single phase (e.g. pure modelling or pure ops)."
         },
         "8": {
             "en": "Presented AI solutions to audiences of up to 100 people, ranging from technical deep-dives to strategic sales pitches and PoC demonstrations.",
-            "de": "Präsentation von KI-Lösungen vor bis zu 100 Teilnehmern, von technischen Deep-Dives bis hin zu strategischen Sales-Pitches und PoC-Demonstrationen."
+            "de": "Präsentation von KI-Lösungen vor bis zu 100 Teilnehmern, von technischen Deep-Dives bis hin zu strategischen Sales-Pitches und PoC-Demonstrationen.",
+            "description": "Public presentation and sales communication. SELECT ONLY for: roles that explicitly require client-facing communication, sales engineering, or presenting to large audiences. SKIP for: technical IC roles (Data Scientist, ML Engineer, Software Engineer) unless the job posting specifically mentions presenting results to stakeholders. Do not select merely because communication skills are listed — this bullet signals sales/presales, not standard team communication."
         },
         "9": {
             "en": "Developed agentic AI systems for autonomous task execution and multi-step reasoning, significantly accelerating document workflows for enterprise clients.",
-            "de": "Entwicklung agenter KI-Systeme für autonome Aufgabenausführung und mehrstufige Logik zur signifikanten Beschleunigung von Dokumenten-Workflows für Unternehmenskunden."
+            "de": "Entwicklung agenter KI-Systeme für autonome Aufgabenausführung und mehrstufige Logik zur signifikanten Beschleunigung von Dokumenten-Workflows für Unternehmenskunden.",
+            "description": "Agentic AI and autonomous workflow systems. SELECT for: AI Engineer or ML Engineer roles mentioning agents, automation, or autonomous systems. SKIP for: Data Scientist roles focused on analytics, recommendations, or modelling without an agent/automation component."
         },
         "10": {
             "en": "Engineered AI capabilities for public sector software, specializing in secure document and meeting management systems.",
-            "de": "Entwicklung von KI-Funktionen für Software im öffentlichen Sektor, spezialisiert auf sichere Dokumenten- und Sitzungsmanagementsysteme."
+            "de": "Entwicklung von KI-Funktionen für Software im öffentlichen Sektor, spezialisiert auf sichere Dokumenten- und Sitzungsmanagementsysteme.",
+            "description": "Domain-specific AI for public sector / regulated environments. SELECT for: roles in government, healthcare, legal, or other regulated domains that require secure or compliant AI systems. SKIP for: commercial or e-commerce roles where public sector domain knowledge is not relevant."
         },
         "11": {
             "en": "Proactively stay at the forefront of AI research (conferences, papers, courses) to rapidly implement cutting-edge techniques into production projects.",
-            "de": "Kontinuierliche Weiterbildung im Bereich KI-Forschung (Konferenzen, Papers, Kurse) zur direkten Implementierung neuester Technologien in laufende Projekte."
+            "de": "Kontinuierliche Weiterbildung im Bereich KI-Forschung (Konferenzen, Papers, Kurse) zur direkten Implementierung neuester Technologien in laufende Projekte.",
+            "description": "Continuous learning and research orientation. SELECT for: roles that value staying current with the field, research culture, or innovation-driven teams. SKIP for: roles where research is not mentioned and bullet slots are better used for hard technical evidence."
         },
         "12": {
             "en": "Optimized prompt engineering frameworks for classification and extraction, maintaining versioned libraries and testing suites to ensure high performance.",
-            "de": "Optimierung von Prompt-Engineering-Frameworks für Klassifizierung und Extraktion sowie Verwaltung versionierter Bibliotheken und Test-Suites zur Qualitätssicherung."
+            "de": "Optimierung von Prompt-Engineering-Frameworks für Klassifizierung und Extraktion sowie Verwaltung versionierter Bibliotheken und Test-Suites zur Qualitätssicherung.",
+            "description": "Prompt engineering and LLM quality assurance. SELECT for: LLM/NLP-focused roles where prompt design or model evaluation is part of the work. SKIP for: roles where LLMs are not used or where the focus is on classical ML, recommendations, or tabular data."
         },
         "13": {
             "en": "Mentored team members through formal workshops and knowledge sharing, fostering independent expertise in AI tools and workflows.",
-            "de": "Mentoring von Teammitgliedern durch Workshops und Wissenstransfer zur Förderung eigenständiger Expertise in KI-Tools und Workflows."
+            "de": "Mentoring von Teammitgliedern durch Workshops und Wissenstransfer zur Förderung eigenständiger Expertise in KI-Tools und Workflows.",
+            "description": "Mentoring and knowledge transfer. SELECT ONLY for: senior roles, team lead positions, or roles that explicitly mention mentoring or growing the team. SKIP for: IC roles where leadership is not required — this bullet is weak evidence of technical skill and should only be used when leadership is a real requirement."
         }
     },
     "EXPERIENCE_2": {
         "1": {
             "en": "Developed robust backend services and full-stack features, managing the lifecycle from user story implementation to cloud-based code reviews.",
-            "de": "Entwicklung robuster Backend-Services und Full-Stack-Features, von der Implementierung der User Stories bis hin zu cloudbasierten Code-Reviews."
+            "de": "Entwicklung robuster Backend-Services und Full-Stack-Features, von der Implementierung der User Stories bis hin zu cloudbasierten Code-Reviews.",
+            "description": "Full-stack and backend software engineering. SELECT for: Software Engineer or Backend Engineer roles. Also select for ML Engineer roles if the job requires building APIs or services around ML models. SKIP for: pure Data Scientist or analyst roles with no software engineering component."
         },
         "2": {
             "en": "Leveraged CI/CD pipelines (Jenkins, GitHub Actions, GitLab CI) in strict adherence to ISO 27001 and enterprise security standards.",
-            "de": "Nutzung von CI/CD-Pipelines (Jenkins, GitHub Actions, GitLab CI) unter strikter Einhaltung von ISO 27001 und Enterprise-Sicherheitsstandards."
+            "de": "Nutzung von CI/CD-Pipelines (Jenkins, GitHub Actions, GitLab CI) unter strikter Einhaltung von ISO 27001 und Enterprise-Sicherheitsstandards.",
+            "description": "CI/CD and enterprise security compliance. SELECT for: roles that mention CI/CD, DevOps, or security/compliance requirements. SKIP for: Data Scientist or ML roles unless the posting explicitly mentions CI/CD or compliance."
         },
         "3": {
             "en": "Maintained automated test suites (JUnit) and manual testing procedures to comply with ISO 9001 quality management standards.",
-            "de": "Wartung automatisierter Test-Suites (JUnit) und manueller Testverfahren zur Sicherstellung der Qualitätsmanagement-Standards nach ISO 9001."
+            "de": "Wartung automatisierter Test-Suites (JUnit) und manueller Testverfahren zur Sicherstellung der Qualitätsmanagement-Standards nach ISO 9001.",
+            "description": "Test engineering and quality management. SELECT for: Software Engineer roles where testing and quality are emphasised. SKIP for: Data Scientist or ML roles where this is not relevant."
         },
         "4": {
             "en": "Contributed to high-standard code reviews to ensure maintainability and facilitate cross-team technical knowledge transfer.",
-            "de": "Durchführung anspruchsvoller Code-Reviews zur Sicherstellung der Wartbarkeit und Förderung des teamübergreifenden Wissenstransfers."
+            "de": "Durchführung anspruchsvoller Code-Reviews zur Sicherstellung der Wartbarkeit und Förderung des teamübergreifenden Wissenstransfers.",
+            "description": "Code quality and cross-team collaboration. SELECT for: Software Engineer roles emphasising code quality or team practices. SKIP for: Data Scientist, analyst, or ML research roles unless code quality is explicitly mentioned."
         },
         "5": {
             "en": "Ensured maximum application stability through comprehensive test coverage and proactive maintenance of existing components.",
-            "de": "Sicherstellung maximaler Applikationsstabilität durch umfassende Testabdeckung und proaktive Wartung bestehender Komponenten."
+            "de": "Sicherstellung maximaler Applikationsstabilität durch umfassende Testabdeckung und proaktive Wartung bestehender Komponenten.",
+            "description": "Application reliability and maintenance. SELECT for: Software or Backend Engineer roles. SKIP for: Data Science or ML roles unless production stability of ML systems is mentioned."
         },
         "6": {
             "en": "Architected and evaluated REST API designs, providing critical feedback to enhance system modularity and scalability.",
-            "de": "Konzeption und Evaluierung von REST-API-Designs sowie Feedback zur Verbesserung der Systemmodularität und Skalierbarkeit."
+            "de": "Konzeption und Evaluierung von REST-API-Designs sowie Feedback zur Verbesserung der Systemmodularität und Skalierbarkeit.",
+            "description": "API design and system architecture. SELECT for: Software Engineer or ML Engineer roles where API design or system scalability is relevant. SKIP for: pure Data Scientist or analyst roles."
         },
         "7": {
             "en": "Deployed and managed enterprise applications on proprietary cloud infrastructure, overseeing both pipeline automation and resource management.",
-            "de": "Deployment und Management von Enterprise-Anwendungen auf proprietärer Cloud-Infrastruktur sowie Überwachung der Pipeline-Automatisierung."
+            "de": "Deployment und Management von Enterprise-Anwendungen auf proprietärer Cloud-Infrastruktur sowie Überwachung der Pipeline-Automatisierung.",
+            "description": "Cloud deployment and pipeline automation from the software engineering role. SELECT for: roles requiring cloud or deployment experience, especially if EXPERIENCE_1.2 and 1.3 are already selected and this would be redundant — prefer the more recent EXPERIENCE_1 equivalents in that case. Use this bullet only if a third deployment-related bullet is genuinely needed."
         },
         "8": {
             "en": "Utilized Linux and Bash scripting to automate complex environment setups and deployment workflows.",
-            "de": "Einsatz von Linux- und Bash-Scripting zur Automatisierung komplexer Environment-Setups und Deployment-Workflows."
+            "de": "Einsatz von Linux- und Bash-Scripting zur Automatisierung komplexer Environment-Setups und Deployment-Workflows.",
+            "description": "Linux and scripting for automation. SELECT for: roles that mention Linux, shell scripting, or environment automation. SKIP for: roles with no operational or DevOps component."
         },
         "9": {
             "en": "Executed full Scrum cycles, including sprint planning, daily stand-ups, and retrospectives to drive agile delivery.",
-            "de": "Durchführung vollständiger Scrum-Zyklen (Sprint Planning, Dailies, Retrospektiven) zur Förderung agiler Softwareentwicklung."
+            "de": "Durchführung vollständiger Scrum-Zyklen (Sprint Planning, Dailies, Retrospektiven) zur Förderung agiler Softwareentwicklung.",
+            "description": "Agile/Scrum process. SELECT ONLY if the job posting explicitly mentions Scrum, agile methodologies, or sprint-based delivery. SKIP otherwise — this bullet is a weak technical signal and wastes a slot in almost all Data Science or ML roles."
         }
     },
     "EXPERIENCE_3": {
         "1": {
             "en": "Analyzed light phases and semiconductor designs to evaluate compatibility with high-precision optical systems.",
-            "de": "Analyse von Lichtphasen und Halbleiterdesigns zur Evaluierung der Kompatibilität mit hochpräzisen optischen Systemen."
+            "de": "Analyse von Lichtphasen und Halbleiterdesigns zur Evaluierung der Kompatibilität mit hochpräzisen optischen Systemen.",
+            "description": "Semiconductor and optical systems domain knowledge. SELECT ONLY for: roles in photonics, semiconductor, hardware, or precision engineering. SKIP for: all software, AI/ML, data, or e-commerce roles — domain is not transferable."
         },
         "2": {
             "en": "Automated simulation pipelines and data analysis workflows to streamline the interpretation of semiconductor design outputs.",
-            "de": "Automatisierung von Simulations-Pipelines und Datenanalyse-Workflows zur effizienten Interpretation von Halbleiter-Designergebnissen."
+            "de": "Automatisierung von Simulations-Pipelines und Datenanalyse-Workflows zur effizienten Interpretation von Halbleiter-Designergebnissen.",
+            "description": "Pipeline automation and data analysis (in an engineering context). SELECT for: roles that value automation and data analysis experience broadly, when no stronger bullet is available. This is the most transferable bullet from EXPERIENCE_3 for software/data roles. SKIP if EXPERIENCE_1 and EXPERIENCE_2 already cover automation and analysis sufficiently."
         },
         "3": {
             "en": "Created advanced semiconductor designs using CAD tools based on empirical research and simulation data.",
-            "de": "Erstellung fortschrittlicher Halbleiterdesigns mittels CAD-Tools auf Basis empirischer Forschung und Simulationsdaten."
+            "de": "Erstellung fortschrittlicher Halbleiterdesigns mittels CAD-Tools auf Basis empirischer Forschung und Simulationsdaten.",
+            "description": "CAD and semiconductor design. SELECT ONLY for: hardware, photonics, or engineering design roles. SKIP for: all software, AI/ML, or data roles — not transferable."
         }
     },
     "EDUCATION_1": {
         "1": {
             "en": "Master's Thesis: Developed synthetic data generation pipelines for AI model training, applied to 3D printer process optimization.",
-            "de": "Masterarbeit: Entwicklung von Pipelines zur Generierung synthetischer Daten für das KI-Modelltraining, angewandt auf die Prozessoptimierung im 3D-Druck."
+            "de": "Masterarbeit: Entwicklung von Pipelines zur Generierung synthetischer Daten für das KI-Modelltraining, angewandt auf die Prozessoptimierung im 3D-Druck.",
+            "description": "Applied ML research with pipeline engineering (thesis). SELECT for: Data Scientist or ML Engineer roles if the work experience bullets don't already cover ML pipelines, or to reinforce an ML engineering profile. This bullet shows independent ML project ownership. SKIP if EXPERIENCE_1 bullets already sufficiently demonstrate ML pipeline and modelling skills."
         },
         "2": {
             "en": "Completed advanced coursework in Machine Learning, Statistics, Numerical Methods, and Data Science.",
-            "de": "Abschluss fortgeschrittener Module in den Bereichen Machine Learning, Statistik, Numerik und Data Science."
+            "de": "Abschluss fortgeschrittener Module in den Bereichen Machine Learning, Statistik, Numerik und Data Science.",
+            "description": "Formal ML and statistics education. SELECT for: Data Scientist roles where statistical foundations are emphasised, or when the job mentions experimentation, analytical frameworks, or ML theory. This bullet fills a gap if the candidate's work experience lacks explicit statistics or experimentation signals. SKIP if stronger experiential evidence already covers ML/stats."
         },
         "3": {
             "en": "Served as Teaching Assistant for Dynamics, leading workshops and exam preparation for undergraduate engineering students.",
-            "de": "Tutor für Dynamik: Leitung von Workshops und Prüfungsvorbereitungen für Bachelorstudierende der Ingenieurwissenschaften."
+            "de": "Tutor für Dynamik: Leitung von Workshops und Prüfungsvorbereitungen für Bachelorstudierende der Ingenieurwissenschaften.",
+            "description": "Teaching and communication. SELECT ONLY for: academic or education-adjacent roles, or roles with explicit mentoring/teaching requirements. SKIP for: industry Data Science, ML, or engineering roles — not relevant."
         },
         "4": {
             "en": "Performed Finite Element Analysis (FEA) using Abaqus and ANSYS for complex structural and mechanical simulations.",
-            "de": "Durchführung von Finite-Elemente-Analysen (FEA) mit Abaqus und ANSYS für komplexe strukturelle und mechanische Simulationen."
+            "de": "Durchführung von Finite-Elemente-Analysen (FEA) mit Abaqus und ANSYS für komplexe strukturelle und mechanische Simulationen.",
+            "description": "FEA and mechanical simulation. SELECT ONLY for: mechanical engineering, simulation, or materials science roles. SKIP for: all software, AI/ML, or data roles."
         },
         "5": {
             "en": "Conducted CFD simulations and employed optical/mechanical measurement techniques in fluid dynamics research.",
-            "de": "Durchführung von CFD-Simulationen und Anwendung optisch-mechanischer Messtechnik in der Strömungsforschung."
+            "de": "Durchführung von CFD-Simulationen und Anwendung optisch-mechanischer Messtechnik in der Strömungsforschung.",
+            "description": "CFD and fluid dynamics research. SELECT ONLY for: engineering simulation or physics-based modelling roles. SKIP for: all software, AI/ML, or data roles."
         },
         "6": {
             "en": "Developed and validated mathematical models for dynamic physical systems using MATLAB and LabVIEW.",
-            "de": "Entwicklung und Validierung mathematischer Modelle für dynamische physikalische Systeme mittels MATLAB und LabVIEW."
+            "de": "Entwicklung und Validierung mathematischer Modelle für dynamische physikalische Systeme mittels MATLAB und LabVIEW.",
+            "description": "Mathematical modelling and validation. SELECT for: roles that value strong mathematical or modelling foundations, especially if MATLAB is mentioned. Mildly transferable to Data Science roles emphasising statistical modelling. SKIP if stronger ML/stats bullets are available."
         },
         "7": {
             "en": "Extensive experience in signal processing and data analysis within optical and mechanical research environments.",
-            "de": "Umfassende Erfahrung in Signalverarbeitung und Datenanalyse im Kontext optischer und mechanischer Forschungsprojekte."
+            "de": "Umfassende Erfahrung in Signalverarbeitung und Datenanalyse im Kontext optischer und mechanischer Forschungsprojekte.",
+            "description": "Signal processing and data analysis. SELECT for: roles in signal processing, time-series analysis, or sensor data. Weakly relevant to general Data Science roles — only select if no stronger data analysis bullet exists. SKIP for: most software, AI/ML, or e-commerce roles where this domain is not relevant."
         }
     }
 }

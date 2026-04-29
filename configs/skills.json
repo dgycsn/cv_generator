@@ -2,163 +2,203 @@
   "SKILL": {
     "1": {
       "en": "Deep Learning (PyTorch)",
-      "de": "Deep Learning (PyTorch)"
+      "de": "Deep Learning (PyTorch)",
+      "description": "Core deep learning framework. SELECT for: ML Engineer, Data Scientist, AI Engineer, NLP Engineer roles that mention neural networks, model training, or PyTorch/TensorFlow. SKIP for: backend, DevOps, or analyst roles with no modelling component."
     },
     "2": {
       "en": "Large Language Models (LLMs)",
-      "de": "Large Language Models (LLMs)"
+      "de": "Large Language Models (LLMs)",
+      "description": "LLM engineering and applied NLP. SELECT for: AI Engineer, ML Engineer, NLP, or Data Scientist roles where LLMs, language models, or text understanding are relevant. SKIP for: recommendation systems or tabular-data Data Scientist roles with no NLP component — prefer skill 1 or 14 in those cases."
     },
     "3": {
       "en": "Retrieval-Augmented Generation (RAG)",
-      "de": "Retrieval-Augmented Generation (RAG)"
+      "de": "Retrieval-Augmented Generation (RAG)",
+      "description": "RAG pipelines and knowledge retrieval. SELECT for: AI/LLM Engineer roles or Data Scientist roles where search, retrieval, or knowledge bases are mentioned. SKIP for: recommendation systems roles focused on collaborative filtering or ranking — use skill 7 instead, which is more directly relevant to similarity and retrieval in that context."
     },
     "4": {
       "en": "AI Agents & Autonomous Systems",
-      "de": "KI-Agenten & Autonome Systeme"
+      "de": "KI-Agenten & Autonome Systeme",
+      "description": "Agentic AI and autonomous workflow systems. SELECT for: AI Engineer roles mentioning agents, automation, or autonomous task execution. SKIP for: Data Scientist, analyst, or recommendation system roles where agents are not relevant."
     },
     "5": {
       "en": "MLOps & AI Lifecycle Management",
-      "de": "MLOps & KI-Lebenszyklusmanagement"
+      "de": "MLOps & KI-Lebenszyklusmanagement",
+      "description": "End-to-end ML lifecycle including deployment, monitoring, and orchestration. SELECT for: ML Engineer, Data Scientist, or AI Engineer roles that mention production deployment, MLOps, model monitoring, or pipeline orchestration (e.g. Airflow). AVOID selecting together with skills 19 and 20 (Docker, Kubernetes) unless all three are specifically required — they overlap and waste slots. Prefer this over 19/20 when the role is DS/ML-focused; prefer 19/20 over this when the role is more DevOps/infrastructure-focused."
     },
     "6": {
       "en": "Data Processing Pipelines",
-      "de": "Datenverarbeitungspipelines"
+      "de": "Datenverarbeitungspipelines",
+      "description": "Building and managing data pipelines. SELECT for: Data Engineer, ML Engineer, or Data Scientist roles that mention pipelines, ETL, data processing, or large-scale data handling. SKIP for: roles where pipelines are not mentioned and stronger, more specific skills fill the slots."
     },
     "7": {
       "en": "Vector Search & Semantic Similarity",
-      "de": "Vektorsuche & Semantische Ähnlichkeit"
+      "de": "Vektorsuche & Semantische Ähnlichkeit",
+      "description": "Semantic search, embedding-based retrieval, and similarity ranking. SELECT for: Data Scientist or ML Engineer roles involving recommendation systems, search, ranking, Information Retrieval, or similarity-based features. This skill is MORE relevant than skill 3 (RAG) for recommendation/search roles because it maps directly to similarity and retrieval concepts used in recommenders. SKIP for: roles with no search, retrieval, or recommendation component."
     },
     "8": {
       "en": "Java Software Development",
-      "de": "Java Softwareentwicklung"
+      "de": "Java Softwareentwicklung",
+      "description": "Backend Java development. SELECT for: Software Engineer or Backend Engineer roles where Java is part of the tech stack. SKIP for: Data Scientist, ML Engineer, or analyst roles unless Java is explicitly mentioned."
     },
     "9": {
       "en": "Version Control (Git)",
-      "de": "Versionsverwaltung (Git)"
+      "de": "Versionsverwaltung (Git)",
+      "description": "Git version control. SELECT ONLY if the job posting explicitly lists Git or version control as a requirement. SKIP otherwise — this is a baseline expectation in almost all technical roles and wastes a slot when listed generically."
     },
     "10": {
       "en": "CI/CD & DevOps Automation",
-      "de": "CI/CD & DevOps-Automatisierung"
+      "de": "CI/CD & DevOps-Automatisierung",
+      "description": "CI/CD pipelines and DevOps practices. SELECT for: roles that explicitly mention CI/CD, DevOps, or automated deployment. SKIP for: Data Scientist or ML roles unless CI/CD is specifically required — use skill 5 (MLOps) instead."
     },
     "11": {
       "en": "Agile Methodologies (Scrum)",
-      "de": "Agile Methoden (Scrum)"
+      "de": "Agile Methoden (Scrum)",
+      "description": "Scrum and agile delivery. SELECT ONLY if the job posting explicitly mentions Scrum or agile methodologies. SKIP otherwise — this is a weak technical signal that wastes a slot in almost all Data Science or ML roles."
     },
     "12": {
       "en": "Automated Testing (JUnit)",
-      "de": "Automatisiertes Testen (JUnit)"
+      "de": "Automatisiertes Testen (JUnit)",
+      "description": "Java-based automated testing. SELECT for: Software Engineer roles where testing is emphasised and Java is part of the stack. SKIP for: Data Scientist, ML, or Python-focused roles — not relevant."
     },
     "13": {
       "en": "API Design & Integration",
-      "de": "API-Design & Integration"
+      "de": "API-Design & Integration",
+      "description": "REST API design and service integration. SELECT for: Backend or ML Engineer roles where API design or service integration is required. SKIP for: pure Data Scientist or analyst roles with no API development component."
     },
     "14": {
       "en": "Python (Pandas, NumPy, Scikit-learn)",
-      "de": "Python (Pandas, NumPy, Scikit-learn)"
+      "de": "Python (Pandas, NumPy, Scikit-learn)",
+      "description": "Core Python data science stack. SELECT for: almost all Data Scientist, ML Engineer, and AI Engineer roles — this is a near-universal requirement. Especially important when the job mentions scikit-learn, Pandas, or Python ML libraries. Should be included in nearly every technical ML/DS application."
     },
     "15": {
       "en": "Data Visualization",
-      "de": "Datenvisualisierung"
+      "de": "Datenvisualisierung",
+      "description": "Data visualization and reporting. SELECT for: analyst, Data Scientist, or BI roles where communication of insights through charts or dashboards is mentioned. SKIP for: ML Engineer or AI Engineer roles where visualization is not a primary output."
     },
     "16": {
       "en": "Data Engineering",
-      "de": "Data Engineering"
+      "de": "Data Engineering",
+      "description": "Broad data engineering capability. SELECT for: Data Engineer roles, or Data Scientist roles that mention large-scale data handling, pipelines, or data infrastructure. AVOID selecting together with skill 6 (Data Processing Pipelines) — they overlap significantly; prefer whichever better matches the job's terminology."
     },
     "17": {
       "en": "Mathematical Modeling & Optimization",
-      "de": "Mathematische Modellierung & Optimierung"
+      "de": "Mathematische Modellierung & Optimierung",
+      "description": "Mathematical modelling, optimization algorithms, and analytical problem solving. SELECT for: Data Scientist roles with strong quantitative requirements, operations research, or any role mentioning optimization, statistical modelling, or analytical frameworks. SKIP for: roles focused on engineering or deploying existing models rather than building new ones from mathematical foundations."
     },
     "18": {
       "en": "Scientific Research & Reporting",
-      "de": "Wissenschaftliches Arbeiten & Reporting"
+      "de": "Wissenschaftliches Arbeiten & Reporting",
+      "description": "Academic research practices and technical writing. SELECT ONLY for: research scientist, academic, or R&D roles. SKIP for: industry Data Scientist, ML Engineer, or software roles — not a strong signal in commercial contexts."
     },
     "19": {
       "en": "Docker Containerization",
-      "de": "Docker Containerisierung"
+      "de": "Docker Containerisierung",
+      "description": "Docker container management. SELECT for: ML Engineer, DevOps, or Backend roles requiring containerization. See skill 5 (MLOps) — if that skill is already selected and covers deployment, avoid adding both 19 and 20 unless the job explicitly lists Docker and Kubernetes as separate requirements. SKIP for: pure Data Scientist or analyst roles with no deployment component."
     },
     "20": {
       "en": "Kubernetes & OpenShift Orchestration",
-      "de": "Kubernetes & OpenShift Orchestrierung"
+      "de": "Kubernetes & OpenShift Orchestrierung",
+      "description": "Kubernetes/OpenShift container orchestration. SELECT for: DevOps, ML Engineer, or platform roles requiring container orchestration. See skill 19 — these two are closely related; only select both if the role explicitly requires both. SKIP for: Data Scientist or analyst roles without a platform/infra component."
     },
     "21": {
       "en": "Synthetic Data Generation",
-      "de": "Synthetische Datengenerierung"
+      "de": "Synthetische Datengenerierung",
+      "description": "Generating synthetic datasets for ML training. SELECT for: ML research, Data Scientist, or AI roles where data scarcity, privacy, or augmentation is mentioned. SKIP for: roles focused on real-world production data with no research or data generation component."
     },
     "22": {
       "en": "ISO 27001 / Enterprise Compliance",
-      "de": "ISO 27001 / Enterprise Compliance"
+      "de": "ISO 27001 / Enterprise Compliance",
+      "description": "Enterprise security and compliance standards. SELECT for: roles in regulated industries or enterprise software where security compliance is explicitly mentioned. SKIP for: e-commerce, startup, or data science roles where compliance is not a focus."
     },
     "23": {
       "en": "CAD Modeling (NX)",
-      "de": "CAD-Modellierung (NX)"
+      "de": "CAD-Modellierung (NX)",
+      "description": "Mechanical CAD design. SELECT ONLY for: mechanical engineering or hardware design roles. SKIP for: all software, AI/ML, or data roles — not transferable."
     },
     "24": {
       "en": "LabVIEW System Design",
-      "de": "LabVIEW Systemdesign"
+      "de": "LabVIEW Systemdesign",
+      "description": "LabVIEW instrumentation and control systems. SELECT ONLY for: test/measurement engineering, embedded systems, or hardware automation roles. SKIP for: all software, AI/ML, or data roles."
     },
     "25": {
       "en": "Abaqus (FEA)",
-      "de": "Abaqus (FEA)"
+      "de": "Abaqus (FEA)",
+      "description": "Finite element analysis with Abaqus. SELECT ONLY for: structural/mechanical simulation roles. SKIP for: all software, AI/ML, or data roles — never relevant."
     },
     "26": {
       "en": "ANSYS (Simulations)",
-      "de": "ANSYS (Simulationen)"
+      "de": "ANSYS (Simulationen)",
+      "description": "Multiphysics simulation with ANSYS. SELECT ONLY for: engineering simulation roles. SKIP for: all software, AI/ML, or data roles — never relevant."
     },
     "27": {
       "en": "CFD (Computational Fluid Dynamics)",
-      "de": "CFD (Numerische Strömungsmechanik)"
+      "de": "CFD (Numerische Strömungsmechanik)",
+      "description": "Computational fluid dynamics simulation. SELECT ONLY for: fluid mechanics or aerospace engineering roles. SKIP for: all software, AI/ML, or data roles — never relevant."
     },
     "28": {
       "en": "MATLAB & Simulink",
-      "de": "MATLAB & Simulink"
+      "de": "MATLAB & Simulink",
+      "description": "MATLAB modelling and Simulink simulation. SELECT for: control systems, signal processing, or scientific computing roles where MATLAB is explicitly listed. Weakly relevant to Data Scientist roles emphasising mathematical modelling. SKIP for: Python-first ML/DS roles or any role where MATLAB is not mentioned."
     },
     "29": {
       "en": "C++ Programming",
-      "de": "C++ Programmierung"
+      "de": "C++ Programmierung",
+      "description": "C++ systems programming. SELECT for: roles explicitly requiring C++, such as embedded systems, performance-critical ML inference, or robotics. SKIP for: Python-first Data Scientist or web-backend roles where C++ is not mentioned."
     },
     "30": {
       "en": "SQL & Database Management",
-      "de": "SQL & Datenbankmanagement"
+      "de": "SQL & Datenbankmanagement",
+      "description": "SQL querying and database management. SELECT for: Data Scientist, Data Engineer, or analyst roles that mention SQL, databases, or large-scale data querying (e.g. BigQuery, Redshift). Should be selected for most DS roles — SQL is a near-universal requirement. SKIP for: pure ML research or roles with no data querying component."
     },
     "31": {
       "en": "Advanced Prompt Engineering",
-      "de": "Fortgeschrittenes Prompt Engineering"
+      "de": "Fortgeschrittenes Prompt Engineering",
+      "description": "Prompt design and LLM behaviour control. SELECT for: AI/LLM Engineer or Data Scientist roles where LLMs are used in production and prompt design is part of the workflow. SKIP for: Data Scientist roles focused on classical ML, recommendations, or tabular data with no LLM component."
     },
     "32": {
       "en": "Vector Databases (Chroma, Pinecone, etc.)",
-      "de": "Vektordatenbanken (Chroma, Pinecone, etc.)"
+      "de": "Vektordatenbanken (Chroma, Pinecone, etc.)",
+      "description": "Vector database tooling for embedding storage and retrieval. SELECT for: AI/LLM Engineer or Data Scientist roles mentioning vector search, semantic search, or retrieval systems. AVOID selecting together with skill 7 (Vector Search & Semantic Similarity) unless both are clearly needed — they overlap; skill 7 is more concept-level, skill 32 is more tooling-level. Prefer skill 7 for recommendation/search roles."
     },
     "33": {
       "en": "Linux Systems & Bash Scripting",
-      "de": "Linux-Systeme & Bash-Scripting"
+      "de": "Linux-Systeme & Bash-Scripting",
+      "description": "Linux environment and shell scripting. SELECT for: DevOps, ML Engineer, or Backend roles where Linux or scripting is mentioned. SKIP for: Data Scientist or analyst roles unless the job explicitly requires Linux or scripting."
     },
     "34": {
       "en": "Cloud Computing Platforms",
-      "de": "Cloud-Computing-Plattformen"
+      "de": "Cloud-Computing-Plattformen",
+      "description": "General cloud platform experience (AWS, GCP, Azure). SELECT for: roles that mention cloud platforms, cloud deployment, or specific services like BigQuery (GCP). SKIP for: on-premises or roles where cloud is not mentioned."
     },
     "35": {
       "en": "RESTful Web Services",
-      "de": "RESTful Web Services"
+      "de": "RESTful Web Services",
+      "description": "REST API development and consumption. SELECT for: Backend or ML Engineer roles requiring API development. SKIP for: Data Scientist or analyst roles with no API development component."
     },
     "36": {
       "en": "Technical Mentoring & Leadership",
-      "de": "Technisches Mentoring & Leadership"
+      "de": "Technisches Mentoring & Leadership",
+      "description": "Team mentoring and technical leadership. SELECT ONLY for: senior or lead roles that explicitly require mentoring, coaching, or team leadership. SKIP for: IC Data Scientist or ML Engineer roles — weak technical signal."
     },
     "37": {
       "en": "Finite Element Analysis (FEA)",
-      "de": "Finite-Elemente-Methode (FEM)"
+      "de": "Finite-Elemente-Methode (FEM)",
+      "description": "FEA structural simulation. SELECT ONLY for: mechanical or civil engineering simulation roles. SKIP for: all software, AI/ML, or data roles — never relevant. Note: skill 25 (Abaqus) already covers FEA tooling — avoid selecting both."
     },
     "38": {
       "en": "Signal Processing & Measurement",
-      "de": "Signalverarbeitung & Messtechnik"
+      "de": "Signalverarbeitung & Messtechnik",
+      "description": "Signal processing for sensor or time-series data. SELECT for: roles in signal processing, audio/speech ML, IoT, or time-series analysis. SKIP for: most AI/ML, recommendation, or e-commerce Data Scientist roles where signal processing is not relevant."
     },
     "39": {
       "en": "Dynamic System Modeling",
-      "de": "Modellierung dynamischer Systeme"
+      "de": "Modellierung dynamischer Systeme",
+      "description": "Modelling time-varying physical or control systems. SELECT ONLY for: control systems, robotics, or physics-based modelling roles. SKIP for: all software, AI/ML, or data roles — not transferable."
     },
     "40": {
       "en": "Optical Systems Engineering",
-      "de": "Optische Systemtechnik"
+      "de": "Optische Systemtechnik",
+      "description": "Photonics and optical system design. SELECT ONLY for: photonics, optics, or hardware engineering roles. SKIP for: all software, AI/ML, or data roles — never relevant."
     }
   }
 }
